@@ -1,0 +1,310 @@
+{% extends 'mainLayout.html' %}
+{% load static %}
+
+{% block extra-css %}
+<style>
+    .product__item__pic.set-bg {
+        width: 220px;
+        height: 150px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+    }
+    
+    .hero__item.mobile {
+        display: none;
+    }
+    
+    
+    @media (max-width: 950px) {
+        .hero__item.dt {
+            display: none;
+        }
+    
+        .hero__item.mobile {
+            display: block;
+        }
+
+        .product__item__pic.set-bg {
+            width: 150px;
+            height: 100px; 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+        } 
+    }
+
+    .product__item {
+        margin-bottom: 40px;
+    }
+    
+    .product__item__pic {
+        border: #c6c6c6;
+        border-width: 0.1px; 
+        border-style:solid;
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+ 
+  
+
+    .product__item {
+        margin-bottom: 50px;
+        text-align: center; /* Center-align the content */
+    }
+    
+    .product__item__pic {
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .product__item__text {
+        padding-top: 15px;
+    }
+    
+    .product__item__text h5 {
+        margin-bottom: 10px;
+        text-align: center; /* Center-align the title */
+    }
+
+    .featured__filter {
+        display: flex;
+        
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+    }
+    
+    .featured__filter .col-lg-3 {
+        flex: 0 0 auto; /* Allow the columns to maintain their fixed width */
+        max-width: 25%; /* Set maximum width to ensure 4 items per row */
+    }
+    
+    /* Adjust column width for smaller screens */
+    @media (max-width: 950px) {
+        .featured__filter .col-lg-3 {
+            max-width: 50%; /* Set maximum width to ensure 2 items per row */
+        }
+    }
+
+    
+
+      
+      
+      
+
+        .visa {
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+          }
+
+          .subheading {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            text-align: center;
+            color: #f15d30;
+            font-family: "Arizonia", cursive; }
+     
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+			<!-- start banner Area -->
+			<section class="relative about-banner" id="home">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">				
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12">
+							<h1 class="text-white">
+								Visa Service	
+							</h1>	
+							<p class="text-white link-nav"><a href="{% url 'home' %}">Home </a> <span
+								class="lnr lnr-arrow-right"></span> <a href="{% url 'visa' %}">Visa Service</a></p>
+					
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+
+            
+            <section class="featured spad">
+                <span class="subheading">Visa Service</span>
+                <h6 class="visa">Visa Service Available For Following Countries</h6>
+                
+                <div class="container">
+                    
+                    <div class="row featured__filter" style="margin-top: 50px;"> 
+                        {% for i in vdata %}     
+                        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" >
+                            <div class="product__item">
+                                <img class="product__item__pic set-bg" src="{{ i.country_flag.url }}" alt="">
+                                <h5 style="text-align: center; margin-top: 10px;">{{ i.country_name }}</h5>  
+                            </div>
+                        </div>   
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Start contact-page Area -->
+			<section class="contact-page-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4 d-flex flex-column address-wrap">
+							<div class="single-contact-address d-flex flex-row">
+								<div class="icon">
+									<span class="lnr lnr-home"></span>
+								</div>
+								<div class="contact-details">
+									<h5>{{info.Business_Address}}</h5>
+									<p>
+										Kathmandu, Nepal
+									</p>
+								</div>
+							</div>
+							<div class="single-contact-address d-flex flex-row">
+								<div class="icon">
+									<span class="lnr lnr-phone-handset"></span>
+								</div>
+								<div class="contact-details">
+									<h5>{{info.Business_Contact}}</h5>
+									<p>{{info.Business_Opening_Time}}</p>
+								</div>
+							</div>
+							<div class="single-contact-address d-flex flex-row">
+								<div class="icon">
+									<span class="lnr lnr-envelope"></span>
+								</div>
+								<div class="contact-details">
+									<h5>{{info.Business_Email}}</h5>
+									<p>Send us your query anytime!</p>
+								</div>
+							</div>														
+						</div>
+						<div class="col-lg-8">
+							<form method="post" id="contact-form" class="form-area text-right" >
+								{% csrf_token %}
+								<div class="row">	
+									<div class="col-lg-6 form-group">
+										<input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
+									
+										<input name="contact" placeholder="Enter your Contact Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Contact Number'" class="common-input mb-20 form-control" required="" type="number">
+
+										<input name="subject" class="common-input mb-20 form-control" required="" type="text" value = "VISA Service Inquiry" readonly>
+									</div>
+									<div class="col-lg-6 form-group">
+										<textarea class="common-textarea form-control" name="message" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>				
+									</div>
+									<!-- <div class="col-lg-12">
+										<button class="genric-btn primary" style="float: right;" type="submit">Send Message</button>											
+									</div> -->
+									<button type="submit" style="margin-top: 10px; background-color: #FBB117;" class="col-lg-3 offset-lg-9 contact-button">
+										<span class="btn-txt">Send Message</span>
+										<span class="loading-icon" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+									</button>
+								</div>
+							</form>	
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End contact-page Area -->
+
+
+            <script>
+				document.addEventListener("DOMContentLoaded", function () {
+				  // Listen for form submission
+				  document.getElementById("contact-form").addEventListener("submit", function (event) {
+					  event.preventDefault(); // Prevent default form submission
+					  
+					  const loadingIcon = document.querySelector(".loading-icon");
+					  const buttonText = document.querySelector(".btn-txt");
+					  loadingIcon.style.display = "inline";
+					  buttonText.style.display = "none";
+				  
+					  // Disable the submit button to prevent multiple submissions
+					  const submitButton = document.querySelector(".contact-button");
+					  submitButton.setAttribute("disabled", "true");
+			  
+					  fetch('{% url "send" %}', {
+						method: "POST",
+						body: new FormData(this),
+						headers: {
+						  "X-Requested-With": "XMLHttpRequest", // Set header to indicate AJAX request
+						  "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
+						},
+					  })
+						.then((response) => response.json())
+						.then((data) => {
+						  loadingIcon.style.display = "none";
+						  buttonText.style.display = "inline";
+			  
+					  // Enable the submit button again
+						  submitButton.removeAttribute("disabled");
+						  if (data.error){
+							const Toast = Swal.mixin({
+							  toast: true,
+							  position: "top-end",
+							  showConfirmButton: false,
+							  timer: 2000,
+							  timerProgressBar: true,
+							  didOpen: (toast) => {
+								toast.addEventListener("mouseenter", Swal.stopTimer);
+								toast.addEventListener("mouseleave", Swal.resumeTimer);
+							  },
+							});
+			  
+							Toast.fire({
+							  icon: "error",
+							  title: "Please fill the form properly.",
+							}).then(() => {
+							  location.reload();
+							});
+						  }
+						  else{
+							const Toast = Swal.mixin({
+								toast: true,
+								position: "top-end",
+								showConfirmButton: false,
+								timer: 3500,
+								timerProgressBar: true,
+								didOpen: (toast) => {
+									toast.addEventListener("mouseenter", Swal.stopTimer);
+									toast.addEventListener("mouseleave", Swal.resumeTimer);
+								},
+								});
+			  
+								Toast.fire({
+								icon: "success",
+								title:
+								  "Your Message has been sent. Thank you!",
+								}).then(() => {
+									window.location.href = "{% url 'visa' %}";
+								});
+								  
+								
+							   
+							}
+						 
+						})
+						.catch((error) => {
+						  console.error("An error occurred:", error);
+						});
+					});
+				});
+			  </script>
+			
+			
+{% endblock %}

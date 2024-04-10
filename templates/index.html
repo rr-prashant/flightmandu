@@ -1,0 +1,1275 @@
+{% extends 'mainLayout.html' %}
+{% load static %}
+
+{% block extra-css %}
+<style>
+	
+    .banner-right {
+        margin-top: 60px; /* Remove margin-top from the banner right section */
+    }
+    .banner-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Set the banner area height to 100% of viewport height */
+    }
+
+	.form-group {
+		margin-bottom: 0px; /* Adjust the margin bottom to reduce the vertical gap between form elements */
+	}
+
+	#autocompleteNation-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #autocompleteNation-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocompleteNation-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+
+	#autocompleteNationr-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #autocompleteNationr-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocompleteNationr-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+	#autocomplete-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #autocomplete-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocomplete-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+	#autocomplete-dest-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #autocomplete-dest-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocomplete-dest-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+	.traveler-dropdown {
+        position: relative;
+    }
+    .traveler-dropdown .traveler-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .traveler-dropdown .traveler-options li {
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+    }
+    .traveler-dropdown .traveler-options li button {
+        margin: 0 10px;
+        padding: 3px 8px;
+        border: none;
+        cursor: pointer;
+    }
+    .traveler-dropdown .traveler-options li button {
+        margin: 0 10px;
+    }
+    
+
+
+	.traveler-dropdownr {
+        position: relative;
+    }
+    .traveler-dropdownr .traveler-optionsr {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .traveler-dropdownr .traveler-optionsr li {
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+    }
+    .traveler-dropdownr .traveler-optionsr li button {
+        margin: 0 10px;
+        padding: 3px 8px;
+        border: none;
+        cursor: pointer;
+    }
+
+	#autocomplete3-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocomplete3-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+	#autocomplete-round-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+	#autocomplete4-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #autocomplete4-results li:hover {
+        background-color: #f0f0f0;
+    }
+
+	#autocomplete-round-dest-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+    /* Travelers number button style -one trip */
+
+    .traveler-options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.decrease-btn,
+.increase-btn {
+    padding: 5px;
+    margin: 0 5px;
+    border: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.count {
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+ /* Travelers number button style -round trip */
+.traveler-optionsr {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.optionr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.controlsr {
+    display: flex;
+    align-items: center;
+}
+
+.decrease-btnr,
+.increase-btnr {
+    padding: 5px;
+    margin: 0 5px;
+    border: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.countr {
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* Style for list generated for the flight search */
+.airport-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.location {
+    flex: 1;
+}
+
+.iata-code {
+    margin-left: 10px;
+}
+
+ftco-section {
+    padding: 7em 0;
+    position: relative;
+    width: 100%; }
+
+@media (max-width: 767.98px) {
+    .ftco-section {
+        padding: 6em 0; } 
+}
+
+.ftco-about {
+    position: relative;
+    z-index: 0; }
+.ftco-about .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: '';
+      opacity: .1;
+      background: #000000;
+      z-index: -1; }
+.ftco-about .img {
+    height: 600px; 
+    background-size: cover;
+    background-repeat: no-repeat;
+      margin-top: -100px;
+      -webkit-box-shadow: 0px 10px 23px -8px rgba(0, 0, 0, 0.11);
+      -moz-box-shadow: 0px 10px 23px -8px rgba(0, 0, 0, 0.11);
+      box-shadow: 0px 10px 23px -8px rgba(0, 0, 0, 0.11);
+      border: 15px solid #fff; }
+
+@media (max-width: 767.98px) {
+    .ftco-about .img {
+        margin-top: -100px; 
+        background-repeat: no-repeat;
+        height: 400px; 
+        border: none;
+     } }
+
+.ftco-about.about-intro {
+      width: 100%;
+      position: relative;
+      z-index: 99; }
+
+.ftco-section.ftco-about.img {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: relative;
+        z-index: 0;
+        margin-top: 0; /* Remove margin-top */
+        height: auto; /* Allow image to resize */
+        border: none; 
+    }
+
+    .heading-section .subheading {
+        font-size: 30px;
+        display: block;
+        margin-bottom: 5px;
+        color: #f15d30;
+        font-family: "Arizonia", cursive; }
+      
+      .heading-section h2 {
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.4; }
+        .heading-section h2 span {
+          font-weight: 400; }
+        @media (max-width: 767.98px) {
+          .heading-section h2 {
+            font-size: 28px; } }
+      
+      .heading-section.heading-section-white .subheading {
+        color: rgba(255, 255, 255, 0.9); }
+      
+      .heading-section.heading-section-white h2 {
+        font-size: 40px;
+        color: #fff; }
+      
+      .heading-section.heading-section-white p {
+        color: rgba(255, 255, 255, 0.9); }
+
+        .ftco-no-pt {
+            padding-top: 0 !important; }
+      
+      @media screen and (max-height: 500px) {
+          .banner-area{
+              height: auto;
+          }
+		    .banner-right{
+		        margin-top: 80px;
+		        margin-bottom: 50px;
+		    }
+		    
+		}
+
+        .title .subheading {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 5px;
+            color: #f15d30;
+            font-family: "Arizonia", cursive; }
+          
+            .title  h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.4; }
+            .title h2 span {
+              font-weight: 400; }
+            @media (max-width: 767.98px) {
+              .heading-section h2 {
+                font-size: 28px; } }
+          
+                
+    .owl-nav{
+        display: none;
+    }
+    .owl-dot{
+        display: none;
+    }
+
+            
+
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- start banner Area -->
+<section class="banner-area relative">				
+    <div class="overlay overlay-bg"></div>	
+    <div class="container" >	
+        <div class="row fullscreen align-items-center justify-content-center">		
+            <div class="col-lg-8 col-md-8 banner-right">
+				<h1 class="text-white" style="text-align:center; font-size: 35px; margin-top: 20px;">BOOK YOUR FLIGHT</h1>
+                <br>		
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="flight-tab" data-toggle="tab" href="#flight" role="tab"
+                            aria-controls="flight" aria-selected="true">One Way</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="hotel-tab" data-toggle="tab" href="#hotel" role="tab"
+                            aria-controls="hotel" aria-selected="false">Round Trips</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent" style="box-shadow: 0px 10px 30px 10px #333333;">
+                    <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
+                        <!-- One way form -->
+                        <form method="post" class="form-wrap" id="onetrip-form">
+                            {% csrf_token %}
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<input type="text" class="form-control" name="cname" required="" placeholder="Full Name "
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name '">
+								</div>
+								<div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="cemail" required="" placeholder="Email Address "
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '">
+                            </div>
+							</div>
+							<div class="form-row">
+							<div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="cphone" required="" placeholder="Contact Number "
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number '">
+                            </div>
+						
+							<div class="form-group col-md-6">
+								<div class="autocompleteNation">
+									<input type="text" class="form-control" id="search-input" required="" placeholder="Nationality">
+									<ul id="autocompleteNation-results"></ul>
+								</div>
+							</div>
+						    </div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<div class="autocomplete">
+                                <input type="text" class="form-control" name="cDeparture" required="" id="depart" placeholder="Departure"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Departure'"
+                                    oninput="fetchAirports(this.value)">
+                                <ul id="autocomplete-results"></ul>
+                            </div>
+						</div>
+						<div class="form-group col-md-6">
+                            <div class="autocomplete2">
+								<input type="text" class="form-control" name="cDestination" required="" id="dest" placeholder="Destination"
+									   oninput="fetchDestinations(this.value)">
+								<ul id="autocomplete-dest-results" style="z-index: 1000;"></ul>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+					<div class="form-group col-md-6">
+                            <input type="text" class="form-control date-picker" required="" name="cDepartureDate"
+                                placeholder="Departure Date" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Departure Date'">
+					</div>
+					<div class="form-group col-md-6">
+                        <div class="traveler-dropdown">
+                            <input type="text" class="form-control" id="traveler-input" required="" placeholder="Total Travelers" readonly>
+                            <ul class="traveler-options">
+                                <li class="adults-option option">
+                                    <span>Adult (> 12yrs)</span>
+                                    <div class="controls">
+                                        <button type="button" class="decrease-btn">-</button>
+                                        <span class="count">0</span>
+                                        <button type="button" class="increase-btn">+</button>
+                                    </div>
+                                </li>
+                                <li class="children-option option">
+                                    <span>Child (2-12yrs)</span>
+                                    <div class="controls">
+                                        <button type="button" class="decrease-btn">-</button>
+                                        <span class="count">0</span>
+                                        <button type="button" class="increase-btn">+</button>
+                                    </div>
+                                </li>
+                                <li class="infants-option option">
+                                    <span>Infant (< 2yrs)</span>
+                                    <div class="controls">
+                                        <button type="button" class="decrease-btn">-</button>
+                                        <span class="count">0</span>
+                                        <button type="button" class="increase-btn">+</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+							</div>
+						</div>
+								<div class="form-group col-md-6">
+									<input type = "hidden" class="form-control" id="adult-input" name="adult-input" placeholder="Adults" readonly>
+								</div>
+								<div class="form-group col-md-6">
+									<input type = "hidden" class="form-control" id="child-input" name="child-input" placeholder="Children" readonly>
+								</div>
+								<input type="hidden" class="form-control" id="infant-input" name="infant-input" placeholder="Infants" readonly>
+
+                            <input name="roundtriptype" value="False" type = "hidden">
+                            <button type="submit" style="margin-top: 15px; background-color: #FBB117;" class="submit-button">
+                                <span class="btn-txt">Request Flights</span>
+                                <span class="loading-icon" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+                        <!-- Round trip form -->
+                        <form class="form-wrap" method="post" id="roundtrip-form">
+                            {% csrf_token %}
+							<div class="form-row">
+							<div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="cname" required="" placeholder="Full Name "
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name '">
+                            </div>
+							<div class="form-group col-md-6">
+							<input type="text" class="form-control" name="cemail" required="" placeholder="Email Address "
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '">
+                            </div>
+						    </div>
+
+							<div class="form-row">
+							<div class="form-group col-md-6">
+						    <input type="text" class="form-control" name="cphone" required="" placeholder="Contact Number"
+                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number'">
+                            </div>
+							<div class="form-group col-md-6">
+								<div class="autocompleteNationr">
+									<input type="text" class="form-control" required="" id="search-inputr" placeholder="Nationality">
+									<ul id="autocompleteNationr-results"></ul>
+								</div>
+							</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+					<div class="autocomplete3">
+						<input type="text" class="form-control" name="cDeparture" required="" id="round_depart" placeholder="Departure"
+							onfocus="this.placeholder = ''" onblur="this.placeholder = 'Departure'"
+							oninput="fetchRoundAirports(this.value)">
+						<ul id="autocomplete-round-results"></ul>
+					</div>
+					</div>
+					<div class="form-group col-md-6">
+                            <div class="autocomplete4">
+                                <input type="text" class="form-control" name="cDestination" required="" id="round_dest" placeholder="Destination"
+                                    oninput="fetchRoundDestinations(this.value)">
+                                <ul id="autocomplete-round-dest-results"></ul>
+                            </div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+                            <input type="text" class="form-control date-picker" required="" name="cDepartureDate"
+                                placeholder="Departure Date" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Departure Date'">
+						</div>
+						<div class="form-group col-md-6">
+                            <input type="text" class="form-control date-picker" required="" name="cReturnDate"
+                                placeholder="Return Date" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Return Date'">
+							</div>
+						</div>
+                        
+						<div class="traveler-dropdownr">
+							<input type="text" class="form-control" id="traveler-inputr" required="" placeholder="Total Travelers" readonly>
+							<ul class="traveler-optionsr">
+								<li class="adults-optionr option">
+									<span>Adult (> 12yrs)</span>
+                                    <div class="controlsr">
+                                        <button type="button" class="decrease-btnr">-</button>
+									    <span class="countr">0</span>
+									    <button type="button" class="increase-btnr">+</button>
+                                    </div>
+									
+								</li>
+								<li class="children-optionr option">
+									<span>Child (2-12yrs)</span>
+                                    <div class="controlsr">
+                                        <button type="button" class="decrease-btnr">-</button>
+									    <span class="countr">0</span>
+									    <button type="button" class="increase-btnr">+</button>
+                                    </div>
+									
+								</li>
+								<li class="infants-optionr option">
+									<span>Infant (< 2yrs)</span>
+                                    <div class="controlsr">
+                                        <button type="button" class="decrease-btnr">-</button>
+									    <span class="countr">0</span>
+									    <button type="button" class="increase-btnr">+</button>
+                                    </div>
+									
+								</li>
+							</ul>
+						</div>
+                        
+                        <input type = "hidden" class="form-control" id="adult-inputr" name="adult-inputr" placeholder="Adults" readonly>
+                    
+                        
+                        <input type = "hidden" class="form-control" id="child-inputr" name="child-inputr" placeholder="Children" readonly>
+                        
+                        <input type="hidden" class="form-control" id="infant-inputr" name="infant-inputr" placeholder="Infants" readonly>
+
+                            <input name="roundtriptype" value="True" type = "hidden">
+                            <button type="submit" style="margin-top: 10px; background-color: #FBB117;" class="submit-button2">
+                                <span class="btn-txt2">Request Flights</span>
+                                <span class="loading-icon2" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+<div class="home-demo" style="margin: 20px;">
+    <div class="owl-carousel owl-theme">
+      <div class="item">
+        <img src="{% static 'img/about-img.jpg' %}" alt="">
+      </div>
+
+      <div class="item">
+        <img src="{% static 'img/about-img.jpg' %}" alt="">
+      </div>
+
+      <div class="item">
+        <img src="{% static 'img/about-img.jpg' %}" alt="">
+      </div>
+
+      <div class="item">
+        <img src="{% static 'img/about-img.jpg' %}" alt="">
+      </div>
+      
+    </div>
+  </div>
+
+
+{% if package %}
+<!-- Start destinations Area -->
+<section class="destinations-area section-gap" style="background-color: #fff;">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-40 col-lg-8">
+                <div class="title text-center">
+                    <span class="subheading">Special for you</span>
+            <br>
+            <h2 class="mb-4">TOP DESTINATIONS</h2></div>
+            </div>
+        </div>						
+        <div class="row">
+            {% for i in package %}
+<div class="col-lg-4">
+    <div class="single-destinations">
+        <div class="thumb" style="height: 200px; overflow: hidden;">
+            <img src="{{i.location_image.url}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="details">
+            <h4 style="text-align: center;">
+                {{i.location_name}}
+            </h4>
+            <ul class="package-list">
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Country</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.country_name}}</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Duration</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Person</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
+                </li>
+            </ul>
+            <p style="text-align: center;"><a href="{% url 'package_detail' i.slug %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">More Details</a></p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+            
+            
+            
+            																														
+        </div>
+    </div>	
+</section>
+<!-- End destinations Area -->
+
+{% endif %}
+
+
+
+
+
+
+
+
+<section class="ftco-section ftco-about img"style="padding-top: 10rem; background-image: url({% static 'img/safarii.jpeg' %});">
+    <div class="overlay"></div>
+    <div class="container py-md-5" style="padding-top: 3rem;">
+     <div class="row py-md-5" style="padding-top: 3rem;">
+     
+   </div>
+   </div>
+   </section>
+   
+   <section class="ftco-section ftco-about ftco-no-pt img">
+    <div class="container">
+     <div class="row d-flex">
+      <div class="col-md-12 about-intro">
+       <div class="row">
+        <div class="col-md-6 d-flex align-items-stretch">
+         <div class="img d-flex w-100 align-items-center justify-content-center" style="background-image:url({% static 'img/lione.jpeg' %});">
+         </div>
+       </div>
+       <div class="col-md-6 pl-md-5 py-5" style="margin-bottom: -150px;">
+         <div class="row justify-content-start pb-3">
+           <div class="col-md-12 heading-section">
+            <span class="subheading">Explore the World</span>
+            <br>
+            <h2 class="mb-4">100% AUTHENTIC EXPERIENCES</h2>
+            
+            <div class="row">
+						<div class="col-lg-12">
+							<blockquote class="generic-blockquote" style="text-align: justify; padding-top: 10px; padding-bottom: 10px;">
+								Embark on a journey to discover the world’s wonders with our tailor-made travel experiences. From vibrant city escapades to serene beach retreats, our curated adventures promise unforgettable moments and a seamless exploration of diverse cultures and landscapes. Let us be your guide to creating cherished memories and unlocking the extraordinary in every destination.
+							</blockquote>
+						</div>
+					</div>
+            
+        
+            <p style="margin-left: 23px;"><a href="{% url 'contact' %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">Book Reservation</a></p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+   </div>
+   </div>
+   </div>
+   </section>
+   <br>
+   <br>
+<section class="pic_section">
+    <div class="img-box">
+        <img src="{% static 'img/ailrinelogos.jpg' %}" alt="">
+    </div>
+</section>
+<br>
+
+
+<script>
+    $(function() {
+  // Owl Carousel
+  var owl = $(".owl-carousel");
+  owl.owlCarousel({
+    items: 3,
+    margin: 10,
+    loop: true,
+    nav: true
+  });
+});
+</script>
+
+<!-- Search the airport dataset -->
+
+<script>
+    function fetchAirports(query) {
+        fetch(`/search/?search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('autocomplete-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(airport => {
+                const li = document.createElement('li');
+                // li.textContent = `${airport.name}, ${airport.location_name}, ${airport.country}, ${airport.iata_code}`;
+                li.innerHTML = `
+                <div class="airport-info">
+                    <div class="location">
+                        <b>${airport.location_name}</b>, ${airport.country}<br>
+                        ${airport.name}
+                    </div>
+                    <div class="iata-code">${airport.iata_code}</div>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('depart').value = `${airport.name}, ${airport.location_name}, ${airport.country}, ${airport.iata_code}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete')) {
+            document.getElementById('autocomplete-results').innerHTML = '';
+        }
+    });
+
+	function fetchDestinations(query) {
+        fetch(`/search/?search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('autocomplete-dest-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(airport => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <div class="airport-info">
+                    <div class="location">
+                        <b>${airport.location_name}</b>, ${airport.country}<br>
+                        ${airport.name}
+                    </div>
+                    <div class="iata-code">${airport.iata_code}</div>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('dest').value = `${airport.name}, ${airport.location_name}, ${airport.country}, ${airport.iata_code}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete2')) {
+            document.getElementById('autocomplete-dest-results').innerHTML = '';
+        }
+    });
+
+    
+
+    function fetchRoundAirports(query) {
+        fetch(`/search/?search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('autocomplete-round-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(airport => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <div class="airport-info">
+                    <div class="location">
+                        <b>${airport.location_name}</b>, ${airport.country}<br>
+                        ${airport.name}
+                    </div>
+                    <div class="iata-code">${airport.iata_code}</div>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('round_depart').value = `${airport.name}, ${airport.location_name}, ${airport.country}, ${airport.iata_code}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete3')) {
+            document.getElementById('autocomplete-round-results').innerHTML = '';
+        }
+    });
+
+
+    function fetchRoundDestinations(query) {
+        fetch(`/search/?search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('autocomplete-round-dest-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(airport => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <div class="airport-info">
+                    <div class="location">
+                        <b>${airport.location_name}</b>, ${airport.country}<br>
+                        ${airport.name}
+                    </div>
+                    <div class="iata-code">${airport.iata_code}</div>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('round_dest').value = `${destination.name}, ${destination.location_name}, ${destination.country}, ${destination.iata_code}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete4')) {
+            document.getElementById('autocomplete-round-dest-results').innerHTML = '';
+        }
+    });
+</script>
+<!-- One trip script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Listen for form submission
+      document.getElementById("onetrip-form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          
+          const loadingIcon = document.querySelector(".loading-icon");
+          const buttonText = document.querySelector(".btn-txt");
+          loadingIcon.style.display = "inline";
+          buttonText.style.display = "none";
+      
+          // Disable the submit button to prevent multiple submissions
+          const submitButton = document.querySelector(".submit-button");
+          submitButton.setAttribute("disabled", "true");
+  
+          fetch('{% url "request_flight" %}', {
+            method: "POST",
+            body: new FormData(this),
+            headers: {
+              "X-Requested-With": "XMLHttpRequest", // Set header to indicate AJAX request
+              "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              loadingIcon.style.display = "none";
+              buttonText.style.display = "inline";
+  
+          // Enable the submit button again
+              submitButton.removeAttribute("disabled");
+              if (data.error){
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                  },
+                });
+  
+                Toast.fire({
+                  icon: "error",
+                  title: "Please fill the form properly.",
+                }).then(() => {
+                  location.reload();
+                });
+              }
+              else{
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                    });
+  
+                    Toast.fire({
+                    icon: "success",
+                    title:
+                      "Flights requested Successfully. We will contact you soon!",
+                    }).then(() => {
+                        window.location.href = "{% url 'home' %}";
+                    });
+                      
+                    
+                   
+                }
+             
+            })
+            .catch((error) => {
+              console.error("An error occurred:", error);
+            });
+        });
+    });
+  </script>
+
+
+<!-- round trip script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Listen for form submission
+      document.getElementById("roundtrip-form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          
+          const loadingIcon = document.querySelector(".loading-icon2");
+          const buttonText = document.querySelector(".btn-txt2");
+          loadingIcon.style.display = "inline";
+          buttonText.style.display = "none";
+      
+          // Disable the submit button to prevent multiple submissions
+          const submitButton = document.querySelector(".submit-button2");
+          submitButton.setAttribute("disabled", "true");
+  
+          fetch('{% url "request_flight" %}', {
+            method: "POST",
+            body: new FormData(this),
+            headers: {
+              "X-Requested-With": "XMLHttpRequest", // Set header to indicate AJAX request
+              "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              loadingIcon.style.display = "none";
+              buttonText.style.display = "inline";
+  
+          // Enable the submit button again
+              submitButton.removeAttribute("disabled");
+              if (data.error){
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                  },
+                });
+  
+                Toast.fire({
+                  icon: "error",
+                  title: "Please fill the form properly.",
+                }).then(() => {
+                  location.reload();
+                });
+              }
+              else{
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                    });
+  
+                    Toast.fire({
+                    icon: "success",
+                    title:
+                      "Flights requested Successfully. We will contact you soon!",
+                    }).then(() => {
+                        window.location.href = "{% url 'home' %}";
+                    });
+                }            
+            })
+            .catch((error) => {
+              console.error("An error occurred:", error);
+            });
+        });
+    });
+  </script>
+
+  <script>
+    function handleAutocomplete(inputId, resultsId) {
+        const searchInput = document.getElementById(inputId);
+        const autocompleteResults = document.getElementById(resultsId);
+
+        const countries = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
+        function showResults(results) {
+            autocompleteResults.innerHTML = '';
+            results.forEach(function(result) {
+                const li = document.createElement('li');
+                li.textContent = result;
+                autocompleteResults.appendChild(li);
+            });
+        }
+
+        searchInput.addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const matchedResults = countries.filter(function(country) {
+                return country.toLowerCase().startsWith(searchText);
+            });
+            showResults(matchedResults);
+        });
+
+        autocompleteResults.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                searchInput.value = event.target.textContent;
+                autocompleteResults.innerHTML = '';
+            }
+        });
+    }
+
+    handleAutocomplete('search-input', 'autocompleteNation-results');
+    handleAutocomplete('search-inputr', 'autocompleteNationr-results');
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+		const adultInput = document.getElementById('adult-input');
+		const childInput = document.getElementById('child-input');
+		const infantInput = document.getElementById('infant-input'); // Add this line
+		const travelerInput = document.getElementById('traveler-input');
+		const travelerOptions = document.querySelector('.traveler-options');
+		const increaseBtns = document.querySelectorAll('.increase-btn');
+		const decreaseBtns = document.querySelectorAll('.decrease-btn');
+		const counts = document.querySelectorAll('.count');
+	
+		// Toggle visibility of traveler options dropdown
+		travelerInput.addEventListener('click', function(event) {
+			event.stopPropagation(); // Prevent event from bubbling to the document
+			travelerOptions.style.display = travelerOptions.style.display === 'block' ? 'none' : 'block';
+		});
+	
+		// Increase or decrease traveler count
+		function updateCount(index, increment) {
+			let count = parseInt(counts[index].textContent);
+			count += increment;
+			if (count < 0) count = 0; // Ensure count is non-negative
+			counts[index].textContent = count;
+			updateInputs(); // Update input values after count change
+		}
+	
+		// Update inputs for adults, children, and infants
+		function updateInputs() {
+			const adultsCount = parseInt(counts[0].textContent);
+			const childrenCount = parseInt(counts[1].textContent);
+			const infantsCount = parseInt(counts[2].textContent); // Add this line
+			adultInput.value = adultsCount;
+			childInput.value = childrenCount;
+			infantInput.value = infantsCount; // Add this line
+			travelerInput.value = adultsCount + childrenCount + infantsCount; // Update total count
+		}
+	
+		// Add event listeners to increase and decrease buttons
+		increaseBtns.forEach((btn, index) => {
+			btn.addEventListener('click', function(event) {
+				event.preventDefault(); // Prevent the default button action
+				updateCount(index, 1);
+			});
+		});
+	
+		decreaseBtns.forEach((btn, index) => {
+			btn.addEventListener('click', function(event) {
+				event.preventDefault(); // Prevent the default button action
+				updateCount(index, -1);
+			});
+		});
+	
+		// Close the dropdown when clicking outside of it
+		document.addEventListener('click', function(event) {
+			if (!event.target.closest('.traveler-dropdown')) {
+				travelerOptions.style.display = 'none';
+			}
+		});
+	});
+	
+</script> 
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+		const adultInputr = document.getElementById('adult-inputr');
+		const childInputr = document.getElementById('child-inputr');
+		const infantInputr = document.getElementById('infant-inputr'); 
+		const travelerInputr = document.getElementById('traveler-inputr');
+		const travelerOptionsr = document.querySelector('.traveler-optionsr');
+		const increaseBtnsr = document.querySelectorAll('.increase-btnr');
+		const decreaseBtnsr = document.querySelectorAll('.decrease-btnr');
+		const countsr = document.querySelectorAll('.countr');
+	
+		
+		travelerInputr.addEventListener('click', function(event) {
+			event.stopPropagation();
+			travelerOptionsr.style.display = travelerOptionsr.style.display === 'block' ? 'none' : 'block';
+		});
+	
+		
+		function updateCountr(index, increment) {
+			let countr = parseInt(countsr[index].textContent);
+			countr += increment;
+			if (countr < 0) countr = 0; 
+			countsr[index].textContent = countr;
+			updateInputsr();
+		}
+	
+		// Update inputs for adults, children, and infants
+		function updateInputsr() {
+			const adultsCountr = parseInt(countsr[0].textContent);
+			const childrenCountr = parseInt(countsr[1].textContent);
+			const infantsCountr = parseInt(countsr[2].textContent); // Add this line
+			adultInputr.value = adultsCountr;
+			childInputr.value = childrenCountr;
+			infantInputr.value = infantsCountr; // Add this line
+			travelerInputr.value = adultsCountr + childrenCountr + infantsCountr;
+		}
+	
+		
+		increaseBtnsr.forEach((btn, index) => {
+			btn.addEventListener('click', function(event) {
+				event.preventDefault(); 
+				updateCountr(index, 1);
+			});
+		});
+	
+		decreaseBtnsr.forEach((btn, index) => {
+			btn.addEventListener('click', function(event) {
+				event.preventDefault(); 
+				updateCountr(index, -1);
+			});
+		});
+	
+		document.addEventListener('click', function(event) {
+			if (!event.target.closest('.traveler-dropdownr')) {
+				travelerOptionsr.style.display = 'none';
+			}
+		});
+	});
+	
+</script> 
+
+
+
+{% endblock %}
+
+

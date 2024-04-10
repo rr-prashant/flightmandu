@@ -1,0 +1,330 @@
+{% extends 'mainLayout.html' %}
+{% load static %}
+
+{% block extra-css %}
+
+<style>
+
+    .nav-tabs .nav-link {
+        color: #333; /* Text color */
+        background-color: transparent; /* Transparent background */
+        border: none; /* No border */
+        border-bottom: 2px solid transparent; /* Bottom border */
+        border-radius: 0; /* No border radius */
+        font-weight: bold; /* Bold font weight */
+        transition: border-color 0.3s; /* Smooth transition for border color */
+    }
+
+    /* Style the active tab link */
+    .nav-tabs .nav-link.active {
+        background-color: transparent;
+        border-color: #007bff; /* Border color for active tab */
+    }
+
+    /* Style the tab content */
+    .tab-content {
+        padding-top: 20px; /* Add space above tab content */
+    }
+
+    .tab-pane {
+        display: none; /* Hide tab pane by default */
+    }
+
+    .tab-pane.active {
+        display: block; 
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- start banner Area -->
+<section class="relative about-banner">  
+    <div class="overlay overlay-bg"></div>
+    <div class="container">               
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white" style="text-transform: uppercase;">
+                    {{package.location_name}}          
+                </h1>    
+                <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="blog-home.html">{{package.location_name}}</a></p>
+            </div>  
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->                     
+
+<!-- Start post-content Area -->
+<section class="post-content-area single-post-area">
+    <div class="container" >
+        <div class="row">
+            
+            <div class="col-lg-8 posts-list">
+                
+                <div class="single-post row">
+                    <div class="col-lg-12">
+                        
+                        <div class="feature-img">
+                            <div>
+                                <div style="display: flex; align-items: bottom; justify-content: space-between; margin-bottom: 10px;">
+                                    <h2 style="text-transform: uppercase;">{{package.location_name}}</h2>
+                                    <div style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="font-weight: 500; background-color: #1AA7EC; color: white; padding: 10px; width: 45px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 8px 8px 0 0;">{{package.package_duration}}</div>
+                                        <div style="font-weight: 500; background-color: #FBB117; color: white; padding: 10px; width: 45px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 0 0 8px 8px;">Days</div>
+                                        
+                                    </div>
+                                </div>
+                                </div>                           
+                            <img class="img-fluid" src="{{package.location_image.url}}" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-9" style="margin-top: 30px;">
+                        
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true" style="font-size: 16px; font-weight: 500;">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="itinerary-tab" data-toggle="tab" href="#itinerary" role="tab" aria-controls="itinerary" aria-selected="false" style="font-size: 16px; font-weight: 500;">Itinerary</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="inclusions-tab" data-toggle="tab" href="#inclusions" role="tab" aria-controls="inclusions" aria-selected="false" style="font-size: 16px; font-weight: 500;">Inclusions</a>
+                            </li>
+                        </ul>
+                        
+                        <!-- Tab panes -->
+                        <div class="tab-content mt-20" id="myTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                                <!-- Content for Overview tab -->
+                                <p style="text-align: justify;">{{package.overview}}</p>
+                            </div>
+                            <div class="tab-pane fade" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                                <!-- Content for Itinerary tab -->
+                                <p>This is the itinerary content.</p>
+                            </div>
+                            <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab">
+                                <!-- Content for Inclusions tab -->
+                                <p>This is the inclusions content.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 sidebar-widgets">
+				<div class="widget-wrap">						
+					<div class="single-sidebar-widget post-category-widget">
+						<ul class="cat-list">
+                            <li>
+								<a class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Country</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.country_name}}</p>
+								</a>
+							</li>
+							<li>
+								<a class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Accomodation</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.accomodation}}</p>
+								</a>
+							</li>
+							<li>
+								<a class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Hotel transfer</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.hotel_transfer}}</p>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Visa</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.visa}}</p>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Meals</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.meals}}</p>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Airfare</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.airfare}}</p>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Insurance Coverage</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.insurance_coverage}}</p>
+								</a>
+							</li>
+																				
+						</ul>
+					</div>	
+					
+			</div>
+        </div>
+    </div>
+</section>
+<!-- End post-content Area -->
+
+<!-- Start contact-page Area -->
+<section class="contact-page-area section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 d-flex flex-column address-wrap">
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-home"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5>{{info.Business_Address}}</h5>
+                        <p>
+                            Kathmandu, Nepal
+                        </p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-phone-handset"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5>{{info.Business_Contact}}</h5>
+                        <p>{{info.Business_Opening_Time}}</p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-envelope"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5>{{info.Business_Email}}</h5>
+                        <p>Send us your query anytime!</p>
+                    </div>
+                </div>														
+            </div>
+            <div class="col-lg-8">
+                <form method="post" id="contact-form" class="form-area text-right" >
+                    {% csrf_token %}
+                    <div class="row">	
+                        <div class="col-lg-6 form-group">
+                            <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
+                        
+                            <input name="contact" placeholder="Enter your Contact Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Contact Number'" class="common-input mb-20 form-control" required="" type="number">
+
+                            <input name="subject" class="common-input mb-20 form-control" required="" type="text" value = "{{package.location_name}} Package Inquiry" readonly>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <textarea class="common-textarea form-control" name="message" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>				
+                        </div>
+                        <!-- <div class="col-lg-12">
+                            <button class="genric-btn primary" style="float: right;" type="submit">Send Message</button>											
+                        </div> -->
+                        <button type="submit" style="margin-top: 10px; background-color: #FBB117;" class="col-lg-3 offset-lg-9 contact-button">
+                            <span class="btn-txt">Send Message</span>
+                            <span class="loading-icon" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+                        </button>
+                    </div>
+                </form>	
+            </div>
+        </div>
+    </div>	
+</section>
+<!-- End contact-page Area -->
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Listen for form submission
+      document.getElementById("contact-form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          
+          const loadingIcon = document.querySelector(".loading-icon");
+          const buttonText = document.querySelector(".btn-txt");
+          loadingIcon.style.display = "inline";
+          buttonText.style.display = "none";
+      
+          // Disable the submit button to prevent multiple submissions
+          const submitButton = document.querySelector(".contact-button");
+          submitButton.setAttribute("disabled", "true");
+  
+          fetch('{% url "send" %}', {
+            method: "POST",
+            body: new FormData(this),
+            headers: {
+              "X-Requested-With": "XMLHttpRequest", // Set header to indicate AJAX request
+              "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              loadingIcon.style.display = "none";
+              buttonText.style.display = "inline";
+  
+          // Enable the submit button again
+              submitButton.removeAttribute("disabled");
+              if (data.error){
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "top-end",
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                  },
+                });
+  
+                Toast.fire({
+                  icon: "error",
+                  title: "Please fill the form properly.",
+                }).then(() => {
+                  location.reload();
+                });
+              }
+              else{
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                    });
+  
+                    Toast.fire({
+                    icon: "success",
+                    title:
+                      "Your Message has been sent. Thank you!",
+                    }).then(() => {
+                        window.location.href = "{% url 'visa' %}";
+                    });
+                      
+                    
+                   
+                }
+             
+            })
+            .catch((error) => {
+              console.error("An error occurred:", error);
+            });
+        });
+    });
+  </script>
+
+{% endblock %}
+
+{% block extra-js %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
