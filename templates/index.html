@@ -438,8 +438,8 @@ ftco-section {
                 }
 
                 .owl-carousel .item {
-                    {% comment %} padding-left: 5px;
-                    padding-right: 5px; {% endcomment %}
+                   /* padding-left: 5px;
+                    padding-right: 5px; */
                     margin-bottom: 10px;
                     margin-top: 10px;
                     margin-left: 15px;
@@ -1001,7 +1001,7 @@ ftco-section {
                     <div class="iata-code">${airport.iata_code}</div>
                 </div>`;
                 li.addEventListener('click', function() {
-                    document.getElementById('round_dest').value = `${destination.name}, ${destination.location_name}, ${destination.country}, ${destination.iata_code}`;
+                    document.getElementById('round_dest').value = `${airport.name}, ${airport.location_name}, ${airport.country}, ${airport.iata_code}`;
                     resultsContainer.innerHTML = '';
                 });
                 resultsContainer.appendChild(li);
