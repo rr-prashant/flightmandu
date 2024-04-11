@@ -23,6 +23,7 @@ from django.db.models import Q
 def index(request):
     # populate_airports()
     info = BusinessInfo.objects.all().first()
+    deal = deals_event.objects.all()
     airport = Airport.objects.none()
     package = Package.objects.all()
     
@@ -30,8 +31,7 @@ def index(request):
         search_query = request.GET['search_query']
         airport = Airport.objects.filter(Q(name__icontains=search_query) | Q(location_name__icontains=search_query) | Q(country__icontains=search_query) | Q(iata_code__icontains=search_query))[:5]
         
-
-    return render(request, 'index.html', {'airport': airport, 'info':info, 'package': package})
+    return render(request, 'index.html', {'airport': airport, 'info':info, 'package': package, 'deal': deal})
 
 def main(request):
     
@@ -219,3 +219,10 @@ def package_detail(request, slug):
     package = Package.objects.get(slug=slug)
     content = {'info':info, 'package': package}
     return render(request, 'Package_detail.html', content)
+
+
+def packages(request):
+    info = BusinessInfo.objects.all().first()
+    package = Package.objects.all()
+    content = {'info':info, 'package': package}
+    return render(request, 'packages.html', content)

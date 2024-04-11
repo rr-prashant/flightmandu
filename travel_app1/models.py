@@ -88,3 +88,11 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
     
 pre_save.connect(pre_save_receiver, sender=Package)
+
+
+class deals_event(models.Model):
+    deal_title = models.CharField(max_length=300, blank=True, null = True)
+    deal_poster = models.ImageField(upload_to='poster', blank=True, null=True)
+    
+    def __str__(self):
+        return self.deal_title
