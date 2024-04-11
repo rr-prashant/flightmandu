@@ -14,7 +14,9 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('search/', views.search_airports, name='search_airports'),
     path('visa_service/', views.visaService, name="visa"),
+    path('package/', views.packages, name = "package"),
     path('package/<slug:slug>', views.package_detail, name="package_detail"),
+ 
 ]
 
 if settings.DEBUG:

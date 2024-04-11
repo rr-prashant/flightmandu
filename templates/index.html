@@ -5,6 +5,7 @@
 <style>
 	
     .banner-right {
+        
         margin-top: 60px; /* Remove margin-top from the banner right section */
     }
     .banner-area {
@@ -332,6 +333,7 @@ ftco-section {
       z-index: -1; }
 .ftco-about .img {
     height: 600px; 
+    background-position: left center;
     background-size: cover;
     background-repeat: no-repeat;
       margin-top: -100px;
@@ -421,17 +423,107 @@ ftco-section {
             @media (max-width: 767.98px) {
               .heading-section h2 {
                 font-size: 28px; } }
-          
+
+
+                .owl-carousel .item {
+                    position: relative;
+                    overflow: hidden;
+                }
                 
-    .owl-nav{
-        display: none;
-    }
-    .owl-dot{
-        display: none;
-    }
+                
+                
+                /* Hover effect */
+                .owl-carousel .item:hover img {
+                    filter: brightness(80%);
+                }
 
-            
+                .owl-carousel .item {
+                    {% comment %} padding-left: 5px;
+                    padding-right: 5px; {% endcomment %}
+                    margin-bottom: 10px;
+                    margin-top: 10px;
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                    overflow: hidden;
+                }
+                
+                .owl-carousel .item img {
+                    border: 5px solid white;
+                    width: 100%;
+                    height: 265px;
+                    object-fit: fill;
+                    -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
+                    mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
+                    -webkit-mask-size: 100%;
+                    mask-size: 800%;
+                    -webkit-mask-position: 0;
+                    mask-position: 0;
+                
+                }
 
+                .owl-carousel .item img:hover {
+                    
+                    transition: mask-position 2s ease,-webkit-mask-position 2s ease;
+                    -webkit-mask-position: 120%;
+                    mask-position: 120%;
+                    opacity: 1;
+                }
+
+                .events{
+                    padding-left: 100px; padding-right: 100px;
+                }
+                
+                @media (max-width: 900.98px) {
+                    .events{
+                        padding-left: 50px; padding-right: 50px;
+                    } }
+
+
+                @media (max-width: 770.98px) {
+                    .events{
+                        padding-left: 20px; padding-right: 20px;
+                    } }
+
+                @media (max-width: 550.98px) {
+                        .events{
+                            padding-left: 40px; padding-right: 40px;
+                        } }
+
+                        @media (max-width: 770.98px) {
+                            .owl-carousel .item img {
+                                height: 300px;
+                            }
+                            
+                            }
+
+                            @media (max-width: 700.98px) {
+                                .owl-carousel .item img {
+                                    height: 280px;
+                                }
+                                
+                                }
+
+                        @media (max-width: 590.98px) {
+                        .owl-carousel .item img {
+                            height: 320px;
+                        }
+                        
+                        }
+
+                        @media (max-width: 1000.98px) {
+                            .owl-carousel .item img {
+                                height: 380px;
+                            }
+                            
+                            }
+
+                            @media (max-width: 1300.98px) {
+                                .events{
+                                    padding-left: 30px; padding-right: 30px;
+                                } }
+
+                        
 </style>
 {% endblock %}
 
@@ -454,7 +546,7 @@ ftco-section {
                             aria-controls="hotel" aria-selected="false">Round Trips</a>
                     </li>
                 </ul>
-                <div class="tab-content" id="myTabContent" style="box-shadow: 0px 10px 30px 10px #333333;">
+                <div class="tab-content" id="myTabContent" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
                     <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
                         <!-- One way form -->
                         <form method="post" class="form-wrap" id="onetrip-form">
@@ -663,86 +755,22 @@ ftco-section {
     </div>
 </section>
 <!-- End banner Area -->
-<div class="home-demo" style="margin: 20px;">
-    <div class="owl-carousel owl-theme">
-      <div class="item">
-        <img src="{% static 'img/about-img.jpg' %}" alt="">
-      </div>
 
-      <div class="item">
-        <img src="{% static 'img/about-img.jpg' %}" alt="">
-      </div>
 
-      <div class="item">
-        <img src="{% static 'img/about-img.jpg' %}" alt="">
-      </div>
-
-      <div class="item">
-        <img src="{% static 'img/about-img.jpg' %}" alt="">
-      </div>
-      
+{% if deal %}
+<div class="events" style="padding-top: 50px; padding-bottom: 30px; display: flex;">
+<div class="owl-carousel owl-theme" style="justify-content: center; align-items: center; display: flex;">
+    {% for i in deal %}
+    <div class="item">
+        <a href="{% url 'contact' %}"><img src="{{i.deal_poster.url}}"></a>
     </div>
-  </div>
-
-
-{% if package %}
-<!-- Start destinations Area -->
-<section class="destinations-area section-gap" style="background-color: #fff;">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-40 col-lg-8">
-                <div class="title text-center">
-                    <span class="subheading">Special for you</span>
-            <br>
-            <h2 class="mb-4">TOP DESTINATIONS</h2></div>
-            </div>
-        </div>						
-        <div class="row">
-            {% for i in package %}
-<div class="col-lg-4">
-    <div class="single-destinations">
-        <div class="thumb" style="height: 200px; overflow: hidden;">
-            <img src="{{i.location_image.url}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="details">
-            <h4 style="text-align: center;">
-                {{i.location_name}}
-            </h4>
-            <ul class="package-list">
-                <li class="d-flex justify-content-between align-items-center">
-                    <span style="font-weight: 500;">Country</span>
-                    <span style="color: #FBB117; font-weight: 500">{{i.country_name}}</span>
-                </li>
-                <li class="d-flex justify-content-between align-items-center">
-                    <span style="font-weight: 500;">Duration</span>
-                    <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
-                </li>
-                <li class="d-flex justify-content-between align-items-center">
-                    <span style="font-weight: 500;">Person</span>
-                    <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
-                </li>
-            </ul>
-            <p style="text-align: center;"><a href="{% url 'package_detail' i.slug %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">More Details</a></p>
-        </div>
-    </div>
+    {% endfor %}
+    
+    
+</div> 
 </div>
-{% endfor %}
-
-            
-            
-            
-            																														
-        </div>
-    </div>	
-</section>
-<!-- End destinations Area -->
-
 {% endif %}
-
-
-
-
-
+<br>
 
 
 
@@ -791,28 +819,71 @@ ftco-section {
    </div>
    </section>
    <br>
+   {% if package %}
+<!-- Start destinations Area -->
+<section class="destinations-area section-gap" style="background-color: #fff;">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-40 col-lg-8">
+                <div class="title text-center">
+                    <span class="subheading">Special for you</span>
+            <br>
+            <h2 class="mb-4">TOP DESTINATIONS</h2></div>
+            </div>
+        </div>						
+        <div class="row" style="margin-top: -30px;">
+            {% for i in package %}
+<div class="col-lg-4">
+    <div class="single-destinations">
+        <div class="thumb" style="height: 200px; overflow: hidden;">
+            <img src="{{i.location_image.url}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="details">
+            <h4 style="text-align: center;">
+                {{i.location_name}}
+            </h4>
+            <ul class="package-list">
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Country</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.country_name}}</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Duration</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 500;">Person</span>
+                    <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
+                </li>
+            </ul>
+            <p style="text-align: center;"><a href="{% url 'package_detail' i.slug %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">More Details</a></p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+            
+            
+            
+            																														
+        </div>
+    </div>	
+</section>
+<!-- End destinations Area -->
+
+{% endif %}
+
+
+   <br>
    <br>
 <section class="pic_section">
     <div class="img-box">
         <img src="{% static 'img/ailrinelogos.jpg' %}" alt="">
     </div>
 </section>
+
+
 <br>
-
-
-<script>
-    $(function() {
-  // Owl Carousel
-  var owl = $(".owl-carousel");
-  owl.owlCarousel({
-    items: 3,
-    margin: 10,
-    loop: true,
-    nav: true
-  });
-});
-</script>
-
 <!-- Search the airport dataset -->
 
 <script>
