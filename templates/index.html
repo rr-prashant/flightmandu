@@ -758,7 +758,7 @@ ftco-section {
 
 
 {% if deal %}
-<div class="events" style="padding-top: 50px; padding-bottom: 30px; display: flex;">
+<div class="events" style="padding-top: 40px; padding-bottom: 20px; display: flex;">
 <div class="owl-carousel owl-theme" style="justify-content: center; align-items: center; display: flex;">
     {% for i in deal %}
     <div class="item">
@@ -808,7 +808,7 @@ ftco-section {
 					</div>
             
         
-            <p style="margin-left: 23px;"><a href="{% url 'contact' %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">Book Reservation</a></p>
+            <p style="margin-left: 23px;"><a href="{% url 'package' %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">Book Reservation</a></p>
           </div>
         </div>
         
@@ -852,7 +852,7 @@ ftco-section {
                     <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
                 </li>
                 <li class="d-flex justify-content-between align-items-center">
-                    <span style="font-weight: 500;">Person</span>
+                    <span style="font-weight: 500;">Average People</span>
                     <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
                 </li>
             </ul>
@@ -874,7 +874,6 @@ ftco-section {
 {% endif %}
 
 
-   <br>
    <br>
 <section class="pic_section">
     <div class="img-box">

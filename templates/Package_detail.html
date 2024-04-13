@@ -34,6 +34,61 @@
         display: block; 
     }
 
+    .subheading {
+        font-size: 30px;
+        display: block;
+        margin-bottom: 5px;
+        color: #f15d30;
+        font-family: "Arizonia", cursive; }
+
+        .visa {
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 400;
+            color: #4B4B4C;
+          }
+
+
+          .un-list li {
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.82em !important;
+          }
+          
+          .un-list li:before {
+            content: "✓";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            color: green;
+            background: #fff;
+            top: 4px;
+            left: 0;
+            
+          }
+
+          .on-list li {
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.82em !important;
+          }
+          
+          .on-list li:before {
+            content: "✗";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            color: red;
+            background: #fff;
+            top: 4px;
+            left: 0;
+            
+          }
+
+       
+
 </style>
 
 {% endblock %}
@@ -100,15 +155,54 @@
                         <div class="tab-content mt-20" id="myTabContent">
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <!-- Content for Overview tab -->
-                                <p style="text-align: justify;">{{package.overview}}</p>
+                                <p style="margin-top: -10px; text-align: justify; color: #676767; line-height: 1.82em !important;">{{package.overview}}</p>
+
+                                
+                                
+                                {% if highlight %}
+                                <br>
+                                <div style="margin: 10px; margin-bottom: -20px;">
+                                    <h6 class="visa">Highlights</h6>
+                            
+									<ul class="unordered-list">
+                                        {% for i in highlight %}
+										<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.highlight}}</li>
+                                        {% endfor %}
+									</ul>
+                                </div>
+                                {% endif %}
+							
+                
                             </div>
-                            <div class="tab-pane fade" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                            <div class="tab-pane fade" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab" style="margin-bottom: -20px;">
                                 <!-- Content for Itinerary tab -->
-                                <p>This is the itinerary content.</p>
+
+
                             </div>
-                            <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab">
-                                <!-- Content for Inclusions tab -->
-                                <p>This is the inclusions content.</p>
+                            <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab" style="margin-bottom: -20px;">
+                                {% if inclusion %}
+                                <div style="margin: 10px; margin-top: -10px; ">
+                                    <h6 class="visa">Inclusions</h6>
+                            
+									<ul class="un-list">
+                                        {% for i in inclusion %}
+										<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.inclusion}}</li>
+                                        {% endfor %}
+									</ul>
+                                </div>
+                                {% endif %}
+
+                                {% if exclusion %}
+                                <br>
+                                <div style="margin: 10px; margin-top: -5px;">
+                                    <h6 class="visa">Exclusions</h6>
+									<ul class="on-list">
+                                        {% for i in exclusion %}
+										<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.exclusion}}</li>
+                                        {% endfor %}
+									</ul>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                         
@@ -118,8 +212,8 @@
             </div>
 
             <div class="col-lg-4 sidebar-widgets">
-				<div class="widget-wrap">						
-					<div class="single-sidebar-widget post-category-widget">
+				<div class="widget-wrap" style="background-color: white; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;">						
+					<div class="single-sidebar-widget post-category-widget" style="background-color: white;">
 						<ul class="cat-list">
                             <li>
 								<a class="d-flex justify-content-between">
@@ -140,25 +234,25 @@
 								</a>
 							</li>
 							<li>
-								<a href="#" class="d-flex justify-content-between">
+								<a class="d-flex justify-content-between">
 									<p style="font-weight: 400;">Visa</p>
 									<p style="color: #FBB117; font-weight: 500">{{package.visa}}</p>
 								</a>
 							</li>
 							<li>
-								<a href="#" class="d-flex justify-content-between">
+								<a class="d-flex justify-content-between">
 									<p style="font-weight: 400;">Meals</p>
 									<p style="color: #FBB117; font-weight: 500">{{package.meals}}</p>
 								</a>
 							</li>
 							<li>
-								<a href="#" class="d-flex justify-content-between">
+								<a class="d-flex justify-content-between">
 									<p style="font-weight: 400;">Airfare</p>
 									<p style="color: #FBB117; font-weight: 500">{{package.airfare}}</p>
 								</a>
 							</li>
 							<li>
-								<a href="#" class="d-flex justify-content-between">
+								<a class="d-flex justify-content-between">
 									<p style="font-weight: 400;">Insurance Coverage</p>
 									<p style="color: #FBB117; font-weight: 500">{{package.insurance_coverage}}</p>
 								</a>
@@ -306,7 +400,7 @@
                     title:
                       "Your Message has been sent. Thank you!",
                     }).then(() => {
-                        window.location.href = "{% url 'visa' %}";
+                        window.location.href = "{% url 'package_detail' package.slug %}";
                     });
                       
                     

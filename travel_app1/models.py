@@ -30,10 +30,15 @@ class Flight_request(models.Model):
     return_date = models.CharField(max_length=100, default='N/A', null=True, blank=True)
     Adult = models.CharField(max_length=100, null=True, blank=True) 
     Children = models.CharField(max_length=100, null=True, blank=True) 
-    Infant = models.CharField(max_length=100, null=True, blank=True) 
+    Infant = models.CharField(max_length=100, null=True, blank=True)
+    Date = models.DateField(auto_now_add=True, blank=True) 
     
     def __str__(self):
         return self.client_name
+    
+    class Meta:
+        verbose_name = "Customer Flight Request"  
+        verbose_name_plural = "Customer Flight Request"
 
 
 class new_contact(models.Model):
@@ -44,6 +49,10 @@ class new_contact(models.Model):
 
     def __str__(self):
         return self.client_name
+    
+    class Meta:
+        verbose_name = "Customer Inquiries"  
+        verbose_name_plural = "Customer Inquiries"
     
     
 class Airport(models.Model):
@@ -96,3 +105,59 @@ class deals_event(models.Model):
     
     def __str__(self):
         return self.deal_title
+    
+    class Meta:
+        verbose_name = "Event Posters"  
+        verbose_name_plural = "Event Posters"
+    
+    
+class Itinerary(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=300, blank=True, null = True)
+    description = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.package.location_name + ": " + self.title
+    
+    class Meta:
+        verbose_name = "Package Itinerary"  
+        verbose_name_plural = "Package Itinerary"
+    
+    
+class Highlight(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True, blank=True)
+    highlight = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.package.location_name + ": " + self.highlight
+    
+    class Meta:
+        verbose_name = "Package Highlights"  
+        verbose_name_plural = "Package Highlights"
+    
+
+class Inclusion(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True, blank=True)
+    inclusion = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.package.location_name + ": " + self.inclusion
+    
+    class Meta:
+        verbose_name = "Package Inclusions"  
+        verbose_name_plural = "Package Inclusions"
+    
+
+class Exclusion(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True, blank=True)
+    exclusion = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.package.location_name + ": " + self.exclusion
+    
+    class Meta:
+        verbose_name = "Package Exclusions"  
+        verbose_name_plural = "Package Exclusions"
+    
+    
+    
