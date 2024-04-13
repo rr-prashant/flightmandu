@@ -213,13 +213,15 @@ def visaService(request):
     content = {'info':info, 'vdata': vdata}
     return render(request, 'visa.html', content)
 
-
 def package_detail(request, slug):
-    info = BusinessInfo.objects.all().first()
+    info = BusinessInfo.objects.first()  
+    itinerary = Itinerary.objects.filter(package__slug=slug)
+    highlight = Highlight.objects.filter(package__slug=slug)
+    inclusion = Inclusion.objects.filter(package__slug=slug)
+    exclusion = Exclusion.objects.filter(package__slug=slug) 
     package = Package.objects.get(slug=slug)
-    content = {'info':info, 'package': package}
-    return render(request, 'Package_detail.html', content)
 
+    return render(request, 'Package_detail.html', locals())
 
 def packages(request):
     info = BusinessInfo.objects.all().first()
