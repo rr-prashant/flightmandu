@@ -22,9 +22,7 @@
     }
 
     /* Style the tab content */
-    .tab-content {
-        padding-top: 20px; /* Add space above tab content */
-    }
+    
 
     .tab-pane {
         display: none; /* Hide tab pane by default */
@@ -87,7 +85,82 @@
             
           }
 
-       
+          /* Itinerary */
+          
+
+.itinarary-container {
+  background: #232931;
+  width: 540px;
+  height: auto;
+  margin: 0 auto;
+  position: relative;
+  padding: 0px;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+}
+
+
+
+.rightbox {
+  padding: 0em 0rem 0em 0em;
+  height: 100%;
+}
+
+.rb-container {
+  width: 100%;
+  margin: auto;
+  display: block;
+  position: relative;
+}
+
+.rb-container ul.rb {
+  margin: 2.5em 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.rb-container ul.rb li {
+  list-style: none;
+  margin: auto;
+  min-height: 50px;
+  border-left: 1px dashed #dadada;
+  padding: 0 0 50px 20px;
+  position: relative;
+}
+
+.rb-container ul.rb li:last-child {
+  border-left: 0;
+}
+
+.rb-container ul.rb li::before {
+  position: absolute;
+  left: -12px;
+  top: -1px;
+  content: " ";
+  border: 8px solid #e7e7e7;
+  border-radius: 500%;
+  background: #FBB117;
+  height: 24px;
+  width: 24px;
+  transition: all 500ms ease-in-out;
+}
+
+.rb-container ul.rb li:hover::before {
+  border-color: #FBB117;
+  transition: all 1000ms ease-in-out;
+}
+
+ul.rb li .timestamp {
+  color: #FBB117;
+  font-weight: bold;
+  position: relative;
+  width: 100%;
+  font-size: 20px;
+}
+
+.item-title {
+  color: #000;
+}
+
 
 </style>
 
@@ -152,16 +225,16 @@
                         </ul>
                         
                         <!-- Tab panes -->
-                        <div class="tab-content mt-20" id="myTabContent">
+                        <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <!-- Content for Overview tab -->
-                                <p style="margin-top: -10px; text-align: justify; color: #676767; line-height: 1.82em !important;">{{package.overview}}</p>
+                                <p style=" text-align: justify; color: #676767; line-height: 1.82em !important;">{{package.overview}}</p>
 
                                 
                                 
                                 {% if highlight %}
                                 <br>
-                                <div style="margin: 10px; margin-bottom: -20px;">
+                                <div style="margin: 10px; margin-top: -20px;  margin-bottom: -20px;">
                                     <h6 class="visa">Highlights</h6>
                             
 									<ul class="unordered-list">
@@ -174,14 +247,38 @@
 							
                 
                             </div>
-                            <div class="tab-pane fade" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab" style="margin-bottom: -20px;">
+                            <div class="tab-pane fade ml-20 " id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab" style="margin-bottom: -10px;">
                                 <!-- Content for Itinerary tab -->
+                                <div class="itinerary-container">
+
+
+  
+                                    <div class="rightbox" style="margin-top: 5px; padding-top: 0;">
+                                      <div class="rb-container">
+                                        <ul class="rb">
+                                            {% if itinerary %}
+                                            {% for i in itinerary %}
+                                          <li class="rb-item" ng-repeat="itembx">
+                                            <div class="timestamp">
+                                              {{ i.title }}
+                                            </div>
+                                            <div class="item-title">{{ i.description }}</div>
+                                  
+                                          </li>
+                                          {% endfor %}
+                                          {% endif %}
+                                  
+                                        </ul>
+                                  
+                                      </div>
+                                    </div>
+                                  </div>
 
 
                             </div>
                             <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab" style="margin-bottom: -20px;">
                                 {% if inclusion %}
-                                <div style="margin: 10px; margin-top: -10px; ">
+                                <div style="margin: 10px; margin-top: -20px; margin-top: -10px; ">
                                     <h6 class="visa">Inclusions</h6>
                             
 									<ul class="un-list">
