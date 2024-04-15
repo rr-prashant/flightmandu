@@ -270,6 +270,27 @@
 				margin: 20px;
 			}
 		}
+		#logo a img{
+			height: 50px;
+			width: 50px;
+		   }
+
+		@media (max-width: 400px) {
+		    
+		   #logo a img{
+			height: 40px;
+			width: 40px;
+		   }
+		   
+		   #logo{
+		       margin-top: -32px;
+		   }
+			
+		}
+		
+		.logo-title{
+		    margin:15px;
+		}
 		
 		
 		
@@ -282,8 +303,8 @@
 
 		<div class="container main-menu" style="background-color: transparent;">
 			<div class="row align-items-center justify-content-between d-flex">
-				<div class="logo" id="logo" style="display: flex;">
-					<a href="{% url 'home' %}"><img style="height: 50px; width: 50px;" src="{{ info.Business_Logo.url }}" alt=""
+				<div class="logo" id="logo" style="display: flex; ">
+					<a href="{% url 'home' %}"><img src="{{ info.Business_Logo.url }}" alt=""
 							title="" /></a>
 					<a href="{% url 'home' %}"><h6 class="text-white" style= "margin:15px;">{{ info.Business_Name }}</h6></a>
 				</div>
