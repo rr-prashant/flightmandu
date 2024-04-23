@@ -919,6 +919,21 @@ ftco-section {
         }
     });
 
+    
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocompleteNation')) {
+            document.getElementById('autocompleteNation-results').innerHTML = '';
+        }
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete')) {
+            document.getElementById('autocompleteNationr-results').innerHTML = '';
+        }
+    });
+
+
 	function fetchDestinations(query) {
         fetch(`/search/?search_query=${query}`)
         .then(response => response.json())

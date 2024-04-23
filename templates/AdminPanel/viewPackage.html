@@ -412,10 +412,10 @@
               <!--/ Basic Bootstrap Table -->
               <div class="mt-2">
                 {% if inclusion or exclusion or itinerary %}<br>{% endif %}
-                <a href = "{% url "admin_addhighlight" package.id %}" style="color:white;" class="btn btn-primary me-2">Add Highlight</a>
-                <a href = "{% url "admin_addItenerary" package.id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
-                <a href = "{% url "admin_addInclusion" package.id %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
-                <a href = "{% url "admin_addExclusion" package.id %}" style="color:white;" class="btn btn-primary me-2">Add Exclusion</a>
+                <a href = "{% url 'admin_addhighlight' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Highlight</a>
+                <a href = "{% url 'admin_addItenerary' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
+                <a href = "{% url 'admin_addInclusion' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                <a href = "{% url 'admin_addExclusion' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Exclusion</a>
             </div>          
           </div>
     </div>

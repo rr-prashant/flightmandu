@@ -18,7 +18,9 @@ import qrcode
 from django.urls import reverse
 from io import BytesIO
 from django.core.files.base import ContentFile
-
+from django.core.mail import EmailMessage, send_mail
+from django.conf import settings
+from django.shortcuts import render
 
 def index(request):
     # populate_airports()
@@ -334,6 +336,109 @@ def admin_viewCountry(request, pk):
     return render(request, "AdminPanel/viewCountry.html", context)
 
 
+
+# QUOTATION - START
+@login_required(login_url="admin_login")
+def main_quotation(request):
+    q = quotation.objects.all()
+    return render(request, "AdminPanel/quotation/Quotation.html", locals())
+
+@csrf_protect
+def send_invoice_email(request):
+    return
+
+
+@login_required(login_url="admin_login")
+def add_quotation(request):
+    try:
+        if request.method == 'POST':
+            cName = request.POST.get('cName')
+            cPhone = request.POST.get('cPhone')
+            cEmail = request.POST.get('cEmail')
+            perAdult = request.POST.get('perAdult')
+            perChild = request.POST.get('perChild')
+            perInfant = request.POST.get('perInfant')
+
+            int_adult, int_child, int_infant = 0,0,0
+
+            if perAdult and perAdult.isdigit():
+                int_adult = int(perAdult)
+            
+
+            if perChild and perChild.isdigit():
+                int_child = int(perChild)
+
+            if perInfant and perInfant.isdigit():
+                int_infant = int(perInfant)
+
+            receipt = quotation(
+                client_name = cName,
+                client_phone = cPhone,
+                client_email = cEmail,
+                per_adult = int_adult,
+                per_child = int_child,
+                per_infant = int_infant,
+            )
+
+            receipt.save()
+            return redirect('admin_quotation')
+
+        return render(request, "AdminPanel/quotation/addQuotation.html", locals())
+    
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return HttpResponse(error_message, status=500)
+
+@login_required(login_url="admin_login")
+def admin_viewQuotation(request, q_id):
+    invoice = quotation.objects.filter(q_id=q_id)
+    ity = quotation_itinerary.objects.filter(q_id=q_id)
+
+    content = {'id': q_id, 'invoices' : invoice, 'itys' : ity}
+
+    return render(request, "AdminPanel/quotation/viewQuotation.html", content)
+
+
+@login_required(login_url="admin_login")
+def q_addItinerary(request, q_id):
+    
+    if request.method == 'POST':
+        id = q_id
+        date = request.POST.get('it-date')
+        day = request.POST.get('it-day')
+        ity = request.POST.get('itys')
+        meal = request.POST.get('it-meal')
+
+        Itinerarys = quotation_itinerary(q_id=id, date=date, day=day, Itinerary=ity, Meals=meal)
+        Itinerarys.save()
+
+    content = {'id': q_id}
+    return render(request, "AdminPanel/quotation/addQuotation_itinerary.html", content)
+
+
+def search_meal(request):
+    if 'ml_search_query' in request.GET:
+        search_query = request.GET['ml_search_query']
+        meals = quotation_fill_Meals.objects.filter(
+            meals__icontains=search_query
+        )[:10]
+        data = [{'ml': meal.meals} for meal in meals]
+        return JsonResponse(data, safe=False)
+    return JsonResponse([], safe=False)
+
+
+def search_it(request):
+    if 'it_search_query' in request.GET:
+        search_query = request.GET['it_search_query']
+        its = quotation_fill_Itinerary.objects.filter(
+            itinerary__icontains=search_query
+        )[:10]
+        data = [{'ity': it.itinerary} for it in its]
+        return JsonResponse(data, safe=False)
+    return JsonResponse([], safe=False)
+
+
+# QUOTATION - END
 
 @login_required(login_url="admin_login")
 def delete_adminCountry(request, pk):

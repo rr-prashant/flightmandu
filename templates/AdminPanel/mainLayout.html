@@ -56,7 +56,7 @@
               <span class="app-brand-logo demo">
                 
                     
-                      <img src="{% static "img/image-1.png" %}" style="width: 180px;"/>
+                      <img src="{% static 'img/image-1.png' %}" style="width: 180px;"/>
               </span>
             </a>
 
@@ -109,7 +109,12 @@
                 <div data-i18n="Analytics">Inquiry</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{% url 'admin_quotation' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
+                <div data-i18n="Analytics">Quotation</div>
+              </a>
+            </li>
     {% if request.user.is_admin %}
 
             <li class="menu-item">

@@ -1,0 +1,291 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+
+{% block extra-css %} 
+<link rel="stylesheet" href="{% static 'css/invoice/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/invoice/style.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+{% endblock%}
+
+{% block title %}Quotation{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Layout container -->
+<div class="layout-page">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+        <a class="nav-item nav-link px-0 me-xl-4 btn btn-primary"  style="width: 15%; margin-bottom: 20px; margin-top: 20px; margin-left:20px; background-color: #696CFF;" href="javascript:void(0)">
+            <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+        </a>
+    </div>
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+            <div class="invoice-2 invoice-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="invoice-inner clearfix">
+                                <div class="invoice-info clearfix" id="invoice_wrapper">
+                                    <div class="invoice-headar">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="invoice-logo">
+                                                    <!-- logo started -->
+                                                    <div class="logo mr-5">
+                                                        <img src="{% static 'img/Flightmandu_transparent.png' %}" alt="logo">
+                                                        
+                                                    </div>
+                                                    <!-- logo ended -->
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="invoice-id">
+                                                    <div class="info">
+                                                        <h1 class="inv-header-1">Quotation</h1>
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="invoice-top">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="invoice-number mb-30">
+                                                    <h4 class="inv-title-1">To</h4>
+                                                    <h2 class="name">{{ invoices.0.client_name }}</h2>
+                                                    <!-- <p class="invo-addr-1">
+                                                        Theme Vessel <br/>
+                                                        info@themevessel.com <br/>
+                                                        21-12 Green Street, Meherpur, Bangladesh <br/>
+                                                    </p> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="invoice-number mb-30">
+                                                    <div class="invoice-number-inner">
+                                                        <!-- <h4 class="inv-title-1">Invoice From</h4> -->
+                                                        <!-- <h2 class="name">Animas Roky</h2> -->
+                                                        <p class="invo-addr-1">
+                                                            Ref: {{id}}  <br/>
+                                                            Date: {{ invoices.0.q_Date }} <br/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="invoice-6 bg-white" >
+                                        <div class="invoice-center">
+                                            <div class="order-summary">
+                                                <div class="table-outer">
+                                                    <table class="default-table invoice-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>DATE</th>
+                                                            <th>DAY</th>
+                                                            <th>ITINERARY</th>
+                                                            <th>MEALS</th>
+                                                        </tr>
+                                                        </thead>
+            
+                                                        <tbody>
+                                                            
+                                                            {% for i in itys %}
+                                                                <tr>
+                                                            
+                                                                    <td>{{ i.date }}</td>
+                                                                    <td>{{ i.day }} </td>
+                                                                    <td>{{ i.Itinerary }}</td>
+                                                                    <td>{{ i.Meals }}</td>
+                                                        
+                                                                </tr>
+                                                            {% endfor %}
+                                                        
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- package detail -end -->
+            
+            
+                                    <!-- INCLUSIONS -start -->
+                                        <div class="invoice-center">
+                                            <div class="order-summary">
+                                                <div class="table-outer">
+                                                    <table class="default-table invoice-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>INCLUSIONS</th>
+                                                        </tr>
+                                                        </thead>
+            
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><img src="{% static 'img/checked.png' %}" height="20px" width="20px" alt="" style="margin-right: 6px;">Standard Plan</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><img src="{% static 'img/checked.png' %}" height="20px" width="20px" alt="" style="margin-right: 6px;">Extra Plan</td>
+                                                            
+                                                        </tr>
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- INCLUSIONS -end -->
+            
+            
+                                    <!-- hotel and airport -start -->
+                                        <div class="invoice-center">
+                                            <div class="order-summary">
+                                                <div class="table-outer">
+                                                    <table class="default-table invoice-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Hotels</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>Airlines</th>
+                                                        </tr>
+                                                        </thead>
+            
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Standard Plan</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>$443.00 </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Extra Plan</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>$413.00 </td>
+                                                        </tr>
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- hotel and airport -end -->
+            
+                                        <div class="invoice-center">
+                                            <div class="order-summary">
+                                                <div class="row" style="margin-right: 80px;">
+                                                    <div class="col-md-4 d-flex justify-content-center" style="color: #fff; font-weight: bold; align-items: center; background-color: rgb(54, 54, 199);">
+                                                        <ul>
+                                                            <li>No Booking has been made yet.</li>
+                                                            <li>Hotels and Flights are subjected to availability.</li>
+                                                            <li>Rates and flights details will be confirmed on Booking time.</li>
+                                                            <li>Rates are valid for 48 hours only.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    
+                                                        <div class="">
+                                                            <table class="default-table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Type</th>
+                                                                    <th>Pax</th>
+                                                                    <th>Rate</th>
+                                                                    <th>Amount</th>
+                                                                </tr>
+                                                                </thead>
+                    
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>Adult</td>
+                                                                    <td>0</td>
+                                                                    <td>0</td>
+                                                                    <td>$443.00 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Child</td>
+                                                                    <td>0</td>
+                                                                    <td>0</td>
+                                                                    <td>$413.00 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Infant</td>
+                                                                    <td>0</td>
+                                                                    <td>0</td>
+                                                                    <td>$413.00 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td ><strong><b>Total</b></strong></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td><strong><b>$9,750</b></strong></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="invoice-center">
+                                            <div class="col-sm-12">
+                                                <div class="invoice-number mb-30">
+                                                    <div class="invoice-number-inner">
+                                                        <p style="display: flex; align-items: end;">Generated By: Quadtech</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+            
+                                    
+                                   
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4" style="display: flex; justify-content: center;">
+                    <a href = "" style="color:white;" class="btn btn-danger me-2">Download</a>
+                    <a href = "" id="send-btn" style="color:white;" class="btn btn-warning me-2">Send Via Email</a>
+                    
+                </div> 
+
+                <div class="mt-4" style="display: flex; justify-content: center;">
+                    <a href="{% url 'q-add-itinerary' id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
+                    <a style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                    <a style="color:white;" class="btn btn-primary me-2">Add Hotels</a>
+                    <a style="color:white;" class="btn btn-primary me-2">Add Airlines</a>
+                    
+                </div> 
+            </div>
+            <!-- Invoice 2 end -->
+            
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -10,7 +10,7 @@ import qrcode
 from django.core.files.base import ContentFile
 from django.contrib.auth.models import AbstractUser, Group, Permission, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-
+from travel_app1.Qid_generator import unique_quotation_id_generator
               
 class Company_Members(AbstractUser):
     full_name = models.CharField(max_length=300, blank=False, null = False)
@@ -235,6 +235,25 @@ class Exclusion(models.Model):
         verbose_name_plural = "Package Exclusions"
         
         
+class quotation(models.Model):
+    q_id = models.IntegerField(null=True, blank=True, editable=True)
+    client_name = models.CharField(max_length=100, blank=True, null = True)
+    client_phone = models.CharField(max_length=10, blank=True, null = True)
+    client_email = models.CharField(max_length=300, blank=True, null = True)
+    per_adult = models.IntegerField(blank=True, null=True)
+    per_child = models.IntegerField(blank=True, null=True)
+    per_infant = models.IntegerField(blank=True, null=True)
+    q_Date = models.DateField(auto_now_add=True, blank=True) 
+
+    def __str__(self):
+        return self.client_name
+
+def pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.q_id:
+        instance.q_id = unique_quotation_id_generator(instance)
+    
+pre_save.connect(pre_save_receiver, sender=quotation)
+
 class quotation_fill_Inclusion(models.Model):
     inclusion = models.TextField(null=False, blank=False)
     
@@ -246,12 +265,20 @@ class quotation_fill_Hotels(models.Model):
     
 class quotation_fill_Meals(models.Model):
     meals = models.TextField(null=False, blank=False)
+
     
 class quotation_fill_Airlines(models.Model):
     airlines = models.TextField(null=False, blank=False)
     
-    
-    
-        
 
+# Iterary table data model 
+class quotation_itinerary(models.Model):
+    q_id = models.IntegerField(null=True, blank=True, editable=True)
+    date = models.DateField(null=True, blank=True)
+    day = models.TextField(max_length=300, null=True, blank=True)
+    Itinerary = models.TextField(null=True, blank=True)
+    Meals = models.TextField(max_length=1000, null=True, blank=True)
+        
+    def __str__(self):
+        return self.q_id
     

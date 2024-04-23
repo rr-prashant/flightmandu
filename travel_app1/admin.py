@@ -19,4 +19,5 @@ admin.site.register(Highlight)
 admin.site.register(Inclusion)
 admin.site.register(Exclusion)
 admin.site.register(Company_Members)
-
+admin.site.register(quotation)
+admin.site.register(quotation_itinerary)

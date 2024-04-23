@@ -58,6 +58,13 @@ urlpatterns = [
     path('delete_fill_hotels/<int:pk>', delete_adminFillHotels, name = "admin_Fill_hotels_delete"),
     path('delete_fill_airlines/<int:pk>', delete_adminFillAirlines, name = "admin_Fill_airlines_delete"),
     path('business_settings/', businessSetting, name ="businessSettings"),
+
+    # quotation
+    path('quotation/add_quoatation/', add_quotation, name="admin_addQuotation"),
+    path('quotation/<int:q_id>',admin_viewQuotation ,name="admin_viewQuotation"),
+    path('sendmail/', send_invoice_email, name="send-quotation-email"),
+    path('quotation/additinerary/<int:q_id>', q_addItinerary, name="q-add-itinerary" ),
+    
 ]
 
 if settings.DEBUG:

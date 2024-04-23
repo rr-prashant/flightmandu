@@ -81,18 +81,20 @@
                   <td>{{forloop.counter}}</td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <img src="{{i.profile.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
+                      {% if i.profile %}
+                        <img src="{{i.profile.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
 
-                        {% if not i.is_superuser %}
-                        <a href="{% url 'admin_viewUser' i.slug %}">
-                            <strong>{{ i.full_name }}</strong>
+                          {% if not i.is_superuser %}
+                          <a href="{% url 'admin_viewUser' i.slug %}">
+                              <strong>{{ i.full_name }}</strong>
 
-                        </a>
-                        {% else %}
-                        <a href="#">
-                            <strong>{{ i.full_name }}</strong>
+                          </a>
+                          {% else %}
+                          <a href="#">
+                              <strong>{{ i.full_name }}</strong>
 
-                        </a>
+                          </a>
+                          {% endif %}
                         {% endif %}
                     </div>
                 </td>
