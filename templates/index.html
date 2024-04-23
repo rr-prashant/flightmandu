@@ -1,5 +1,6 @@
 {% extends 'mainLayout.html' %}
 {% load static %}
+{% block title %}Home{% endblock %}
 
 {% block extra-css %}
 <style>
@@ -577,8 +578,8 @@ ftco-section {
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<div class="autocomplete">
-                                <input type="text" class="form-control" name="cDeparture" required="" id="depart" placeholder="Departure"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Departure'"
+                                <input type="text" class="form-control" name="cDeparture" required="" id="depart" placeholder="Origin"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Origin'"
                                     oninput="fetchAirports(this.value)">
                                 <ul id="autocomplete-results"></ul>
                             </div>
@@ -675,8 +676,8 @@ ftco-section {
 					<div class="form-row">
 						<div class="form-group col-md-6">
 					<div class="autocomplete3">
-						<input type="text" class="form-control" name="cDeparture" required="" id="round_depart" placeholder="Departure"
-							onfocus="this.placeholder = ''" onblur="this.placeholder = 'Departure'"
+						<input type="text" class="form-control" name="cDeparture" required="" id="round_depart" placeholder="Origin"
+							onfocus="this.placeholder = ''" onblur="this.placeholder = 'Origin'"
 							oninput="fetchRoundAirports(this.value)">
 						<ul id="autocomplete-round-results"></ul>
 					</div>
@@ -917,6 +918,21 @@ ftco-section {
             document.getElementById('autocomplete-results').innerHTML = '';
         }
     });
+
+    
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocompleteNation')) {
+            document.getElementById('autocompleteNation-results').innerHTML = '';
+        }
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.autocomplete')) {
+            document.getElementById('autocompleteNationr-results').innerHTML = '';
+        }
+    });
+
 
 	function fetchDestinations(query) {
         fetch(`/search/?search_query=${query}`)

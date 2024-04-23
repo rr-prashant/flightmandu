@@ -1,0 +1,130 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Quotation{% endblock %}
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+        <a class="nav-item nav-link px-0 me-xl-4 btn btn-primary"  style="width: 15%; margin-bottom: 20px; margin-top: 20px; margin-left:20px;" href="javascript:void(0)">
+          <i class="bx bx-menu bx-sm"></i>
+        </a>
+    </div>
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Add Quotation</h4>
+
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Quotation Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <form id="formAccountSettings" method="POST" action="#" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="cName" class="form-label">Client Name *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="cName"
+                                            name="cName"
+                                            placeholder="Client Name"
+                                            autofocus
+                                            required/>
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="cPhone" class="form-label">Client Phone Number *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="cPhone"
+                                            name="cPhone"
+                                            placeholder="Phone Number"
+                                            autofocus
+                                            required/>
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="cEmail" class="form-label">Client Email *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="cEmail"
+                                            name="cEmail"
+                                            placeholder="Client Email"
+                                            autofocus
+                                            required/>
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="perAdult" class="form-label">Price Per Adult</label>
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            id="perAdult"
+                                            name="perAdult"
+                                            placeholder="Price Per Adult"
+                                            autofocus
+                                            />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="perChild" class="form-label">Price Per Child</label>
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            id="perChild"
+                                            name="perChild"
+                                            placeholder="Price Per Child"
+                                            autofocus
+                                            />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="perInfant" class="form-label">Price Per Infant</label>
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            id="perInfant"
+                                            name="perInfant"
+                                            placeholder="Price Per Infant"
+                                            autofocus
+                                            />
+                                    </div>
+                                    
+                                    
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-primary me-2">Save Product</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} <script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script> {% endblock %}

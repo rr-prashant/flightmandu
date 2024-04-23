@@ -1,0 +1,238 @@
+{% extends 'mainLayout.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block extra-css %} 
+<style type="text/css">
+    body {
+        
+        
+        color: #2e323c;
+        background: #f5f6fa;
+        
+        height: 100%;
+    }
+
+    .account-settings .user-profile {
+        text-align: center;
+    }
+
+    .account-settings .user-profile .user-avatar {
+        margin: 0 0 1rem 0;
+    }
+
+    .account-settings .user-profile .user-avatar img {
+        margin-top: 20px;
+        width: 140px;
+        height: 140px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100px;
+        object-fit: cover;
+    }
+
+    .account-settings .user-profile h5.user-name {
+        font-size: 18px;
+        margin: 0 0 0.6rem 0;
+    }
+
+
+    .account-settings .about {
+        margin: 2rem 0 0 0;
+        text-align: center;
+    }
+
+    .account-settings .about h5 {
+        margin: 0 0 15px 0;
+        color: #007ae1;
+    }
+
+    .account-settings .about p {
+        font-size: 0.825rem;
+    }
+
+    .form-control {
+        border: 1px solid #cfd1d8;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        font-size: .825rem;
+        background: #ffffff;
+        color: #2e323c;
+    }
+
+    .card {
+        background: #ffffff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 0;
+        margin-bottom: 0.5rem;
+    }
+
+
+    .green-dot {
+        width: 10px; /* Adjust the size of the dot */
+        height: 10px;
+        background-color: green; /* Set the color of the dot */
+        border-radius: 50%; /* Make it a circle */
+        display: inline-block; /* Display as inline element */
+        margin-right: 2px;
+        margin-top: 10px; 
+    }
+    
+    .green-text {
+        color: green;
+    }
+    
+    .active {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .red-dot {
+        width: 10px; /* Adjust the size of the dot */
+        height: 10px;
+        background-color: red; /* Set the color of the dot */
+        border-radius: 50%; /* Make it a circle */
+        display: inline-block; /* Display as inline element */
+        margin-right: 2px;
+        margin-top: 10px; 
+    }
+    
+    .red-text {
+        color: red;
+    }
+    
+
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    {{ member.full_name }}
+                </h1>
+                <p class="text-white link-nav"><a href="{% url 'home' %}">Home </a> <span
+                        class="lnr lnr-arrow-right"></span> <a href="{% url 'package' %}">{{ member.full_name }}</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+<section style="margin-top: 70px; margin-bottom: 70px;">
+<div class="container">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <img src="{{ member.profile.url }}">
+                            </div>
+                            <h5 class="user-name">{{ member.username }}</h5>
+                            
+                            <div style="margin-top: 20px;">
+                                <img style="height: 120px; width: 120px;" src="{{ member.qr_code.url }}" alt="Maxwell Admin">
+                            </div>
+
+                            {% if not member.is_active %}
+         
+                            <div class="example">
+                                <span class="red-dot"></span>
+                                <span class="red-text active">Inactive</span>
+                            </div>
+
+                            {% else %}
+
+                            <div class="example">
+                                <span class="green-dot"></span>
+                                <span class="green-text active">Active</span>
+                            </div>
+
+                            {% endif %}
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body" >
+                    <div class="row gutters" style="padding-left: 20px; padding-right: 20px; padding-top: 20px;">
+                        <div style="margin-bottom: 20px;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h6 class="mb-2" style="font-size: 19px; font-weight: 500;">Employee Details</h6>          
+                        </div>
+                        
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" class="form-control" value="{{ member.full_name }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="eMail">Position</label>
+                                <input type="text" class="form-control" value="{{ member.position }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="eMail">Email</label>
+                                <input type="email" class="form-control" value="{{ member.email }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="phone">Contact</label>
+                                <input type="text" class="form-control" value="{{ member.contact }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="Street">Address</label>
+                                <input type="text" class="form-control" value="{{ member.address }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="website">Blood Group</label>
+                                <input type="text" class="form-control" value="{{ member.blood_group }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="website">Join Date</label>
+                                <input type="text" class="form-control" value="{{ member.join_date }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="website">Card Expiration</label>
+                                <input type="text" class="form-control" value="{{ member.card_expiration_date }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

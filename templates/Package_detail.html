@@ -1,5 +1,6 @@
 {% extends 'mainLayout.html' %}
 {% load static %}
+{% block title %}{{package.location_name}}{% endblock %}
 
 {% block extra-css %}
 
@@ -113,7 +114,7 @@
 }
 
 .rb-container ul.rb {
-  margin: 2.5em 0;
+  margin: 2em 0;
   padding: 0;
   display: inline-block;
 }
@@ -123,7 +124,7 @@
   margin: auto;
   min-height: 50px;
   border-left: 1px dashed #dadada;
-  padding: 0 0 50px 20px;
+  padding: 0 0 30px 20px;
   position: relative;
 }
 
@@ -151,14 +152,21 @@
 
 ul.rb li .timestamp {
   color: #FBB117;
-  font-weight: bold;
+  font-weight: 500;
   position: relative;
   width: 100%;
-  font-size: 20px;
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
 }
 
 .item-title {
-  color: #000;
+    text-align: justify; 
+    color: #676767; 
+    line-height: 1.82em !important;
+  margin-top: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 
@@ -199,8 +207,8 @@ ul.rb li .timestamp {
                                 <div style="display: flex; align-items: bottom; justify-content: space-between; margin-bottom: 10px;">
                                     <h2 style="text-transform: uppercase;">{{package.location_name}}</h2>
                                     <div style="display: flex; flex-direction: column; align-items: center;">
-                                        <div style="font-weight: 500; background-color: #1AA7EC; color: white; padding: 10px; width: 45px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 8px 8px 0 0;">{{package.package_duration}}</div>
-                                        <div style="font-weight: 500; background-color: #FBB117; color: white; padding: 10px; width: 45px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 0 0 8px 8px;">Days</div>
+                                        <div style="font-weight: 500; background-color: #1AA7EC; color: white; padding: 10px; width: 45px; height: 27px; font-weight: 600; display: flex; align-items: center; justify-content: center; border-radius: 8px 8px 0 0;">{{package.package_duration}}</div>
+                                        <div style="font-weight: 500; background-color: #FBB117; color: white; padding: 10px; width: 45px; height: 27px; font-weight: 600; display: flex; align-items: center; justify-content: center; border-radius: 0 0 8px 8px;">Days</div>
                                         
                                     </div>
                                 </div>
@@ -226,15 +234,15 @@ ul.rb li .timestamp {
                         
                         <!-- Tab panes -->
                         <div class="tab-content mt-3" id="myTabContent">
-                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab" style="margin-top: 25px;">
                                 <!-- Content for Overview tab -->
                                 <p style=" text-align: justify; color: #676767; line-height: 1.82em !important;">{{package.overview}}</p>
 
                                 
                                 
                                 {% if highlight %}
-                                <br>
-                                <div style="margin: 10px; margin-top: -20px;  margin-bottom: -20px;">
+                                
+                                <div style=" margin-top: 35px;  margin-bottom: -20px;">
                                     <h6 class="visa">Highlights</h6>
                             
 									<ul class="unordered-list">
@@ -247,7 +255,7 @@ ul.rb li .timestamp {
 							
                 
                             </div>
-                            <div class="tab-pane fade ml-20 " id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab" style="margin-bottom: -10px;">
+                            <div class="tab-pane fade ml-20 " id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab" style="margin-bottom: -50px;">
                                 <!-- Content for Itinerary tab -->
                                 <div class="itinerary-container">
 
@@ -278,12 +286,12 @@ ul.rb li .timestamp {
                             </div>
                             <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab" style="margin-bottom: -20px;">
                                 {% if inclusion %}
-                                <div style="margin: 10px; margin-top: -20px; margin-top: -10px; ">
+                                <div style="margin-top: 25px; ">
                                     <h6 class="visa">Inclusions</h6>
                             
 									<ul class="un-list">
                                         {% for i in inclusion %}
-										<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.inclusion}}</li>
+										<li style="margin-top: 10px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.inclusion}}</li>
                                         {% endfor %}
 									</ul>
                                 </div>
@@ -295,7 +303,7 @@ ul.rb li .timestamp {
                                     <h6 class="visa">Exclusions</h6>
 									<ul class="on-list">
                                         {% for i in exclusion %}
-										<li style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.exclusion}}</li>
+										<li style="margin-top: 10px; margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">{{i.exclusion}}</li>
                                         {% endfor %}
 									</ul>
                                 </div>
@@ -360,9 +368,66 @@ ul.rb li .timestamp {
 					
 			</div>
         </div>
+
+
+        
     </div>
 </section>
 <!-- End post-content Area -->
+\
+{% if packages %}
+<!-- Start destinations Area -->
+<section class="destinations-area section-gap" style="background-color: #fff;">
+ <div class="container" style = "margin-top: -100px;">
+     <div class="row d-flex justify-content-center">
+         <div class="menu-content pb-40 col-lg-8">
+             <div class="title text-center">
+                 
+         <h2 class="mb-4">Related Packages</h2></div>
+         </div>
+     </div>						
+     <div class="row" style="margin-top: -30px;">
+         {% for i in packages %}
+<div class="col-lg-4">
+ <div class="single-destinations">
+     <div class="thumb" style="height: 200px; overflow: hidden;">
+         <img src="{{i.location_image.url}}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+     </div>
+     <div class="details">
+         <h4 style="text-align: center;">
+             {{i.location_name}}
+         </h4>
+         <ul class="package-list">
+             <li class="d-flex justify-content-between align-items-center">
+                 <span style="font-weight: 500;">Country</span>
+                 <span style="color: #FBB117; font-weight: 500">{{i.country_name}}</span>
+             </li>
+             <li class="d-flex justify-content-between align-items-center">
+                 <span style="font-weight: 500;">Duration</span>
+                 <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
+             </li>
+             <li class="d-flex justify-content-between align-items-center">
+                 <span style="font-weight: 500;">Average People</span>
+                 <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
+             </li>
+         </ul>
+         <p style="text-align: center;"><a href="{% url 'package_detail' i.slug %}" style="margin-top: 10px; background-color: #FBB117; border: none;" class="btn btn-primary">More Details</a></p>
+     </div>
+ </div>
+</div>
+{% endfor %}
+
+         
+         
+         
+                                                                     
+     </div>
+ </div>	
+</section>
+<!-- End destinations Area -->
+
+{% endif %}
+
 
 <!-- Start contact-page Area -->
 <section class="contact-page-area section-gap">

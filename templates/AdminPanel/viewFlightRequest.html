@@ -1,0 +1,285 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Flight Request{% endblock %}
+
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    
+
+    <!-- / Navbar -->
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Flight request</h4>
+            
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+            
+            
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Flight Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            
+                            <form id="formAccountSettings" enctype="multipart/form-data">
+                                
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Client Name</label>
+                                        <div class="col-sm-10">
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="client_name"
+                                            placeholder="Client Name"
+                                            autofocus
+                                            value = "{{i.client_name}}"
+                                            readonly
+                                        /></div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Client Email</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="email"
+                                            placeholder="Client Email"
+                                            value = "{{i.client_email}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Client contact</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="children"
+                                            placeholder="Children"
+                                            value = "{{i.client_phone}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div></div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Origin</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="children"
+                                            placeholder="Children"
+                                            value = "{{i.departure}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Destination</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="destination"
+                                            placeholder="Destination"
+                                            value = "{{i.destination}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Departure date</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="departure_date"
+                                            value = "{{i.departure_date}}"
+                                            placeholder="Departure date"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Round trip</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="round_trip"
+                                            value = "{{i.Round_trip}}"
+                                            placeholder="Round Trip"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Return date</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="return_date"
+                                            placeholder="Return Date"
+                                            value = "{{i.return_date}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Adult</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="adult"
+                                            placeholder="Adult"
+                                            value = "{{i.Adult}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Children</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="children"
+                                            placeholder="Children"
+                                            value = "{{i.Children}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Infant</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="children"
+                                            placeholder="Children"
+                                            value = "{{i.Infant}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Request Date</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="children"
+                                            placeholder="Children"
+                                            value = "{{i.Date}}"
+                                            autofocus
+                                            readonly
+                                        />
+                                        </div>
+                                        
+                                      
+
+                               
+                                   
+                                
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+            
+                
+          </div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+
+{% if error %}
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">QuadTechs</strong>
+            <small>1 min ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{ error }}
+        </div>  
+    </div>
+{% endif %}
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} 
+<script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.getElementById('saveButton');
+        const form = document.getElementById('formAccountSettings');
+
+        if (saveButton && form) {
+            saveButton.addEventListener('click', function () {
+                form.submit();
+            });
+        }
+    });
+</script>
+
+{% endblock %}

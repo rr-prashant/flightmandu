@@ -1,0 +1,263 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Employee{% endblock %}
+
+{% block extra-css %} 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+{% endblock%}
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Register Employee</h4>
+
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">User Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <form id="formAccountSettings" method="POST" action="#" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Username *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="username"
+                                            placeholder="Username"
+                                            autofocus
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Password *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="password"
+                                            placeholder="Password"
+                                            autofocus
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Full name *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="name"
+                                            placeholder="Full Name"
+                                            autofocus
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Email *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="email"
+                                            placeholder="Email"
+                                            autofocus
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Contact *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="contact"
+                                            placeholder="Contact"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Position *</label>
+                                        <div class="col-sm-10">
+                                        <input class="form-control" type="text" name="position" id="price" placeholder="Position" required />
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Blood group *</label>
+                                        <div class="col-sm-10">
+                                        <input class="form-control" type="text" name="blood_group" id="price" placeholder="Blood Group" required />
+                                    </div>
+                                </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Address *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="address"
+                                            placeholder="Address"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Join Date *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                class="form-control datepicker"
+                                                type="text"
+                                                id="joinDate"
+                                                name="join_date"
+                                                placeholder="Select Join Date"
+                                                autofocus
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Card Expiration Date *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control datepicker"
+                                            type="text"
+                                            id="firstName"
+                                            name="card_expire"
+                                            placeholder="Card Expiration Date"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="mb-3 col-md-6" style="margin-top: 35px;">
+                                      <div class="d-flex">
+                                        <div class="form-check mb-3 me-4">
+                                            <input class="form-check-input" type="checkbox" name="is_admin" id="featuredCheckbox" />
+                                            <label class="form-check-label" for="featuredCheckbox">Admin</label>
+                                        </div>
+                                        <div class="form-check mb-3 me-4">
+                                            <input class="form-check-input" type="checkbox" name="is_member" id="saleCheckbox" />
+                                            <label class="form-check-label" for="saleCheckbox">Employee</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" name="is_active" id="bestSellingCheckbox" />
+                                            <label class="form-check-label" for="bestSellingCheckbox">Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                      
+
+                                      
+
+
+                                      
+
+                                      <div class="col-6 col-md-4 col-lg-4">
+                                        <img
+                                            src="{% static 'img/catagory_icon.png' %}"
+                                            alt="user-avatar"
+                                            class="d-block rounded"
+                                            height="120"
+                                            width="140"
+                                            id="uploadedAvatar1"
+                                            style="object-fit: cover; margin-top: 10px;"
+                                        />
+                                       
+                                        <div class="button-wrapper" style="margin-top: 10px;">
+                                            <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <span class="d-none d-sm-block">User profile *</span>
+                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                <input
+                                                    type="file"
+                                                    id="upload1"
+                                                    name="user_image"
+                                                    class="account-file-input"
+                                                    hidden
+                                                    accept="image/png, image/jpeg"
+                                                    required
+                                                />
+                                            </label>
+                                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" id="resetButton1">
+                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Reset</span>
+                                            </button>
+                                        </div>
+                                    </div>  
+                                    
+
+                                    
+                                            
+                                
+
+                                    
+                                    
+                                
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-primary me-2">Register user</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %}
+<!-- jQuery (required for Bootstrap Datepicker) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script> 
+<script>
+    $(document).ready(function() {
+        // Initialize the datepicker
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd', // Set the date format as needed
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+</script>
+{% endblock %}

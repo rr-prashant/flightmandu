@@ -1,0 +1,276 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Fill data{% endblock %}
+
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    
+
+    <!-- / Navbar -->
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Fill data</h4>
+            
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+            
+            
+
+            
+        </div>
+
+        <div class="container-xxl flex-grow-1 container-p-y" style = "margin-top: -50px;">
+        
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+              <h5 class="card-header">Itinerary</h5>
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Itinerary</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    
+                    {% for i in itinerary %}
+                    <tr>
+                        <td><a href = "#">{{forloop.counter}}</a></td>
+                        <td>
+                        <div class="d-flex align-items-center">
+                            <a href = "{% url 'admin_view_fill_itinerary' i.id %}">
+                                <strong>{{i.itinerary|truncatewords:13}}</strong>
+                            </a>
+                        </div>
+                    </td>
+                      <td style="padding-left:35px;">
+                        <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_itinerary_delete' i.id %}">
+                          <i class="bx bx-trash" style="color:red;"></i>
+                      </a></td>
+                    </tr>
+                    {% endfor %} 
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->
+           
+            
+        </br>
+
+        <!-- Basic Bootstrap Table -->
+        <div class="card">
+            <h5 class="card-header">Meals</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <thead>
+                  
+                  <tr>
+                    <th>#</th>
+                    <th>Meals</th>
+                    <th>Actions</th>
+                    
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% for i in meals %}
+                  <tr>
+                    <td><a href = "{% url 'admin_view_fill_meals' i.id %}">{{forloop.counter}}</a></td>
+                    
+                    <td><a href = "{% url 'admin_view_fill_meals' i.id %}">{{i.meals|truncatewords:13}}</a></td>
+                    
+                    <td style="padding-left:35px;">
+                        <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_meals_delete' i.id %}">
+                          <i class="bx bx-trash" style="color:red;"></i>
+                      </a>  
+                    </td>
+                    
+                  </tr>
+                  {% endfor %} 
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+      <br>
+
+
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Inclusion</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      
+                      <tr>
+                        <th>#</th>
+                        <th>Inclusion</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {% for i in inclusion %}
+                      <tr>
+                        <td><a href = "{% url 'admin_view_fill_inclusion' i.id %}">{{forloop.counter}}</a></td>
+                        
+                        <td><a href = "{% url 'admin_view_fill_inclusion' i.id %}">{{i.inclusion|truncatewords:13}}</a></td>
+                        
+                        <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_inclusion_delete' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a>  
+                        </td>
+                        
+                      </tr>
+                      {% endfor %} 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            
+
+
+              </br>
+      
+      
+                  
+                <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Hotels</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      
+                      <tr>
+                        <th>#</th>
+                        <th>Hotels</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {% for i in hotels %}
+                      <tr>
+                        <td><a href = "{% url 'admin_view_fill_hotels' i.id %}">{{forloop.counter}}</a></td>
+                        
+                        <td><a href = "{% url 'admin_view_fill_hotels' i.id %}">{{i.hotels|truncatewords:13}}</a></td>
+                        
+                        <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_hotels_delete' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a>  
+                        </td>
+                        
+                      </tr>
+                      {% endfor %} 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            
+
+
+              </br>
+      
+              <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Airlines</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      
+                      <tr>
+                        <th>#</th>
+                        <th>Airlines</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {% for i in airlines %}
+                      <tr>
+                        <td><a href = "{% url 'admin_view_fill_airlines' i.id %}">{{forloop.counter}}</a></td>
+                        
+                        <td><a href = "{% url 'admin_view_fill_airlines' i.id %}">{{i.airlines|truncatewords:13}}</a></td>
+                        
+                        <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_airlines_delete' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a>  
+                        </td>
+                        
+                      </tr>
+                      {% endfor %} 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            
+
+
+              </br>
+      
+            
+              <!--/ Basic Bootstrap Table -->
+              <div class="mt-2">
+                <br>
+                <a href = "{% url 'admin_add_fill_itinerary' %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
+                <a href = "{% url 'admin_add_fill_meals' %}" style="color:white;" class="btn btn-primary me-2">Add Meals</a>
+                <a href = "{% url 'admin_add_fill_inclusion' %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                <a href = "{% url 'admin_add_fill_hotels' %}" style="color:white;" class="btn btn-primary me-2">Add Hotel</a>
+                <a href = "{% url 'admin_add_fill_airlines' %}" style="color:white;" class="btn btn-primary me-2">Add Airline</a>
+            </div>          
+          </div>
+    
+
+{% if error %}
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">QuadTechs</strong>
+            <small>1 min ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{ error }}
+        </div>  
+    </div>
+{% endif %}
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} 
+<script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.getElementById('saveButton');
+        const form = document.getElementById('formAccountSettings');
+
+        if (saveButton && form) {
+            saveButton.addEventListener('click', function () {
+                form.submit();
+            });
+        }
+    });
+</script>
+
+{% endblock %}

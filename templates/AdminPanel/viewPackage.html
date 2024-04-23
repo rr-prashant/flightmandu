@@ -1,0 +1,457 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Package{% endblock %}
+
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    
+
+    <!-- / Navbar -->
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Package</h4>
+            
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+            
+            
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Package Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            
+                            <form id="formAccountSettings" method="POST" action="{% url 'admin_viewPackage' package.slug %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Location *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="location"
+                                            placeholder="Package Name"
+                                            autofocus
+                                            value = "{{package.location_name}}"
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Country name *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="country"
+                                            placeholder="Country name"
+                                            value = "{{package.country_name}}"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6" hidden>
+                                        <label for="lastName" class="form-label">Slug *</label>
+                                        <input class="form-control" type="text" name="slug" id="lastName" placeholder="slug" />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Package duration *</label>
+                                        <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="duration" id="price" value = "{{package.package_duration}}" placeholder="Package duration" required />
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Average person *</label>
+                                        <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="average_person" value = "{{package.total_person}}" id="price" placeholder="Package duration" required />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Accomodation *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="accomodation"
+                                            placeholder="Accomodation"
+                                            value = "{{package.accomodation}}"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Hotel transfer *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="hotel_transfer"
+                                            value = "{{package.hotel_transfer}}"
+                                            placeholder="hotel transfer"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">VISA *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="visa"
+                                            value = "{{package.visa}}"
+                                            placeholder="VISA"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Meals *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="meals"
+                                            placeholder="meals"
+                                            value = "{{package.meals}}"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Airfare *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="airfare"
+                                            placeholder="Airfare"
+                                            value = "{{package.airfare}}"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Insurance Coverage *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="insurance"
+                                            placeholder="Insurance Coverage"
+                                            value = "{{package.insurance_coverage}}"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Overview *</label>
+                                        <div class="col-sm-10">
+                                            <textarea
+                                            id="basic-default-message"
+                                            name = "overview"
+                                            class="form-control"
+                                            placeholder="Overview"
+                                            aria-label="Product Description"
+                                    
+                                            aria-describedby="basic-icon-default-message2"
+                                            required
+                                          >{{package.overview}}</textarea>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-6 col-md-4 col-lg-4">
+                                        <img
+                                            src="{{package.location_image.url}}"
+                                            alt="user-avatar"
+                                            class="d-block rounded"
+                                            height="120"
+                                            width="150"
+
+                                            id="uploadedAvatar1"
+                                            style="object-fit: cover; margin-top: 10px;"
+                                        />
+                                       
+                                        <div class="button-wrapper" style="margin-top: 10px;">
+                                            <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <span class="d-none d-sm-block">Location Image *</span>
+                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                <input
+                                                    type="file"
+                                                    id="upload1"
+                                                    name="location_image"
+                                                    class="account-file-input"
+                                                    hidden
+                                                    accept="image/png, image/jpeg"
+                                                    required
+                                                />
+                                            </label>
+                                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" id="resetButton1">
+                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Reset</span>
+                                            </button>
+                                        </div>
+                                    </div>  
+                        
+                                    <div class="mt-2">
+                                        <button type="submit" id="saveButton" class="btn btn-primary me-2">Save changes</button>
+                                    </div>
+                                
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            
+            {% if highlight %}
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+              <h5 class="card-header">Highlight</h5>
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Highlight</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    
+                    {% for i in highlight %}
+                    <tr>
+                        <td><a href = "{% url 'admin_viewHighlight' package.id %}">{{forloop.counter}}</a></td>
+                        <td>
+                        <div class="d-flex align-items-center">
+                            <a href = "{% url 'admin_viewHighlight' package.id %}">
+                                <strong>{{i.highlight|truncatewords:13}}</strong>
+                            </a>
+                        </div>
+                    </td>
+                      <td style="padding-left:35px;">
+                        <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackagehighlight' i.id %}">
+                          <i class="bx bx-trash" style="color:red;"></i>
+                      </a></td>
+                    </tr>
+                    {% endfor %} 
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->
+            {% endif %}
+
+            
+        {% if inclusion or exclusion or itinerary %}</br>{% endif %}
+
+        {% if itinerary %}
+
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Itinerary</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      
+                      <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {% for i in itinerary %}
+                      <tr>
+                        <td><a href = "{% url 'admin_viewItinerary' package.id %}">{{forloop.counter}}</a></td>
+                        
+                        <td><a href = "{% url 'admin_viewItinerary' package.id %}">{{i.title}}</a></td>
+                        <td>{{i.description|truncatewords:8}}</td>
+                    
+                        <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackageitinerary' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a>  
+                        </td>
+                        
+                      </tr>
+                      {% endfor %} 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {% endif %}
+
+
+        {% if inclusion or exclusion or itinerary %}</br>{% endif %}
+
+        {% if inclusion %}
+
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Inclusion</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      
+                      <tr>
+                        <th>#</th>
+                        <th>Inclusion</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        {% for i in inclusion %}
+                      <tr>
+                        <td><a href = "{% url 'admin_viewInclusion' package.id %}">{{forloop.counter}}</a></td>
+                        
+                        <td><a href = "{% url 'admin_viewInclusion' package.id %}">{{i.inclusion|truncatewords:13}}</a></td>
+                        
+                        <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackageinclusion' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a>  
+                        </td>
+                        
+                      </tr>
+                      {% endfor %} 
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {% endif %}
+
+
+              {% if inclusion or exclusion or itinerary %}</br>{% endif %}
+
+              {% if exclusion %}
+      
+      
+                  <!-- Basic Bootstrap Table -->
+                  <div class="card">
+                      <h5 class="card-header">Exclusion</h5>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table">
+                          <thead>
+                            
+                            <tr>
+                              <th>#</th>
+                              <th>Exclusion</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody class="table-border-bottom-0">
+                              {% for i in exclusion %}
+                            <tr>
+                              <td><a href = "{% url 'admin_viewExclusion' package.id %}">{{forloop.counter}}</a></td>
+                              
+                              <td><a href = "{% url 'admin_viewExclusion' package.id %}">{{i.exclusion|truncatewords:13}}</a></td>
+                              
+                              <td style="padding-left:35px;">
+                                  <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackageexclusion' i.id %}">
+                                    <i class="bx bx-trash" style="color:red;"></i>
+                                </a>  
+                              </td>
+                              
+                            </tr>
+                            {% endfor %} 
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+      
+                    {% endif %}
+
+
+            
+              <!--/ Basic Bootstrap Table -->
+              <div class="mt-2">
+                {% if inclusion or exclusion or itinerary %}<br>{% endif %}
+                <a href = "{% url 'admin_addhighlight' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Highlight</a>
+                <a href = "{% url 'admin_addItenerary' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
+                <a href = "{% url 'admin_addInclusion' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                <a href = "{% url 'admin_addExclusion' package.id %}" style="color:white;" class="btn btn-primary me-2">Add Exclusion</a>
+            </div>          
+          </div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+
+{% if error %}
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">QuadTechs</strong>
+            <small>1 min ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{ error }}
+        </div>  
+    </div>
+{% endif %}
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} 
+<script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.getElementById('saveButton');
+        const form = document.getElementById('formAccountSettings');
+
+        if (saveButton && form) {
+            saveButton.addEventListener('click', function () {
+                form.submit();
+            });
+        }
+    });
+</script>
+
+{% endblock %}

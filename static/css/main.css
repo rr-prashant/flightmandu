@@ -2245,6 +2245,7 @@ h1, h2, h3, h4, h5, h6 {
   float: right;
   z-index: 999;
   margin-top: 10px;
+  align-items: center;
   border: 0;
   background: none;
   font-size: 24px;
@@ -2266,6 +2267,8 @@ h1, h2, h3, h4, h5, h6 {
   #nav-menu-container {
     display: none;
   }
+  
+  
 }
 
 /* Mobile Nav Styling */
@@ -3546,7 +3549,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap {
-  margin-top: 69px;
+  margin-top: 70px;
   background: #fafaff;
   border: 1px solid #eee;
   box-shadow: 0px 10px 30px 0px rgba(60, 64, 143, 0.08);

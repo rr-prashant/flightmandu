@@ -16,7 +16,12 @@ urlpatterns = [
     path('visa_service/', views.visaService, name="visa"),
     path('package/', views.packages, name = "package"),
     path('package/<slug:slug>', views.package_detail, name="package_detail"),
- 
+    path('employee/<slug:slug>', views.staff, name="staff_detail"),
+
+    # quotation
+    path('quotation/', views.main_quotation, name="admin_quotation"),
+    path('search_meal/', views.search_meal, name='search_meal'),
+    path('search_it/', views.search_it, name='search_it'),
 ]
 
 if settings.DEBUG:

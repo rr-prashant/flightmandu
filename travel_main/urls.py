@@ -4,8 +4,9 @@ from django.urls import include, path
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('superadmin/', admin.site.urls),
     path('', include('travel_app1.urls')),
+    path('admin/', include('travel_app1.Admin_urls')),
 ]
 
 if settings.DEBUG:

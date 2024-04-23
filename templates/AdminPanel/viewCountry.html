@@ -1,0 +1,93 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Category{% endblock %}
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    
+
+    <!-- / Navbar -->
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">VISA SERVICE</h4>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Country Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <form id="formAccountSettings" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Country name</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="title"
+                                            name="name"
+                                            value = "{{ctg.country_name}}"
+                                            autofocus
+                                            
+                                        />
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                            <img
+                                                src= {{ctg.country_flag.url}}
+                                                alt="user-avatar"
+                                                class="d-block rounded"
+                                                height="90"
+                                                width="110"
+                                                id="uploadedAvatar"
+                                            
+                                            />
+                                            <div class="button-wrapper">
+                                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                    <span class="d-none d-sm-block">Upload new photo</span>
+                                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                                    <input
+                                                        type="file"
+                                                        id="upload"
+                                                        name="upload"
+                                                        class="account-file-input"
+                                                        value = {{ctg.country_flag.url}}
+                                                        hidden
+                                                        accept="image/png, image/jpeg"
+                                                        required
+                                                    />
+                                                </label>
+                                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                                    <i class="bx bx-reset d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Reset</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} <script src="{% static 'AdminPanel/assets/js/phone1.js' %}"></script> {% endblock %}

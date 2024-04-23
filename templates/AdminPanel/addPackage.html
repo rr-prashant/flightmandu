@@ -1,0 +1,246 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Product{% endblock %}
+
+{% block content %}
+
+<!-- Layout container -->
+<div class="layout-page">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+        <a class="nav-item nav-link px-0 me-xl-4 btn btn-primary"  style="width: 15%; margin-bottom: 20px; margin-top: 20px; margin-left:20px;" href="javascript:void(0)">
+          <i class="bx bx-menu bx-sm"></i>
+        </a>
+    </div>
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Add Package</h4>
+
+            {% if error %}
+            <div class="error-message" style="color:red;">
+                {{ error }}    
+            </div>
+            </br>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Package Details</h5>
+                        <!-- Account -->
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <form id="formAccountSettings" method="POST" action="#" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">Location *</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="location"
+                                            placeholder="Package Name"
+                                            autofocus
+                                            required
+                                        />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Country name *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="country"
+                                            placeholder="Country name"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6" hidden>
+                                        <label for="lastName" class="form-label">Slug *</label>
+                                        <input class="form-control" type="text" name="slug" id="lastName" placeholder="slug" />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Package duration *</label>
+                                        <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="duration" id="price" placeholder="Package duration" required />
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Average person *</label>
+                                        <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="average_person" id="price" placeholder="Package duration" required />
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Accomodation *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="accomodation"
+                                            placeholder="Accomodation"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Hotel transfer *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="hotel_transfer"
+                                            placeholder="hotel transfer"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">VISA *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="visa"
+                                            placeholder="VISA"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Meals *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="meals"
+                                            placeholder="meals"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Airfare *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="airfare"
+                                            placeholder="Airfare"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Insurance Coverage *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="insurance"
+                                            placeholder="Insurance Coverage"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Overview *</label>
+                                        <div class="col-sm-10">
+                                            <textarea
+                                            id="basic-default-message"
+                                            name = "overview"
+                                            class="form-control"
+                                            placeholder="Overview"
+                                            aria-label="Product Description"
+                                            aria-describedby="basic-icon-default-message2"
+                                            required
+                                          ></textarea>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-6 col-md-4 col-lg-4">
+                                        <img
+                                            src="{% static 'img/catagory_icon.png' %}"
+                                            alt="user-avatar"
+                                            class="d-block rounded"
+                                            height="120"
+                                            width="140"
+                                            id="uploadedAvatar1"
+                                            style="object-fit: cover; margin-top: 10px;"
+                                        />
+                                       
+                                        <div class="button-wrapper" style="margin-top: 10px;">
+                                            <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                <span class="d-none d-sm-block">Location Image *</span>
+                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                <input
+                                                    type="file"
+                                                    id="upload1"
+                                                    name="location_image"
+                                                    class="account-file-input"
+                                                    hidden
+                                                    accept="image/png, image/jpeg"
+                                                    required
+                                                />
+                                            </label>
+                                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" id="resetButton1">
+                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Reset</span>
+                                            </button>
+                                        </div>
+                                    </div>  
+                                    
+
+                                    
+                                            
+                                
+
+                                    
+                                    
+                                
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-primary me-2">Save Product</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <!-- /Account -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+{% endblock %}
+
+{% block js %} <script src="{% static 'AdminPanel/assets/js/pages-account-settings-account.js' %}"></script> {% endblock %}
