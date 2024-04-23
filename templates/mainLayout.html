@@ -17,7 +17,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>{{ info.Business_Name }}</title>
+	<title>Flightmandu: {% block title %} {% endblock %}</title>
 	
 	<link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
 
@@ -262,7 +262,7 @@
 		
 		@media (max-width: 767.98px) {
 		    #nav-menu-container{
-		        margin-top: 35px;
+		        margin-top: -200px;
 		    }
 
 			.contact-button {
@@ -270,6 +270,7 @@
 				margin: 20px;
 			}
 		}
+		
 		#logo a img{
 			height: 50px;
 			width: 50px;
@@ -292,8 +293,6 @@
 		    margin:15px;
 		}
 		
-		
-		
 	</style>
 	{% block extra-css %} {% endblock %}
 </head>
@@ -303,10 +302,10 @@
 
 		<div class="container main-menu" style="background-color: transparent;">
 			<div class="row align-items-center justify-content-between d-flex">
-				<div class="logo" id="logo" style="display: flex; ">
+				<div class="logo" id="logo" style="display: flex;">
 					<a href="{% url 'home' %}"><img src="{{ info.Business_Logo.url }}" alt=""
 							title="" /></a>
-					<a href="{% url 'home' %}"><h6 class="text-white" style= "margin:15px;">{{ info.Business_Name }}</h6></a>
+					<a href="{% url 'home' %}"><h6 class="text-white logo-title">{{ info.Business_Name }}</h6></a>
 				</div>
 				
 				<nav id="nav-menu-container">
@@ -383,7 +382,7 @@
 			</div>
 
 			<div class="row footer-bottom d-flex justify-content-between align-items-center">
-				<p class="col-lg-8 col-sm-12 footer-text m-0">
+				<p class="col-lg-8 col-sm-12 footer-text m-0" style="color: #777777;">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					Copyright &copy;
 					<script>document.write(new Date().getFullYear());</script> All rights reserved by {{ info.Business_Name }} |

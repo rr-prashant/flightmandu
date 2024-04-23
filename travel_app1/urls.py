@@ -16,7 +16,7 @@ urlpatterns = [
     path('visa_service/', views.visaService, name="visa"),
     path('package/', views.packages, name = "package"),
     path('package/<slug:slug>', views.package_detail, name="package_detail"),
- 
+    path('employee/<slug:slug>', views.staff, name="staff_detail"),
 ]
 
 if settings.DEBUG:

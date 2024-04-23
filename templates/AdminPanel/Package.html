@@ -1,0 +1,116 @@
+{% extends 'AdminPanel/mainLayout.html' %}
+{% load static %}
+{% block title %}Package{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+    .dashboard-container {
+        margin-left: 19%;
+        margin-top: 20px;
+        padding: 20px;
+    }
+    
+    
+    @media (max-width: 768px) {
+        .dashboard-container {
+            margin-left: 0;
+            
+        }
+    }
+    
+    
+</style>
+
+<script>
+  function openNewPage(){
+      window.location.href="{% url "admin_addPackage" %}";
+  }
+</script>
+
+<!-- Layout container -->
+<div class="layout-page">
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+        <a class="nav-item nav-link px-0 me-xl-4 btn btn-primary"  style="width: 15%; margin-bottom: 20px; margin-top: 20px; margin-left:20px;" href="javascript:void(0)">
+          <i class="bx bx-menu bx-sm"></i>
+        </a>
+    </div>
+    <!-- Navbar -->
+
+    <nav
+      class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+      id="layout-navbar"
+    >
+    <form class="d-flex" method="GET" action="#">
+      <input class="form-control me-2" type="search" placeholder="Search Package" aria-label="Search" name="search">
+      <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+    </nav>
+
+    <!-- / Navbar -->
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-1 mb-3">Packages</h4>
+
+        <button type="button" class="btn btn-primary" style="margin-bottom:20px;" onclick= "openNewPage()">Add Package</button>
+
+        <!-- Basic Bootstrap Table -->
+        <div class="card">
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+                <tr>
+                <th>#</th>
+                  <th>Location</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                {% for i in package %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'admin_viewPackage' i.slug %}">
+                            <img src="{{i.location_image.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
+                            <strong>{{i.location_name}}</strong>
+                        </a>
+                    </div>
+                </td>
+                
+                  <td>{{i.country_name}}</td>
+                  <td style="padding-left:35px;">
+                    <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url "admin_deletepackage" i.id %}">
+                      <i class="bx bx-trash" style="color:red;"></i>
+                  </a>
+                    
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--/ Basic Bootstrap Table -->
+
+        
+
+        
+      </div>
+      <!-- / Content -->
+
+      
+
+      <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+  </div>
+
+{% endblock %}    

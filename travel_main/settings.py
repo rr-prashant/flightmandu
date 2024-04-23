@@ -15,12 +15,16 @@ SECRET_KEY = 'django-insecure-1ygktwm9gs+upze_45u1@$lp14vgb@706twma6#=w4leg=ttk#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chirayu.quadtechsnp.com', '*']
+ALLOWED_HOSTS = ['flightmandu.com.np', '*']
+
+
+AUTH_USER_MODEL = 'travel_app1.Company_Members'
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

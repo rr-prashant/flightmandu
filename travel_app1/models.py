@@ -1,7 +1,81 @@
+from io import BytesIO
 from django.db import models
 from django.db.models.signals import pre_save
 from travel_app1.package_slug import unique_slug_generator
+from travel_app1.member_slug import unique_member_slug_generator
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.urls import reverse
+import qrcode
+from django.core.files.base import ContentFile
+from django.contrib.auth.models import AbstractUser, Group, Permission, BaseUserManager
+from django.utils.translation import gettext_lazy as _
 
+              
+class Company_Members(AbstractUser):
+    full_name = models.CharField(max_length=300, blank=False, null = False)
+    contact = models.CharField(max_length=300, blank=False, null = False)
+    position = models.CharField(max_length=300, blank=False, null = False)
+    blood_group = models.CharField(max_length=300, blank=False, null = False)
+    address = models.CharField(max_length=300, blank=False, null = False)
+    join_date = models.DateField(blank=True, null=True)
+    profile = models.ImageField(upload_to='profile', blank=True)
+    card_expiration_date = models.DateField(blank=True, null=True)
+    slug = models.SlugField(unique=True, null=True, blank=True, editable=True)
+    qr_code = models.ImageField(upload_to='qr_codes', blank=True)
+    is_admin = models.BooleanField(default=False)
+    is_member = models.BooleanField(default=False)
+    
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_('groups'),
+        blank=True,
+        help_text=_(
+            'The groups this user belongs to. A user will get all permissions '
+            'granted to each of their groups.'
+        ),
+        related_name='custom_users',  # Add a related_name here
+        related_query_name='custom_user',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_('user permissions'),
+        blank=True,
+        help_text=_('Specific permissions for this user.'),
+        related_name='custom_users',  # Add a related_name here
+        related_query_name='custom_user',
+    )
+    
+    def __str__(self):
+        return self.username
+    
+@receiver(pre_save, sender=Company_Members)
+def pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_member_slug_generator(instance)
+        
+    if not instance.qr_code:
+        qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+        )
+        
+        member_url = reverse('staff_detail', kwargs={'slug': instance.slug}) 
+        website_url = 'https://flightmandu.com.np' 
+        qr.add_data(website_url + member_url)
+        qr.make(fit=True)
+
+        qr_image = qr.make_image(fill_color="black", back_color="white")
+    
+        buffer = BytesIO()
+        qr_image.save(buffer, format='PNG')
+        image_data = buffer.getvalue()
+
+        instance.qr_code.save(f'{instance.slug}_qr_code.png', ContentFile(image_data), save=False)
+
+    
 class BusinessInfo(models.Model):
     Business_Name = models.CharField(max_length=100, null=False, blank=False)
     Business_bio = models.TextField(null=True, blank=True)
@@ -28,9 +102,9 @@ class Flight_request(models.Model):
     departure_date = models.CharField(max_length=100, null=False, blank=False)
     Round_trip = models.BooleanField(default=False)
     return_date = models.CharField(max_length=100, default='N/A', null=True, blank=True)
-    Adult = models.CharField(max_length=100, null=True, blank=True) 
-    Children = models.CharField(max_length=100, null=True, blank=True) 
-    Infant = models.CharField(max_length=100, null=True, blank=True)
+    Adult = models.CharField(max_length=100, default='0', null=True, blank=True) 
+    Children = models.CharField(max_length=100, default='0',  null=True, blank=True) 
+    Infant = models.CharField(max_length=100, default='0', null=True, blank=True)
     Date = models.DateField(auto_now_add=True, blank=True) 
     
     def __str__(self):
@@ -46,6 +120,7 @@ class new_contact(models.Model):
     client_contact = models.CharField(max_length=100, null=False, blank=False)
     client_subject = models.CharField(max_length=100, null=True, blank=True)  
     client_message = models.TextField(null=True, blank=True) 
+    Date = models.DateField(auto_now_add=True, blank=True) 
 
     def __str__(self):
         return self.client_name
@@ -74,10 +149,9 @@ class Visa_Service_Countries(models.Model):
         return self.country_name
     
 class Package(models.Model):
-    country_name = models.CharField(max_length=200, blank=True, null = True)
-    location_name = models.CharField(max_length=200, blank=True, null = True)
-    location_image = models.ImageField(upload_to='packages_image', blank=True, null=True)
-    location_desc = models.CharField(max_length=200, blank=True, null = True)
+    country_name = models.CharField(max_length=200, blank=False, null = True)
+    location_name = models.CharField(max_length=200, blank=False, null = True)
+    location_image = models.ImageField(upload_to='packages_image', blank=False, null=True)
     package_duration = models.IntegerField(blank=True, null=True)
     total_person = models.IntegerField(blank=True, null=True)
     accomodation = models.CharField(max_length=200, blank=True, null = True)
@@ -97,6 +171,7 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
     
 pre_save.connect(pre_save_receiver, sender=Package)
+
 
 
 class deals_event(models.Model):
@@ -158,6 +233,25 @@ class Exclusion(models.Model):
     class Meta:
         verbose_name = "Package Exclusions"  
         verbose_name_plural = "Package Exclusions"
+        
+        
+class quotation_fill_Inclusion(models.Model):
+    inclusion = models.TextField(null=False, blank=False)
+    
+class quotation_fill_Itinerary(models.Model):
+    itinerary = models.TextField(null=False, blank=False)
+    
+class quotation_fill_Hotels(models.Model):
+    hotels = models.TextField(null=False, blank=False)
+    
+class quotation_fill_Meals(models.Model):
+    meals = models.TextField(null=False, blank=False)
+    
+class quotation_fill_Airlines(models.Model):
+    airlines = models.TextField(null=False, blank=False)
     
     
+    
+        
+
     
