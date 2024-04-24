@@ -29,6 +29,29 @@
         background-color: #f0f0f0;
     }
 
+    #Itinerary-results {
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #Itinerary-results li {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    #Itinerary-results li:hover {
+        background-color: #f0f0f0;
+    }
 
 
     .meal-info {
@@ -80,10 +103,10 @@
                             <form id="ity-form" method="POST" action="{% url 'q-add-itinerary' id %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="row">
-                                    <div class="mb-3 col-md-12">
+                                    <div class="mb-3 col-md-10">
                                         <div class="row">
                                         
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-5">
                                                 <label for="it-date" class="form-label">Date *</label>
                                                 <input
                                                     class="form-control"
@@ -92,9 +115,11 @@
                                                     name="it-date"
                                                     placeholder="Date"
                                                     autofocus
-                                                    required/>
+                                                    required
+                                                    value="{% if new_date %}{{ new_date|date:'Y-m-d' }}{% else %} '' {% endif %}"
+                                                    />
                                             </div>
-                                            <div class="mb-3 col-md-6">
+                                            <div class="mb-3 col-md-5">
                                                 <label for="it-day" class="form-label">Day *</label>
                                                 <input
                                                     class="form-control"
@@ -108,15 +133,15 @@
                                             
                                         
 
-                                            <div class="mb-3 col-md-6 ity_complete">
+                                            <div class="mb-3 col-md-5 ity_complete">
                                                 <label for="itys" class="form-label">Itinerary *</label>
                                                 <input type="text" class="form-control" name="itys" required="" id="itys" placeholder="Itinerary"
 									            oninput="fetchItinerary(this.value)">
-								                <ul id="Itinerary-results" style="z-index: 1000;"></ul>
+								                <ul id="Itinerary-results" style="z-index: 1000;" class="col-md-5"></ul>
                                             </div>
 
 
-                                            <div class="mb-3 col-md-6 meal_complete">
+                                            <div class="mb-3 col-md-5 meal_complete">
                                                 <label for="it-meal" class="form-label">Meals *</label>
                                                 <input type="text" class="form-control" name="it-meal" required="" id="it-meal" placeholder="Meals"
 									            oninput="fetchMeals(this.value)">

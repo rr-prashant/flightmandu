@@ -258,10 +258,10 @@
                     
                     {% for i in highlight %}
                     <tr>
-                        <td><a href = "{% url 'admin_viewHighlight' package.id %}">{{forloop.counter}}</a></td>
+                        <td><a href = "{% url 'admin_viewHighlight' i.id %}">{{forloop.counter}}</a></td>
                         <td>
                         <div class="d-flex align-items-center">
-                            <a href = "{% url 'admin_viewHighlight' package.id %}">
+                            <a href = "{% url 'admin_viewHighlight' i.id %}">
                                 <strong>{{i.highlight|truncatewords:13}}</strong>
                             </a>
                         </div>
