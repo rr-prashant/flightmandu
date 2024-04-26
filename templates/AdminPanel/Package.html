@@ -42,10 +42,12 @@
       class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar"
     >
-    <form class="d-flex" method="GET" action="#">
-      <input class="form-control me-2" type="search" placeholder="Search Package" aria-label="Search" name="search">
+    <form class="d-flex" method="POST" action="{% url 'search_packages'  %}">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search Package" aria-label="Search" name="pack-query">
+    
       <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+    </form>
     </nav>
 
     <!-- / Navbar -->
@@ -71,28 +73,57 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                {% for i in package %}
-                <tr>
-                  <td>{{forloop.counter}}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                        <a href="{% url 'admin_viewPackage' i.slug %}">
-                            <img src="{{i.location_image.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
-                            <strong>{{i.location_name}}</strong>
-                        </a>
-                    </div>
-                </td>
-                
-                  <td>{{i.country_name}}</td>
-                  <td style="padding-left:35px;">
-                    <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url "admin_deletepackage" i.id %}">
-                      <i class="bx bx-trash" style="color:red;"></i>
-                  </a>
-                    
+                {% if pack %}
+                  {% for i in pack %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewPackage' i.slug %}">
+                              <img src="{{i.location_image.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
+                              <strong>{{i.location_name}}</strong>
+                          </a>
+                      </div>
                   </td>
                   
-                </tr>
-                {% endfor %}
+                    <td>{{i.country_name}}</td>
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url "admin_deletepackage" i.id %}">
+                        <i class="bx bx-trash" style="color:red;"></i>
+                    </a>
+                      
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                {% elif package %}
+                  {% for i in package %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewPackage' i.slug %}">
+                              <img src="{{i.location_image.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
+                              <strong>{{i.location_name}}</strong>
+                          </a>
+                      </div>
+                  </td>
+                  
+                    <td>{{i.country_name}}</td>
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url "admin_deletepackage" i.id %}">
+                        <i class="bx bx-trash" style="color:red;"></i>
+                    </a>
+                      
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="5">No results found.</td>
+              </tr>
+                {% endif %}
                 
               </tbody>
             </table>

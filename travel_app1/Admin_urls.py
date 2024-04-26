@@ -69,8 +69,13 @@ urlpatterns = [
     path('quotation/addhotels/<int:q_id>', q_addHotels, name="q-add-hotels" ),
 
 
-    #quotation searchbar
+    #searchbar
     path('quotation/search_invoice/', search_q , name="search_invoice"),
+    path('flight_request/search_request/', search_flight_request, name="search_flight_request"),
+    path('visa-service/search-country/', search_visa_country,name='search_country'),
+    path('Inquiry/search-inquiry/', search_inquiry,name='search_inquiry'),
+    path('package/search-packages/', search_packages, name="search_packages"),
+    path('employee/search-members/', search_members, name="search_members"),
 
     #edit quotation
     #----itinerary
@@ -85,16 +90,12 @@ urlpatterns = [
     path('quotation/viewHotels/<int:hotel_id>/', admin_viewQuotationHotels, name='admin_viewQuotationHotels'),
     path('quotation/editHotels/<int:hotel_id>/', quotation_editHotels, name='q-edit-hotels'),
 
-    #---airlines
-    # path('quotation/viewAirlines/<int:air_id>/', admin_viewQuotationAirlines, name='admin_viewQuotationAirlines'),
-    # path('quotation/editAirlines/<int:air_id>/', quotation_editAirlines, name='q-edit-airlines'),
 
     #delete quotation
     path("DeleteQuotationItinerary/<int:ity_id>/", delete_quotationItinerary, name="admin_deleteQuotationItinerary"),
     path("DeleteQuotationInclusion/<int:inc_id>/", delete_quotationInclusion, name="admin_deleteQuotationInclusion"),
     path("DeleteQuotationHotels/<int:hotel_id>/", delete_quotationHotels, name="admin_deleteQuotationHotels"),
     path("delete_quotation/<int:pk>", delete_adminquotation, name = "admin_deletequotation"),
-    # path("DeleteQuotationAirlines/<int:air_id>/", delete_quotationAirlines, name="admin_deleteQuotationAirlines"),
 
 
     path("quotation-preview/<int:q_id>", preview_invoice ,name="q-preview"),

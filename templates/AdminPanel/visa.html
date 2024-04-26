@@ -22,10 +22,12 @@
       class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar"
     >
-    <form class="d-flex" method="GET" action="#">
-      <input class="form-control me-2" type="search" placeholder="Search Country" aria-label="Search" name="search">
+    <form class="d-flex" method="POST" action="{% url 'search_country'  %}">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search Country" aria-label="Search" name="country-query">
+    
       <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+    </form>
     </nav>
 
     <!-- / Navbar -->
@@ -52,26 +54,54 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                {% for i in visa %}
-                <tr>
-                  <td>{{ forloop.counter }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                        <a href="{% url 'admin_viewCountry' i.id %}">
-                            <img src="{{i.country_flag.url}}" alt="user-avatar" style="margin-right:10px;" class="rounded" height="35" width="45" id="uploadedAvatar" />
-                            <strong>{{i.country_name}}</strong>
-                        </a>
-                    </div>
-                </td>
-                  
-                  <td style="padding-left:35px;">
-                    <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletecountry' i.id %}">
-                        <i class="bx bx-trash" style="color:red;"></i>
-                    </a>
-                    
+                {% if cn %}
+                  {% for i in cn %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewCountry' i.id %}">
+                              <img src="{{i.country_flag.url}}" alt="user-avatar" style="margin-right:10px;" class="rounded" height="35" width="45" id="uploadedAvatar" />
+                              <strong>{{i.country_name}}</strong>
+                          </a>
+                      </div>
                   </td>
-                </tr>
-                {% endfor %}
+                    
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletecountry' i.id %}">
+                          <i class="bx bx-trash" style="color:red;"></i>
+                      </a>
+                      
+                    </td>
+                  </tr>
+                  {% endfor %}
+                {% elif visa %}
+                  {% for i in visa %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewCountry' i.id %}">
+                              <img src="{{i.country_flag.url}}" alt="user-avatar" style="margin-right:10px;" class="rounded" height="35" width="45" id="uploadedAvatar" />
+                              <strong>{{i.country_name}}</strong>
+                          </a>
+                      </div>
+                  </td>
+                    
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletecountry' i.id %}">
+                          <i class="bx bx-trash" style="color:red;"></i>
+                      </a>
+                      
+                    </td>
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="5">No results found.</td>
+              </tr>
+                {% endif %}
+                
                 
               </tbody>
             </table>

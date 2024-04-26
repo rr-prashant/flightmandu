@@ -146,10 +146,6 @@ def request_flight(request):
                     to_list = [info.Business_Email]
                     send_mail(sub, message, from_email, to_list, fail_silently=True)
 
-                    # sub = "Check your flight details for booking"
-                    # message = "Full Name: " + name + " \n" + "Email: " + email + " \n" + "Contact: " + contact + " \n" + "Trip Type: " + 'Round Trip' + " \n" + "Departure: " + depart_from + " \n" + "Destination: " + desti_to + " \n" + "Departure date: " + departure_date + " \n" + "Return date: " + date_return + " \n" + " \n" + "We will contact you shortly."
-                    # to_list = [email]
-                    # send_mail(sub, message, from_email, to_list, fail_silently=True)
                     response_data = {'error2' : False}
                 else:
                     response_data = {'error2' : True}
@@ -164,10 +160,7 @@ def request_flight(request):
                     to_list = [info.Business_Email]
                     send_mail(sub, message, from_email, to_list, fail_silently=True)
 
-                    # sub = "Check your flight details for booking"
-                    # message = "Full Name: " + name + " \n" + "Email: " + email + " \n" + "Contact: " + contact + " \n" + "Trip Type: " + 'One Trip' + " \n" + "Departure: " + depart_from + " \n" + "Destination: " + desti_to + " \n" + "Departure date: " + departure_date + " \n" + "\n" + "We will contact you shortly."
-                    # to_list = [email]
-                    # send_mail(sub, message, from_email, to_list, fail_silently=True)
+                    
 
                     response_data = {'error' : False}
                 # else:
@@ -296,6 +289,14 @@ def admin_visa(request):
     content = {'visa': vdata}
     return render(request, 'AdminPanel/visa.html', content)
 
+@csrf_protect
+@login_required(login_url="admin_login")
+def search_visa_country(request):
+    if request.method == "POST":
+        query = request.POST.get("country-query")
+        cn = Visa_Service_Countries.objects.filter(country_name__icontains=query)
+    
+        return render(request, "AdminPanel/visa.html", locals())
 
 @csrf_protect
 @login_required(login_url="admin_login")
@@ -680,8 +681,6 @@ def delete_quotationInclusion(request, inc_id):
 
 
 # for airlines
-# @login_required(login_url="admin_login")
-# def q_addAirlines(request, q_id):
     
 #     if request.method == 'POST':
 #         id = q_id
@@ -708,49 +707,6 @@ def search_air(request):
     return JsonResponse([], safe=False)
 
 
-# # For viewing existing airlines
-# @csrf_protect
-# @login_required(login_url="admin_login")
-# def admin_viewQuotationAirlines(request, air_id):
-
-#     try:
-#         air = quotation_airlines.objects.get(id = air_id)
-#     except quotation_airlines.DoesNotExist:
-#         return HttpResponseServerError("Selected Highlight does not exist")
-
-#     if request.method == "POST":
-#         try:
-#             if 'air' in request.POST:
-#                 air.airlns = request.POST['air']
-
-#             air.save()
-
-#             return redirect('admin_viewQuotation', air.q_id)
-#         except Exception as e:
-#             return HttpResponseServerError('An error occurred: {}'.format(str(e)))
-        
-#     context = {"airl": air, 'id': air_id}
-
-#     return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context = context)
-
-# # for editing existing airlines
-# @csrf_protect
-# @login_required(login_url="admin_login")
-# def quotation_editAirlines(request, air_id):
-#     q_air = quotation_airlines.objects.get(id=air_id)
-#     if request.method == 'POST':    
-#         airl = request.POST.get('air')
-
-#         q_air.airlns = airl
-#         q_air.save()
-#         return redirect('admin_viewQuotation', q_air.q_id)
-
-#     context = {'id': air_id }
-#     return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context)
-
-# # for deleting airlines object
-# @login_required(login_url="admin_login")
-# def delete_quotationAirlines(request, air_id):
 #     airln = get_object_or_404(quotation_airlines, pk=air_id)
 #     airln.delete()
 #     return redirect('admin_viewQuotation', airln.q_id) 
@@ -986,8 +942,16 @@ def admin_packageview(request, slug):
     
     except Package.DoesNotExist:
         return HttpResponseServerError("Package does not exist")
+
+
+@csrf_protect
+@login_required(login_url="admin_login")
+def search_packages(request):
+     if request.method == "POST":
+        query = request.POST.get("pack-query")
+        pack = Package.objects.filter(Q(country_name__icontains=query) | Q(location_name__icontains=query))
     
-    
+        return render(request, "AdminPanel/Package.html", locals())
 
 @csrf_protect
 @login_required(login_url="admin_login")
@@ -1170,10 +1134,23 @@ def delete_adminProductExclusion(request, pk):
     return redirect('admin_viewPackage', slug=exclusion.package.slug)
 
 
+#FLight Request
 @login_required(login_url="admin_login")
 def admin_flightRequest(request):
     flight = Flight_request.objects.all().order_by('-Date')
     return render(request, 'AdminPanel/FlightRequest.html', locals())
+
+
+# Search for flight request
+@csrf_protect
+@login_required(login_url="admin_login")
+def search_flight_request(request):
+    if request.method == "POST":
+        query = request.POST.get("flight-query")
+
+        req = Flight_request.objects.filter(Q(client_name__icontains=query)| Q(client_phone__icontains=query) | Q(client_email__icontains=query)| Q(departure__icontains=query)| Q(destination__icontains=query)| Q(Date__icontains=query))
+    
+        return render(request, "AdminPanel/FlightRequest.html", locals())
 
 
 @login_required(login_url="admin_login")
@@ -1194,6 +1171,16 @@ def admin_inquiry(request):
     inquiry = new_contact.objects.all().order_by('-Date')
     return render(request, 'AdminPanel/Inquiry.html', locals())
 
+
+@csrf_protect
+@login_required(login_url="admin_login")
+def search_inquiry(request):
+    if request.method == "POST":
+        query = request.POST.get("inq-query")
+        inq = new_contact.objects.filter(Q(client_name__icontains=query) | Q(client_contact__icontains=query) | Q(Date__icontains=query))
+    
+        return render(request, "AdminPanel/inquiry.html", locals())
+    
 
 @login_required(login_url="admin_login")
 def admin_viewInquiry(request, pk):
@@ -1267,7 +1254,15 @@ def admin_user(request):
     return render(request, 'AdminPanel/user.html', locals())
 
 
-
+# Search Users
+@csrf_protect
+@login_required(login_url="admin_login")
+def search_members(request):
+    if request.method == "POST":
+        query = request.POST.get("user-query")
+        us = Company_Members.objects.filter(Q(full_name__icontains = query) | Q(contact__icontains = query)| Q(join_date__icontains = query))
+    
+        return render(request, "AdminPanel/user.html", locals())
 
 
 @login_required(login_url="admin_login")
