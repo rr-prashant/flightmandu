@@ -37,9 +37,13 @@
       class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar"
     >
-    <form class="d-flex" method="GET" action="#">
-      <input class="form-control me-2" type="search" placeholder="Search data" aria-label="Search" name="search">
-      <button class="btn btn-primary" type="submit">Search</button>
+    
+
+  <form class="d-flex" method="POST" action="{% url 'search_inquiry'  %}">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search Inquiry" aria-label="Search" name="inq-query">
+  
+    <button class="btn btn-primary" type="submit">Search</button>
   </form>
     </nav>
 
@@ -67,6 +71,31 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
+                {% if inq %}
+                {% for i in inq %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'admin_viewInquiry' i.id %}">
+                            <strong>{{ i.client_name }}</strong>
+                        </a>
+                    </div>
+                </td>
+                
+                  <td>{{ i.client_contact }}</td>
+                  <td style="font-weight: 600;">{{ i.client_subject|truncatewords:4 }}</td>
+                  <td>{{ i.Date }}</td>
+                  <td style="padding-left:35px;">
+                    <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteInquiry' i.id %}">
+                      <i class="bx bx-trash" style="color:red;"></i>
+                  </a>
+                    
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+                {% elif inquiry %}
                 {% for i in inquiry %}
                 <tr>
                   <td>{{forloop.counter}}</td>
@@ -90,6 +119,11 @@
                   
                 </tr>
                 {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="5">No results found.</td>
+              </tr>
+                {% endif %}
                 
               </tbody>
             </table>

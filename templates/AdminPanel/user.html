@@ -43,10 +43,12 @@
       class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar"
     >
-    <form class="d-flex" method="GET" action="#">
-      <input class="form-control me-2" type="search" placeholder="Search employee" aria-label="Search" name="search">
+    <form class="d-flex" method="POST" action="{% url 'search_members'  %}">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search Members" aria-label="Search" name="user-query">
+    
       <button class="btn btn-primary" type="submit">Search</button>
-  </form>
+    </form>
     </nav>
 
     <!-- / Navbar -->
@@ -76,44 +78,89 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                {% for i in user %}
-                <tr>
-                  <td>{{forloop.counter}}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      {% if i.profile %}
-                        <img src="{{i.profile.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
+                {% if us %}
+                      {% for i in us %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            {% if i.profile %}
+                              <img src="{{i.profile.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
 
-                          {% if not i.is_superuser %}
-                          <a href="{% url 'admin_viewUser' i.slug %}">
-                              <strong>{{ i.full_name }}</strong>
+                                {% if not i.is_superuser %}
+                                <a href="{% url 'admin_viewUser' i.slug %}">
+                                    <strong>{{ i.full_name }}</strong>
 
+                                </a>
+                                {% else %}
+                                <a href="#">
+                                    <strong>{{ i.full_name }}</strong>
+
+                                </a>
+                                {% endif %}
+                              {% endif %}
+                          </div>
+                      </td>
+                      
+                        <td>{{ i.position }}</td>
+                        <td>{{ i.is_active }}</td>
+                        {% if not i.is_superuser %}
+                        <td style="padding-left:35px;">
+                          <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteUser' i.id %}">
+                            <i class="bx bx-trash" style="color:red;"></i>
                           </a>
-                          {% else %}
-                          <a href="#">
-                              <strong>{{ i.full_name }}</strong>
+                        </td>
+                      
+                        {% else %}
+                        <td>Not authorized</td>
+                              {% endif %}
+                        
+                      </tr>
+                      {% endfor %}
+                {% elif user %}
+                    {% for i in user %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          {% if i.profile %}
+                            <img src="{{i.profile.url}}" alt="user-avatar" style="margin-right:10px; object-fit: cover;" class="rounded" height="40" width="45" id="uploadedAvatar" />
 
+                              {% if not i.is_superuser %}
+                              <a href="{% url 'admin_viewUser' i.slug %}">
+                                  <strong>{{ i.full_name }}</strong>
+
+                              </a>
+                              {% else %}
+                              <a href="#">
+                                  <strong>{{ i.full_name }}</strong>
+
+                              </a>
+                              {% endif %}
+                            {% endif %}
+                        </div>
+                    </td>
+                    
+                      <td>{{ i.position }}</td>
+                      <td>{{ i.is_active }}</td>
+                      {% if not i.is_superuser %}
+                        <td style="padding-left:35px;">
+                          <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteUser' i.id %}">
+                            <i class="bx bx-trash" style="color:red;"></i>
                           </a>
-                          {% endif %}
+                        </td>
+                      
+                        {% else %}
+                        <td>Not authorized</td>
                         {% endif %}
-                    </div>
-                </td>
-                
-                  <td>{{ i.position }}</td>
-                  <td>{{ i.is_active }}</td>
-                  {% if not i.is_superuser %}
-          <td style="padding-left:35px;">
-            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteUser' i.id %}">
-              <i class="bx bx-trash" style="color:red;"></i>
-            </a>
-          </td>
-        
-          {% else %}
-          <td>Not authorized</td>
-          {% endif %}
-                  
-                </tr>
-                {% endfor %}
+                                
+                              </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="5">No results found.</td>
+              </tr>
+                {% endif %}
                 
               </tbody>
             </table>

@@ -37,9 +37,12 @@
       class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
       id="layout-navbar"
     >
-    <form class="d-flex" method="GET" action="#">
-      <input class="form-control me-2" type="search" placeholder="Search data" aria-label="Search" name="search">
-      <button class="btn btn-primary" type="submit">Search</button>
+
+  <form class="d-flex" method="POST" action="{% url 'search_flight_request'  %}">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search Flight Requests" aria-label="Search" name="flight-query">
+  
+    <button class="btn btn-primary" type="submit">Search</button>
   </form>
     </nav>
 
@@ -63,33 +66,65 @@
                   <th>Client name</th>
                   <th>Origin</th>
                   <th>Destination</th>
-                  <th>Date</th>
+                  <th>Request Date</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                {% for i in flight %}
-                <tr>
-                  <td>{{forloop.counter}}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                        <a href="{% url 'admin_viewflightrequest' i.id %}">
-                            <strong>{{ i.client_name }}</strong>
-                        </a>
-                    </div>
-                </td>
-                
-                  <td>{{ i.departure|truncatewords:2 }}</td>
-                  <td>{{ i.destination|truncatewords:2 }}</td>
-                  <td>{{ i.Date }}</td>
-                  <td style="padding-left:35px;">
-                    <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteflightrequest' i.id %}">
-                      <i class="bx bx-trash" style="color:red;"></i>
-                  </a>
-                    
+                {% if req %}
+                  {% for i in req %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewflightrequest' i.id %}">
+                              <strong>{{ i.client_name }}</strong>
+                          </a>
+                      </div>
                   </td>
                   
-                </tr>
-                {% endfor %}
+                    <td>{{ i.departure|truncatewords:2 }}</td>
+                    <td>{{ i.destination|truncatewords:2 }}</td>
+                    <td>{{ i.Date }}</td>
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteflightrequest' i.id %}">
+                        <i class="bx bx-trash" style="color:red;"></i>
+                    </a>
+                      
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                {% elif flight%}
+                  {% for i in flight %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                          <a href="{% url 'admin_viewflightrequest' i.id %}">
+                              <strong>{{ i.client_name }}</strong>
+                          </a>
+                      </div>
+                  </td>
+                  
+                    <td>{{ i.departure|truncatewords:2 }}</td>
+                    <td>{{ i.destination|truncatewords:2 }}</td>
+                    <td>{{ i.Date }}</td>
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteflightrequest' i.id %}">
+                        <i class="bx bx-trash" style="color:red;"></i>
+                    </a>
+                      
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="5">No results found.</td>
+              </tr>
+                {% endif %}
+
+                
                 
               </tbody>
             </table>
