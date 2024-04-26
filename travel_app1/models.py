@@ -248,6 +248,7 @@ class quotation(models.Model):
     num_adult = models.IntegerField(blank=True, null=True, default=0)
     num_child = models.IntegerField(blank=True, null=True, default=0)
     num_infant = models.IntegerField(blank=True, null=True, default=0)
+    Date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.client_name

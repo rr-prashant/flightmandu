@@ -44,7 +44,7 @@
     >
     <form class="d-flex" method="POST" action="{% url 'search_invoice'  %}">
       {% csrf_token %}
-      <input class="form-control me-2" type="search" placeholder="Search Quotation by ID" aria-label="Search" name="query">
+      <input class="form-control me-2" type="search" placeholder="Search quotation" aria-label="Search" name="query">
     
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
@@ -70,8 +70,8 @@
                 <th>#</th>
                   <th>Quotation ID</th>
                   <th>Package Name</th>
-                  <th>Name</th>
-                  <th>Phone</th>
+                  <th>Client Name</th>
+                  <th>Contact</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">

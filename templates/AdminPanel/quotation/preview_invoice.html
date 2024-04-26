@@ -5,8 +5,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="images/favicon.png" rel="icon" />
-    <title>General Invoice - Flightmandu Travels Pvt Ltd</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/Flightmandu_black.jpg' %}" />
+
+    <title>Quotation - Flightmandu Travels Pvt Ltd</title>
 
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -14,7 +15,7 @@
     <div class="max-w-7xl mx-auto">
         <header class="flex justify-between px-10 py-1">
             
-            <img src="{% static 'img/Flightmandu_transparent.png' %}" style="height: 120px; margin-bottom: -30px;"  class="h-32 text-gray-900">
+            <img src="{% static 'img/Flightmandu_transparent.png' %}" style="height: 150px; margin-bottom: -30px;"  class="h-32 text-gray-900">
             <h1 style = "font-size: 26px; margin-top: 80px; font-weight: 700;" >QUOTATION</h1>
         </header>
 
@@ -64,19 +65,19 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-4 py-3 text-left text-xs border-r border-gray-300 text-gray-500 uppercase tracking-wider" >
+                        <th scope="col" class="px-4 py-2 text-left text-xs border-r border-gray-300 text-gray-500 uppercase tracking-wider" >
                             #
                         </th>
-                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
+                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
                             Date
                         </th>
-                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
+                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
                             Day
                         </th>
-                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
+                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="border-right: 2px solid #e2e8f0;">
                             Itinerary
                         </th>
-                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Meals
                         </th>
                        
@@ -86,19 +87,19 @@
                     
                     {% for i in itys %}
                     <tr class="bg-white">
-                        <td class="px-4 py-2 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
+                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
                             {{ forloop.counter }}
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
+                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
                             {{ i.date }}
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-xs text-gray-500 border-r border-b border-gray-300">
+                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-500 border-r border-b border-gray-300">
                             {{ i.day }}
                         </td>
-                        <td class="px-4 py-2 text-xs text-gray-500 border-r border-b border-gray-300" style="max-width: 200px; overflow-x: hidden;">
+                        <td class="px-4 py-1 text-xs text-gray-500 border-r border-b border-gray-300" style="max-width: 200px; overflow-x: hidden;">
                             {{ i.Itinerary}}
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-xs text-gray-500 border-b border-gray-300">
+                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-500 border-b border-gray-300">
                             {{ i.Meals }}
                         </td>
                         
@@ -196,21 +197,21 @@
 
 
 
-        <section class="px-10 py-3">
+        <section class="px-10 py-2">
             <div class="shadow overflow-hidden border border-gray-300 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
+                        <th scope="col" class="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
                             Type
                         </th>
-                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
+                        <th scope="col" class="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
                             Pax
                         </th>
-                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right border-r border-b border-gray-300">
+                        <th scope="col" class="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right border-r border-b border-gray-300">
                             Rate
                         </th>
-                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right border-b border-gray-300">
+                        <th scope="col" class="px-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right border-b border-gray-300">
                             Amount
                         </th>
                     </tr>
