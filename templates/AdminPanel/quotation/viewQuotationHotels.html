@@ -84,13 +84,25 @@
                                         
                                             <div class="hotel_complete">
                                                 <label for="hotl" class="form-label">Hotel *</label>
-                                                <input type="text" class="form-control" name="hotel_n" required="" id="hotl" placeholder="Hotels"
+                                                <input type="text" class="form-control" name="hotel_n"  id="hotl" placeholder="Hotels"
 									            oninput="fetchHotels(this.value)" value="{{ htls.hotels }}">
 								                <ul id="Hotel-results" style="z-index: 1000;"></ul>
                                             </div>
                                         
                                             
                                       </div>
+
+                                      <div class=" form-group mb-3 col-md-5">
+                                        
+                                        <div class="air_complete">
+                                            <label for="airln" class="form-label">Airline *</label>
+                                            <input type="text" class="form-control" name="air"  id="airln" placeholder="Airlines"
+                                            oninput="fetchAirlines(this.value)" value="{{htls.airlns}}">
+                                            <ul id="Air-results" style="z-index: 1000;"></ul>
+                                        </div>
+                                    
+                                        
+                                  </div>
                                     
                                     
                                 </div>
@@ -139,6 +151,36 @@
             document.getElementById('Hotel-results').innerHTML = '';
         }
     });
+
+
+
+    function fetchAirlines(query) {
+        fetch(`/search_air/?air_search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('Air-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(ar => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <div class="meal-info">
+                        <b>${ar.aline}</b>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('airln').value = `${ar.aline}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.air_complete')) {
+            document.getElementById('Air-results').innerHTML = '';
+        }
+    });
+
 
    
 

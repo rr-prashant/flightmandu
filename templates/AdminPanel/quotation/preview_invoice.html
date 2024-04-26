@@ -151,7 +151,7 @@
         </section>
         {% endif %}
 
-        {% if air_and_hotel %}
+        {% if hotel %}
         <section class="px-10 py-3">
             <div class="shadow overflow-hidden border border-gray-300 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -163,23 +163,23 @@
                         <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
                             Hotels
                         </th>
-                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-b border-gray-300">
                             Airlines
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     
-                    {% for hotel, airline in air_and_hotel %}
+                    {% for i in hotel %} 
                     <tr class="bg-white">
                         <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
                             {{ forloop.counter }}
                         </td>
                         <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-900 border-r border-b border-gray-300">
-                            {{ hotel.hotels }}
+                            {{ i.hotels }}
                         </td>
-                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-500 border-r border-gray-300">
-                            {{ airline.airlns }}
+                        <td class="px-4 py-1 whitespace-nowrap text-xs text-gray-500 border-r border-b border-gray-300">
+                            {{ i.airlns }}
                         </td>
                     </tr>
                     {% endfor %}

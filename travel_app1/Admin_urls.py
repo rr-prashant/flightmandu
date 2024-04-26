@@ -60,11 +60,12 @@ urlpatterns = [
     path('business_settings/', businessSetting, name ="businessSettings"),
 
     # quotation
-    path('quotation/add_quoatation/', add_quotation, name="admin_addQuotation"),
+    path('quotation/add_quotation/', add_quotation, name="admin_addQuotation"),
+    path('edit_quotation/<int:q_id>', editquotation ,name="admin_editquotation"),
     path('quotation/<int:q_id>',admin_viewQuotation ,name="admin_viewQuotation"),
     path('quotation/additinerary/<int:q_id>', q_addItinerary, name="q-add-itinerary" ),
     path('quotation/addinclusion/<int:q_id>', q_addinclusion, name="q-add-inclusion" ),
-    path('quotation/addairlines/<int:q_id>', q_addAirlines, name="q-add-airlines" ),
+    # path('quotation/addairlines/<int:q_id>', q_addAirlines, name="q-add-airlines" ),
     path('quotation/addhotels/<int:q_id>', q_addHotels, name="q-add-hotels" ),
 
 
@@ -85,14 +86,15 @@ urlpatterns = [
     path('quotation/editHotels/<int:hotel_id>/', quotation_editHotels, name='q-edit-hotels'),
 
     #---airlines
-    path('quotation/viewAirlines/<int:air_id>/', admin_viewQuotationAirlines, name='admin_viewQuotationAirlines'),
-    path('quotation/editAirlines/<int:air_id>/', quotation_editAirlines, name='q-edit-airlines'),
+    # path('quotation/viewAirlines/<int:air_id>/', admin_viewQuotationAirlines, name='admin_viewQuotationAirlines'),
+    # path('quotation/editAirlines/<int:air_id>/', quotation_editAirlines, name='q-edit-airlines'),
 
     #delete quotation
     path("DeleteQuotationItinerary/<int:ity_id>/", delete_quotationItinerary, name="admin_deleteQuotationItinerary"),
     path("DeleteQuotationInclusion/<int:inc_id>/", delete_quotationInclusion, name="admin_deleteQuotationInclusion"),
     path("DeleteQuotationHotels/<int:hotel_id>/", delete_quotationHotels, name="admin_deleteQuotationHotels"),
-    path("DeleteQuotationAirlines/<int:air_id>/", delete_quotationAirlines, name="admin_deleteQuotationAirlines"),
+    path("delete_quotation/<int:pk>", delete_adminquotation, name = "admin_deletequotation"),
+    # path("DeleteQuotationAirlines/<int:air_id>/", delete_quotationAirlines, name="admin_deleteQuotationAirlines"),
 
 
     path("quotation-preview/<int:q_id>", preview_invoice ,name="q-preview"),

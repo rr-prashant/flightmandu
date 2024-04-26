@@ -240,6 +240,7 @@ class quotation(models.Model):
     client_name = models.CharField(max_length=100, blank=True, null = True)
     client_phone = models.CharField(max_length=10, blank=True, null = True)
     client_email = models.CharField(max_length=300, blank=True, null = True)
+    package_name = models.CharField(max_length=1000, blank=True, null = True)
     per_adult = models.IntegerField(blank=True, null=True)
     per_child = models.IntegerField(blank=True, null=True)
     per_infant = models.IntegerField(blank=True, null=True)
@@ -305,6 +306,7 @@ class quotation_airlines(models.Model):
 class quotation_hotels(models.Model):
     q_id = models.IntegerField(null=True, blank=True, editable=True)
     hotels = models.TextField(null=True, blank=True)
+    airlns = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.q_id

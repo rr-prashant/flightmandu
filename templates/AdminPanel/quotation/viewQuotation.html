@@ -21,13 +21,211 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-
-            {% if error %}
+          <h4 class="fw-bold py-3 mb-4">Package</h4>
+        {% if error %}
             <div class="error-message" style="color:red;">
                 {{ error }}    
             </div>
             </br>
             {% endif %}
+
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="card mb-4">
+                      <h5 class="card-header">Package Details</h5>
+                      <!-- Account -->
+                      <hr class="my-0" />
+                      <div class="card-body">
+                          
+                          <form id="formAccountSettings" method="POST" action="{% url 'admin_editquotation' id %}" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label for="q_id" class="form-label">Quotation ID *</label>
+                                  <input
+                                      class="form-control"
+                                      type="text"
+                                      id="q_id"
+                                      name="q_id"
+                                      placeholder="Quotation ID"
+                                      autofocus
+                                      value = "{{ id }}"
+                                      disabled
+                                  />
+                              </div>
+                              <div class="mb-3 col-md-6">
+                                <label for="c_name" class="form-label">Client Name *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_name"
+                                    name="c_name"
+                                    placeholder="Client Name"
+                                    autofocus
+                                    value = "{{ invoices.0.client_name }}"
+                                    
+                                />
+                              </div>
+
+                              <div class="mb-3 col-md-6">
+                                <label for="c_phone" class="form-label">Client Phone Number *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_phone"
+                                    name="c_phone"
+                                    placeholder="Client Phone Number"
+                                    autofocus
+                                    value = "{{ invoices.0.client_phone }}"
+                                  
+                                />
+                              </div>
+                              <div class="mb-3 col-md-6">
+                                <label for="c_email" class="form-label">Client Email *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_email"
+                                    name="c_email"
+                                    placeholder="Client Email"
+                                    autofocus
+                                    value = "{{ invoices.0.client_email }}"
+                                  
+                                />
+                              </div>
+
+                                  <div class="mb-3 col-md-6">
+                                      <label for="q_package" class="form-label">Package Name *</label>
+                                      <input
+                                          class="form-control"
+                                          type="text"
+                                          id="q_package"
+                                          name="q_package"
+                                          placeholder="Package Name"
+                                          autofocus
+                                          value = "{{invoices.0.package_name}}"
+                                          required
+                                      />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_adult" class="form-label">Number of Adult</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_adult"
+                                        name="q_num_adult"
+                                        placeholder="Number of Adult"
+                                        autofocus
+                                        value = "{{ invoices.0.num_adult }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_adult" class="form-label">Per Adult</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_adult"
+                                        name="q_per_adult"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_adult }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_child" class="form-label">Number of Child</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_child"
+                                        name="q_num_child"
+                                        placeholder="Number of Child"
+                                        autofocus
+                                        value = "{{ invoices.0.num_child }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_child" class="form-label">Per Child</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_child"
+                                        name="q_per_child"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_child }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_infant" class="form-label">Number of Infant</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_infant"
+                                        name="q_num_infant"
+                                        placeholder="Number of Infant"
+                                        autofocus
+                                        value = "{{ invoices.0.num_infant }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_infant" class="form-label">Per Infant</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_infant"
+                                        name="q_per_infant"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_infant }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_date" class="form-label">Created Date *</label>
+                                    <input
+                                        class="form-control"
+                                        type="date"
+                                        id="q_date"
+                                        name="q_date"
+                                        placeholder="quotation created at"
+                                        autofocus
+                                        value = "{{ invoices.0.q_Date|date:'Y-m-d' }}"
+                                        
+                                    />
+                                  </div>
+
+
+
+                      
+                                  <div class="mt-2">
+                                      <button type="submit" id="saveButton" class="btn btn-primary me-2">Save changes</button>
+                                  </div>
+                              
+                          </form>
+                      </div>
+                      <!-- /Account -->
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            
             
             {% if itys %}
                 <!-- Basic Bootstrap Table -->
@@ -57,18 +255,18 @@
                           </td>
                           <td>
                             <div class="d-flex align-items-center">
-                                  {{i.day}}
+                                  {{i.day|truncatewords:4}}
                                 
                             </div>
                         </td>
                         <td>
                           <div class="d-flex align-items-center">
-                                {{i.Itinerary}}
+                                {{i.Itinerary|truncatewords:6}}
                           </div>
                       </td>
                       <td>
                         <div class="d-flex align-items-center">
-                              {{i.Meals}}
+                              {{i.Meals|truncatewords:6}}
                         </div>
                     </td>
                     <td style="padding-left:35px;">
@@ -112,7 +310,7 @@
                             <td>{{ forloop.counter }}</td>
                             <td>
                               <div class="d-flex align-items-center">
-                                    {{i.inclu}}
+                                    {{i.inclu|truncatewords:8}}
                               </div>
                           </td>
                           
@@ -142,13 +340,14 @@
                 <!-- Basic Bootstrap Table -->
               <div class="card pb-3">
                 
-                <h5 class="card-header">Hotels</h5>
+                <h5 class="card-header">Hotels & Airlines</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
                       <tr>
                         <th>#</th>
                         <th>Hotels</th>
+                        <th>Airlines</th>
                       </tr>
                       </thead>
                     <tbody class="table-border-bottom-0">
@@ -158,9 +357,14 @@
                             <td>{{ forloop.counter }}</td>
                             <td>
                               <div class="d-flex align-items-center">
-                                    {{i.hotels}}
+                                    {{i.hotels|truncatewords:8}}
                               </div>
                           </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                                  {{i.airlns|truncatewords:8}}
+                            </div>
+                        </td>
                           
                       
                     <td style="padding-left:35px;">
@@ -182,58 +386,11 @@
               </div>
               {% endif %} 
 
-              {% if inc or itys or air or ht %}</br>{% endif %}
-
-              {% if air %}
-                <!-- Basic Bootstrap Table -->
-              <div class="card pb-3">
-                
-                <h5 class="card-header">Airlines</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Airlines</th>
-                      </tr>
-                      </thead>
-                    <tbody class="table-border-bottom-0">
-                        
-                        {% for i in air %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                    {{i.airlns}}
-                              </div>
-                          </td>
-                          
-                      
-                    <td style="padding-left:35px;">
-                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_viewQuotationAirlines' i.id %}">
-                        <i class="bx bx-edit" style="color:green;"></i>
-                    </a></td>
-                          <td style="padding-left:35px;">
-                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteQuotationAirlines' i.id %}">
-                              <i class="bx bx-trash" style="color:red;"></i>
-                          </a></td>
-                        </tr>
-                        {% endfor %}
-                        
-                    </tbody>
-                  </table>
-                  
-                </div>
-                
-              </div>
-              {% endif %} 
-
     
               <div class="mt-4" style="display: flex; justify-content: center;">
                 <a href="{% url 'q-add-itinerary' id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
                 <a href="{% url 'q-add-inclusion' id %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
-                <a href="{% url 'q-add-hotels' id %}" style="color:white;" class="btn btn-primary me-2">Add Hotels</a>
-                <a href="{% url 'q-add-airlines' id %}" style="color:white;" class="btn btn-primary me-2">Add Airlines</a>
+                <a href="{% url 'q-add-hotels' id %}" style="color:white;" class="btn btn-primary me-2">Add Hotels and Airlines</a>
                 <a href="{% url 'q-preview' id %}" style="color:white;" class="btn btn-warning me-2">Preview Quotation</a>
                 
             </div> 

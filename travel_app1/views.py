@@ -370,6 +370,7 @@ def add_quotation(request):
             cName = request.POST.get('cName')
             cPhone = request.POST.get('cPhone')
             cEmail = request.POST.get('cEmail')
+            cPackage = request.POST.get('cPackage')
             perAdult = request.POST.get('perAdult')
             perChild = request.POST.get('perChild')
             perInfant = request.POST.get('perInfant')
@@ -406,6 +407,7 @@ def add_quotation(request):
                 client_name = cName,
                 client_phone = cPhone,
                 client_email = cEmail,
+                package_name = cPackage,
                 per_adult = int_adult,
                 per_child = int_child,
                 per_infant = int_infant,
@@ -423,6 +425,44 @@ def add_quotation(request):
         error_message = f"An error occurred: {str(e)}"
         return HttpResponse(error_message, status=500)
 
+
+# Edit quotation
+@csrf_protect
+@login_required(login_url="admin_login")
+def editquotation(request, q_id):
+    quotations = quotation.objects.get(q_id=q_id)
+    if request.method == 'POST':
+        c_name = request.POST.get('c_name')
+        c_phone = request.POST.get('c_phone')
+        c_email = request.POST.get('c_email')
+        package = request.POST.get('q_package')
+        number_a = request.POST.get('q_num_adult')
+        price_a = request.POST.get('q_per_adult')
+        number_c = request.POST.get('q_num_child')
+        price_c = request.POST.get('q_per_child')
+        number_i = request.POST.get('q_num_infant')
+        price_i = request.POST.get('q_per_infant')
+        date = request.POST.get('q_date')
+
+
+        quotations.client_name = c_name
+        quotations.client_phone = c_phone
+        quotations.client_email = c_email
+        quotations.package_name = package
+        quotations.num_adult = number_a
+        quotations.per_adult = price_a
+        quotations.num_child = number_c
+        quotations.per_child = price_c
+        quotations.num_infant = number_i
+        quotations.per_infant = price_i
+        quotations.q_Date = date
+
+        quotations.save()
+
+        return redirect('admin_viewQuotation', q_id)
+
+
+# Quotation HTML view
 @login_required(login_url="admin_login")
 def admin_viewQuotation(request, q_id):
     invoice = quotation.objects.filter(q_id=q_id)
@@ -431,9 +471,20 @@ def admin_viewQuotation(request, q_id):
     hotel = quotation_hotels.objects.filter(q_id=q_id)
     airline = quotation_airlines.objects.filter(q_id=q_id)
 
+
+
     content = {'id': q_id, 'invoices' : invoice, 'itys' : ity, 'inc': inclu, 'ht': hotel, 'air' : airline}
 
     return render(request, "AdminPanel/quotation/viewQuotation.html", content)
+
+
+# For deleting Quotation
+@login_required(login_url="admin_login")
+def delete_adminquotation(request, pk):
+    quo = get_object_or_404(quotation, pk=pk)
+    quo.delete()
+    return redirect(reverse("admin_quotation"))
+
 
 # For itinerary
 @login_required(login_url="admin_login")
@@ -629,20 +680,20 @@ def delete_quotationInclusion(request, inc_id):
 
 
 # for airlines
-@login_required(login_url="admin_login")
-def q_addAirlines(request, q_id):
+# @login_required(login_url="admin_login")
+# def q_addAirlines(request, q_id):
     
-    if request.method == 'POST':
-        id = q_id
-        ar = request.POST.get('air')
+#     if request.method == 'POST':
+#         id = q_id
+#         ar = request.POST.get('air')
 
-        airlines = quotation_airlines(q_id=id, airlns=ar)
-        airlines.save()
+#         airlines = quotation_airlines(q_id=id, airlns=ar)
+#         airlines.save()
 
-        return redirect('admin_viewQuotation', q_id)
+#         return redirect('admin_viewQuotation', q_id)
 
-    content = {'id': q_id}
-    return render(request, "AdminPanel/quotation/addQuotation_Airlines.html", content)
+#     content = {'id': q_id}
+#     return render(request, "AdminPanel/quotation/addQuotation_Airlines.html", content)
 
 
 @login_required(login_url="admin_login")
@@ -657,52 +708,52 @@ def search_air(request):
     return JsonResponse([], safe=False)
 
 
-# For viewing existing airlines
-@csrf_protect
-@login_required(login_url="admin_login")
-def admin_viewQuotationAirlines(request, air_id):
+# # For viewing existing airlines
+# @csrf_protect
+# @login_required(login_url="admin_login")
+# def admin_viewQuotationAirlines(request, air_id):
 
-    try:
-        air = quotation_airlines.objects.get(id = air_id)
-    except quotation_airlines.DoesNotExist:
-        return HttpResponseServerError("Selected Highlight does not exist")
+#     try:
+#         air = quotation_airlines.objects.get(id = air_id)
+#     except quotation_airlines.DoesNotExist:
+#         return HttpResponseServerError("Selected Highlight does not exist")
 
-    if request.method == "POST":
-        try:
-            if 'air' in request.POST:
-                air.airlns = request.POST['air']
+#     if request.method == "POST":
+#         try:
+#             if 'air' in request.POST:
+#                 air.airlns = request.POST['air']
 
-            air.save()
+#             air.save()
 
-            return redirect('admin_viewQuotation', air.q_id)
-        except Exception as e:
-            return HttpResponseServerError('An error occurred: {}'.format(str(e)))
+#             return redirect('admin_viewQuotation', air.q_id)
+#         except Exception as e:
+#             return HttpResponseServerError('An error occurred: {}'.format(str(e)))
         
-    context = {"airl": air, 'id': air_id}
+#     context = {"airl": air, 'id': air_id}
 
-    return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context = context)
+#     return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context = context)
 
-# for editing existing airlines
-@csrf_protect
-@login_required(login_url="admin_login")
-def quotation_editAirlines(request, air_id):
-    q_air = quotation_airlines.objects.get(id=air_id)
-    if request.method == 'POST':    
-        airl = request.POST.get('air')
+# # for editing existing airlines
+# @csrf_protect
+# @login_required(login_url="admin_login")
+# def quotation_editAirlines(request, air_id):
+#     q_air = quotation_airlines.objects.get(id=air_id)
+#     if request.method == 'POST':    
+#         airl = request.POST.get('air')
 
-        q_air.airlns = airl
-        q_air.save()
-        return redirect('admin_viewQuotation', q_air.q_id)
+#         q_air.airlns = airl
+#         q_air.save()
+#         return redirect('admin_viewQuotation', q_air.q_id)
 
-    context = {'id': air_id }
-    return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context)
+#     context = {'id': air_id }
+#     return render(request, "AdminPanel/quotation/viewQuotationAirlines.html", context)
 
-# for deleting airlines object
-@login_required(login_url="admin_login")
-def delete_quotationAirlines(request, air_id):
-    airln = get_object_or_404(quotation_airlines, pk=air_id)
-    airln.delete()
-    return redirect('admin_viewQuotation', airln.q_id) 
+# # for deleting airlines object
+# @login_required(login_url="admin_login")
+# def delete_quotationAirlines(request, air_id):
+#     airln = get_object_or_404(quotation_airlines, pk=air_id)
+#     airln.delete()
+#     return redirect('admin_viewQuotation', airln.q_id) 
 
 
 # for hotels
@@ -713,8 +764,8 @@ def q_addHotels(request, q_id):
     if request.method == 'POST':
         id = q_id
         ht = request.POST.get('hotel_n')
-
-        hotls = quotation_hotels(q_id=id, hotels=ht)
+        ar = request.POST.get('air')
+        hotls = quotation_hotels(q_id=id, hotels=ht, airlns=ar)
         hotls.save()
 
         return redirect('admin_viewQuotation', q_id)
@@ -750,7 +801,9 @@ def admin_viewQuotationHotels(request, hotel_id):
         try:
             if 'hotel_n' in request.POST:
                 htl.hotels = request.POST['hotel_n']
-
+                
+            if 'air' in request.POST:
+                htl.airlns = request.POST.get('air')
             htl.save()
 
             return redirect('admin_viewQuotation', htl.q_id)
@@ -768,8 +821,10 @@ def quotation_editHotels(request, hotel_id):
     q_hotel = quotation_hotels.objects.get(id=hotel_id)
     if request.method == 'POST':    
         ht = request.POST.get('hotel_n')
+        air = request.POST.get('air')
 
         q_hotel.hotels = ht
+        q_hotel.airlns = air
         q_hotel.save()
         return redirect('admin_viewQuotation', q_hotel.q_id)
 
@@ -790,10 +845,9 @@ def preview_invoice(request, q_id):
     quotation_all = quotation.objects.filter(q_id=q_id)
     q_ity = quotation_itinerary.objects.filter(q_id=q_id)
     q_inclu = quotation_inclusion.objects.filter(q_id=q_id)
-    q_air = quotation_airlines.objects.filter(q_id=q_id)
     q_hotel = quotation_hotels.objects.filter(q_id=q_id)
 
-    hotel_and_airlines = zip(q_hotel, q_air)
+    
 
     user = request.user
 
@@ -811,7 +865,7 @@ def preview_invoice(request, q_id):
     
     total = total_adult + total_infant + total_child
 
-    content = {'id':q_id, 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'air_and_hotel' : hotel_and_airlines, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
+    content = {'id':q_id, 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'hotel' : q_hotel, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
 
     return render(request, 'AdminPanel/quotation/preview_invoice.html', content)
 

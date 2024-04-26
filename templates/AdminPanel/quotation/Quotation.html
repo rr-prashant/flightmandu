@@ -69,6 +69,7 @@
                 <tr>
                 <th>#</th>
                   <th>Quotation ID</th>
+                  <th>Package Name</th>
                   <th>Name</th>
                   <th>Phone</th>
                 </tr>
@@ -85,6 +86,7 @@
                                     </a>
                                 </div>
                             </td>
+                            <td>{{ i.package_name }}</td>
                             <td>{{ i.client_name }}</td>
                             <td>{{ i.client_phone }}</td>
                             <td style="padding-left:35px;">
@@ -106,11 +108,11 @@
                             </a>
                         </div>
                     </td>
-                  
+                    <td>{{ i.package_name }}</td>
                     <td>{{i.client_name}}</td>
                     <td>{{i.client_phone}}</td>
                     <td style="padding-left:35px;">
-                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url "admin_deletepackage" i.id %}">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletequotation' i.id %}">
                         <i class="bx bx-trash" style="color:red;"></i>
                     </a>
                       
