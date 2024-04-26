@@ -22,6 +22,9 @@ urlpatterns = [
     path('quotation/', views.main_quotation, name="admin_quotation"),
     path('search_meal/', views.search_meal, name='search_meal'),
     path('search_it/', views.search_it, name='search_it'),
+    path('search_in/', views.search_in, name='search_in'),
+    path('search_air/', views.search_air, name='search_air'),
+    path('search_hotel/', views.search_hotel, name='search_hotel'),
 ]
 
 if settings.DEBUG:

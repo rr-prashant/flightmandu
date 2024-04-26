@@ -1,11 +1,7 @@
 {% extends 'AdminPanel/mainLayout.html' %}
 {% load static %}
 
-{% block extra-css %} 
-<link rel="stylesheet" href="{% static 'css/invoice/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/invoice/style.css' %}">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-{% endblock%}
+
 
 {% block title %}Quotation{% endblock %}
 
@@ -25,263 +21,384 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-
-            {% if error %}
+          <h4 class="fw-bold py-3 mb-4">Quotation</h4>
+        {% if error %}
             <div class="error-message" style="color:red;">
                 {{ error }}    
             </div>
             </br>
             {% endif %}
-            <div class="invoice-2 invoice-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="invoice-inner clearfix">
-                                <div class="invoice-info clearfix" id="invoice_wrapper">
-                                    <div class="invoice-headar">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="invoice-logo">
-                                                    <!-- logo started -->
-                                                    <div class="logo mr-5">
-                                                        <img src="{% static 'img/Flightmandu_transparent.png' %}" alt="logo">
-                                                        
-                                                    </div>
-                                                    <!-- logo ended -->
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="invoice-id">
-                                                    <div class="info">
-                                                        <h1 class="inv-header-1">Quotation</h1>
-                                                        
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="invoice-top">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="invoice-number mb-30">
-                                                    <h4 class="inv-title-1">To</h4>
-                                                    <h2 class="name">{{ invoices.0.client_name }}</h2>
-                                                    <!-- <p class="invo-addr-1">
-                                                        Theme Vessel <br/>
-                                                        info@themevessel.com <br/>
-                                                        21-12 Green Street, Meherpur, Bangladesh <br/>
-                                                    </p> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="invoice-number mb-30">
-                                                    <div class="invoice-number-inner">
-                                                        <!-- <h4 class="inv-title-1">Invoice From</h4> -->
-                                                        <!-- <h2 class="name">Animas Roky</h2> -->
-                                                        <p class="invo-addr-1">
-                                                            Ref: {{id}}  <br/>
-                                                            Date: {{ invoices.0.q_Date }} <br/>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="invoice-6 bg-white" >
-                                        <div class="invoice-center">
-                                            <div class="order-summary">
-                                                <div class="table-outer">
-                                                    <table class="default-table invoice-table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>DATE</th>
-                                                            <th>DAY</th>
-                                                            <th>ITINERARY</th>
-                                                            <th>MEALS</th>
-                                                        </tr>
-                                                        </thead>
-            
-                                                        <tbody>
-                                                            
-                                                            {% for i in itys %}
-                                                                <tr>
-                                                            
-                                                                    <td>{{ i.date }}</td>
-                                                                    <td>{{ i.day }} </td>
-                                                                    <td>{{ i.Itinerary }}</td>
-                                                                    <td>{{ i.Meals }}</td>
-                                                        
-                                                                </tr>
-                                                            {% endfor %}
-                                                        
-                                                        
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <!-- package detail -end -->
-            
-            
-                                    <!-- INCLUSIONS -start -->
-                                        <div class="invoice-center">
-                                            <div class="order-summary">
-                                                <div class="table-outer">
-                                                    <table class="default-table invoice-table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>INCLUSIONS</th>
-                                                        </tr>
-                                                        </thead>
-            
-                                                        <tbody>
-                                                        <tr>
-                                                            <td><img src="{% static 'img/checked.png' %}" height="20px" width="20px" alt="" style="margin-right: 6px;">Standard Plan</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><img src="{% static 'img/checked.png' %}" height="20px" width="20px" alt="" style="margin-right: 6px;">Extra Plan</td>
-                                                            
-                                                        </tr>
-                                                        
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <!-- INCLUSIONS -end -->
-            
-            
-                                    <!-- hotel and airport -start -->
-                                        <div class="invoice-center">
-                                            <div class="order-summary">
-                                                <div class="table-outer">
-                                                    <table class="default-table invoice-table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Hotels</th>
-                                                            <th></th>
-                                                            <th></th>
-                                                            <th>Airlines</th>
-                                                        </tr>
-                                                        </thead>
-            
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>Standard Plan</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>$443.00 </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Extra Plan</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>$413.00 </td>
-                                                        </tr>
-                                                        
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <!-- hotel and airport -end -->
-            
-                                        <div class="invoice-center">
-                                            <div class="order-summary">
-                                                <div class="row" style="margin-right: 80px;">
-                                                    <div class="col-md-4 d-flex justify-content-center" style="color: #fff; font-weight: bold; align-items: center; background-color: rgb(54, 54, 199);">
-                                                        <ul>
-                                                            <li>No Booking has been made yet.</li>
-                                                            <li>Hotels and Flights are subjected to availability.</li>
-                                                            <li>Rates and flights details will be confirmed on Booking time.</li>
-                                                            <li>Rates are valid for 48 hours only.</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                    
-                                                        <div class="">
-                                                            <table class="default-table">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Type</th>
-                                                                    <th>Pax</th>
-                                                                    <th>Rate</th>
-                                                                    <th>Amount</th>
-                                                                </tr>
-                                                                </thead>
-                    
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td>Adult</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>$443.00 </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Child</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>$413.00 </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Infant</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>$413.00 </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td ><strong><b>Total</b></strong></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td><strong><b>$9,750</b></strong></td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="invoice-center">
-                                            <div class="col-sm-12">
-                                                <div class="invoice-number mb-30">
-                                                    <div class="invoice-number-inner">
-                                                        <p style="display: flex; align-items: end;">Generated By: Quadtech</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                    </div>
-            
-                                    
-                                   
-                                </div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4" style="display: flex; justify-content: center;">
-                    <a href = "" style="color:white;" class="btn btn-danger me-2">Download</a>
-                    <a href = "" id="send-btn" style="color:white;" class="btn btn-warning me-2">Send Via Email</a>
-                    
-                </div> 
 
-                <div class="mt-4" style="display: flex; justify-content: center;">
-                    <a href="{% url 'q-add-itinerary' id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
-                    <a style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
-                    <a style="color:white;" class="btn btn-primary me-2">Add Hotels</a>
-                    <a style="color:white;" class="btn btn-primary me-2">Add Airlines</a>
-                    
-                </div> 
-            </div>
-            <!-- Invoice 2 end -->
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="card mb-4">
+                      <h5 class="card-header">Quotation Details</h5>
+                      <!-- Account -->
+                      <hr class="my-0" />
+                      <div class="card-body">
+                          
+                          <form id="formAccountSettings" method="POST" action="{% url 'admin_editquotation' id %}" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label for="q_id" class="form-label">Quotation ID *</label>
+                                  <input
+                                      class="form-control"
+                                      type="text"
+                                      id="q_id"
+                                      name="q_id"
+                                      placeholder="Quotation ID"
+                                      autofocus
+                                      value = "{{ id }}"
+                                      disabled
+                                  />
+                              </div>
+                              <div class="mb-3 col-md-6">
+                                <label for="c_name" class="form-label">Client Name *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_name"
+                                    name="c_name"
+                                    placeholder="Client Name"
+                                    autofocus
+                                    value = "{{ invoices.0.client_name }}"
+                                    
+                                />
+                              </div>
+
+                              <div class="mb-3 col-md-6">
+                                <label for="c_phone" class="form-label">Client Phone Number *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_phone"
+                                    name="c_phone"
+                                    placeholder="Client Phone Number"
+                                    autofocus
+                                    value = "{{ invoices.0.client_phone }}"
+                                  
+                                />
+                              </div>
+                              <div class="mb-3 col-md-6">
+                                <label for="c_email" class="form-label">Client Email *</label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="c_email"
+                                    name="c_email"
+                                    placeholder="Client Email"
+                                    autofocus
+                                    value = "{{ invoices.0.client_email }}"
+                                  
+                                />
+                              </div>
+
+                                  <div class="mb-3 col-md-6">
+                                      <label for="q_package" class="form-label">Package Name *</label>
+                                      <input
+                                          class="form-control"
+                                          type="text"
+                                          id="q_package"
+                                          name="q_package"
+                                          placeholder="Package Name"
+                                          autofocus
+                                          value = "{{invoices.0.package_name}}"
+                                          required
+                                      />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_adult" class="form-label">Number of Adult</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_adult"
+                                        name="q_num_adult"
+                                        placeholder="Number of Adult"
+                                        autofocus
+                                        value = "{{ invoices.0.num_adult }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_adult" class="form-label">Per Adult</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_adult"
+                                        name="q_per_adult"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_adult }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_child" class="form-label">Number of Child</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_child"
+                                        name="q_num_child"
+                                        placeholder="Number of Child"
+                                        autofocus
+                                        value = "{{ invoices.0.num_child }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_child" class="form-label">Per Child</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_child"
+                                        name="q_per_child"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_child }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_num_infant" class="form-label">Number of Infant</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_num_infant"
+                                        name="q_num_infant"
+                                        placeholder="Number of Infant"
+                                        autofocus
+                                        value = "{{ invoices.0.num_infant }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_per_infant" class="form-label">Per Infant</label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="q_per_infant"
+                                        name="q_per_infant"
+                                        placeholder="Amount"
+                                        autofocus
+                                        value = "{{ invoices.0.per_infant }}"
+                                        
+                                    />
+                                  </div>
+
+                                  <div class="mb-3 col-md-6">
+                                    <label for="q_date" class="form-label">Created Date *</label>
+                                    <input
+                                        class="form-control"
+                                        type="date"
+                                        id="q_date"
+                                        name="q_date"
+                                        placeholder="quotation created at"
+                                        autofocus
+                                        value = "{{ invoices.0.q_Date|date:'Y-m-d' }}"
+                                        
+                                    />
+                                  </div>
+
+
+
+                      
+                                  <div class="mt-2">
+                                      <button type="submit" id="saveButton" class="btn btn-primary me-2">Save changes</button>
+                                  </div>
+                              
+                          </form>
+                      </div>
+                      <!-- /Account -->
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            
+            
+            {% if itys %}
+                <!-- Basic Bootstrap Table -->
+              <div class="card pb-3">
+                
+                <h5 class="card-header">Highlight</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Itinerary</th>
+                        <th>Meals</th>
+                      </tr>
+                      </thead>
+                    <tbody class="table-border-bottom-0">
+                        
+                        {% for i in itys %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                    {{i.date}}
+                              </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                                  {{i.day|truncatewords:4}}
+                                
+                            </div>
+                        </td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                                {{i.Itinerary|truncatewords:6}}
+                          </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                              {{i.Meals|truncatewords:6}}
+                        </div>
+                    </td>
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_viewQuotationItinerary' i.id %}">
+                        <i class="bx bx-edit" style="color:green;"></i>
+                    </a></td>
+                          <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteQuotationItinerary' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                  </table>
+                  
+                </div>
+                
+              </div>
+              {% endif %} 
+
+              {% if inc or itys or air or ht %}</br>{% endif %}
+
+              {% if inc %}
+                <!-- Basic Bootstrap Table -->
+              <div class="card pb-3">
+                
+                <h5 class="card-header">Inclusion</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Inclusion</th>
+                      </tr>
+                      </thead>
+                    <tbody class="table-border-bottom-0">
+                        
+                        {% for i in inc %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                    {{i.inclu|truncatewords:8}}
+                              </div>
+                          </td>
+                          
+                      
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_viewQuotationInclusion' i.id %}">
+                        <i class="bx bx-edit" style="color:green;"></i>
+                    </a></td>
+                          <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteQuotationInclusion' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                  </table>
+                  
+                </div>
+                
+              </div>
+              {% endif %} 
+
+              {% if inc or itys or air or ht %}</br>{% endif %}
+
+              {% if ht %}
+                <!-- Basic Bootstrap Table -->
+              <div class="card pb-3">
+                
+                <h5 class="card-header">Hotels & Airlines</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Hotels</th>
+                        <th>Airlines</th>
+                      </tr>
+                      </thead>
+                    <tbody class="table-border-bottom-0">
+                        
+                        {% for i in ht %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                    {{i.hotels|truncatewords:8}}
+                              </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                                  {{i.airlns|truncatewords:8}}
+                            </div>
+                        </td>
+                          
+                      
+                    <td style="padding-left:35px;">
+                      <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_viewQuotationHotels' i.id %}">
+                        <i class="bx bx-edit" style="color:green;"></i>
+                    </a></td>
+                          <td style="padding-left:35px;">
+                            <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deleteQuotationHotels' i.id %}">
+                              <i class="bx bx-trash" style="color:red;"></i>
+                          </a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                  </table>
+                  
+                </div>
+                
+              </div>
+              {% endif %} 
+
+    
+              <div class="mt-4" style="display: flex; justify-content: center;">
+                <a href="{% url 'q-add-itinerary' id %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
+                <a href="{% url 'q-add-inclusion' id %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                <a href="{% url 'q-add-hotels' id %}" style="color:white;" class="btn btn-primary me-2">Add Hotels and Airlines</a>
+                <a href="{% url 'q-preview' id %}" style="color:white;" class="btn btn-warning me-2">Preview Quotation</a>
+                
+            </div> 
+    
             
             
         </div>
+        
     </div>
 </div>
 

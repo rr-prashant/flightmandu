@@ -240,10 +240,14 @@ class quotation(models.Model):
     client_name = models.CharField(max_length=100, blank=True, null = True)
     client_phone = models.CharField(max_length=10, blank=True, null = True)
     client_email = models.CharField(max_length=300, blank=True, null = True)
+    package_name = models.CharField(max_length=1000, blank=True, null = True)
     per_adult = models.IntegerField(blank=True, null=True)
     per_child = models.IntegerField(blank=True, null=True)
     per_infant = models.IntegerField(blank=True, null=True)
     q_Date = models.DateField(auto_now_add=True, blank=True) 
+    num_adult = models.IntegerField(blank=True, null=True, default=0)
+    num_child = models.IntegerField(blank=True, null=True, default=0)
+    num_infant = models.IntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
         return self.client_name
@@ -279,6 +283,31 @@ class quotation_itinerary(models.Model):
     Itinerary = models.TextField(null=True, blank=True)
     Meals = models.TextField(max_length=1000, null=True, blank=True)
         
+    def __str__(self):
+        return str(self.q_id)
+    
+# Inclusion table data model
+class quotation_inclusion(models.Model):
+    q_id = models.IntegerField(null=True, blank=True, editable=True)
+    inclu = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.q_id
+    
+# Airlines table data model
+class quotation_airlines(models.Model):
+    q_id = models.IntegerField(null=True, blank=True, editable=True)
+    airlns = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.q_id
+    
+# Hotels table data model
+class quotation_hotels(models.Model):
+    q_id = models.IntegerField(null=True, blank=True, editable=True)
+    hotels = models.TextField(null=True, blank=True)
+    airlns = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return self.q_id
     
