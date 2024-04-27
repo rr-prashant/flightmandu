@@ -109,12 +109,7 @@
                 <div data-i18n="Analytics">Inquiry</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{% url 'admin_quotation' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-receipt"></i>
-                <div data-i18n="Analytics">Quotation</div>
-              </a>
-            </li>
+            
     {% if request.user.is_admin %}
 
             <li class="menu-item">
@@ -128,6 +123,14 @@
 
 
             <li class="menu-item">
+              <a href="{% url 'admin_quotation' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
+                <div data-i18n="Analytics">Quotation</div>
+              </a>
+            </li>
+
+
+            <li class="menu-item">
               <a href="{% url 'admin_fill_data' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-data"></i>
                 <div data-i18n="Analytics">Fill data</div>
@@ -138,7 +141,7 @@
             <li class="menu-item">
               <a href="{% url 'businessSettings' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cog"></i>
-                <div data-i18n="Analytics">Business settings</div>
+                <div data-i18n="Analytics">Store settings</div>
               </a>
           </li>
 

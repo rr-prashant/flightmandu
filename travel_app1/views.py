@@ -28,7 +28,7 @@ def index(request):
     info = BusinessInfo.objects.all().first()
     deal = deals_event.objects.all()
     airport = Airport.objects.none()
-    package = Package.objects.all()
+    package = Package.objects.filter(is_featured=True)
     
     if 'search_query' in request.GET:
         search_query = request.GET['search_query']
@@ -133,24 +133,29 @@ def request_flight(request):
         rt_adult = request.POST.get('adult-inputr')
         rt_child = request.POST.get('child-inputr')
         rt_infant = request.POST.get('infant-inputr')
+        input_onetrip = request.POST.get('traveler-input')
+        input_rtrip = request.POST.get('traveler-inputr')
 
         if name and email and contact and depart_from and desti_to and departure_date and type:
             if type == 'True':
                 if date_return:
-                    cnt = Flight_request(client_name = name, client_email = email, client_phone =contact, departure = depart_from, destination = desti_to, departure_date = departure_date, Round_trip = True, return_date = date_return, Adult = rt_adult, Children = rt_child, Infant = rt_infant)
-                    cnt.save()
+                    if rt_adult or rt_child or rt_infant:
+                        cnt = Flight_request(client_name = name, client_email = email, client_phone =contact, departure = depart_from, destination = desti_to, departure_date = departure_date, Round_trip = True, return_date = date_return, Adult = rt_adult, Children = rt_child, Infant = rt_infant)
+                        cnt.save()
 
-                    sub = "New Flight Booking Requested"
-                    message = "Client Name: " + name + " \n" + "Client Email: " + email + " \n" + "Contact: " + contact + " \n" + "Trip Type: " + 'Round Trip' + " \n" + "Departure: " + depart_from + " \n" + "Destination: " + desti_to + " \n" + "Departure date: " + departure_date + " \n" + "Return date: " + date_return + " \n" + "Adult: " + rt_adult + " \n" + "Children: " + rt_child + " \n" + "Infant: " + rt_infant
-                    from_email = settings.EMAIL_HOST_USER
-                    to_list = [info.Business_Email]
-                    send_mail(sub, message, from_email, to_list, fail_silently=True)
+                        sub = "New Flight Booking Requested"
+                        message = "Client Name: " + name + " \n" + "Client Email: " + email + " \n" + "Contact: " + contact + " \n" + "Trip Type: " + 'Round Trip' + " \n" + "Departure: " + depart_from + " \n" + "Destination: " + desti_to + " \n" + "Departure date: " + departure_date + " \n" + "Return date: " + date_return + " \n" + "Adult: " + rt_adult + " \n" + "Children: " + rt_child + " \n" + "Infant: " + rt_infant
+                        from_email = settings.EMAIL_HOST_USER
+                        to_list = [info.Business_Email]
+                        send_mail(sub, message, from_email, to_list, fail_silently=True)
 
-                    response_data = {'error2' : False}
+                        response_data = {'error2' : False}
+                    else:
+                        response_data = {'error2' : True}
                 else:
                     response_data = {'error2' : True}
             else:
-                # if name and email and contact and depart_from and desti_to and departure_date:
+                if ot_adult or ot_child or ot_infant:
                     cnt = Flight_request(client_name = name, client_email = email, client_phone =contact, departure = depart_from, destination = desti_to, departure_date = departure_date, Adult = ot_adult, Children = ot_child, Infant = ot_infant)
                     cnt.save()
 
@@ -163,8 +168,8 @@ def request_flight(request):
                     
 
                     response_data = {'error' : False}
-                # else:
-                #     response_data = {'error' : True}
+                else:
+                    response_data = {'error' : True}
         else:
             response_data = {'error': True, 'error2': True}
     
@@ -359,7 +364,7 @@ def search_q(request):
 
 @login_required(login_url="admin_login")
 def main_quotation(request):
-    q = quotation.objects.all()
+    q = quotation.objects.all().order_by('-Date')
     return render(request, "AdminPanel/quotation/Quotation.html", locals())
 
 
@@ -917,6 +922,7 @@ def admin_packageview(request, slug):
                 package.airfare = request.POST.get('airfare',)
                 package.insurance_coverage = request.POST.get('insurance',)
                 package.overview = request.POST.get('overview',)
+                package.is_featured = request.POST.get('is_featured') == 'on'
                 
                 if request.FILES.get('location_image'):
                     package.location_image = request.FILES['location_image']

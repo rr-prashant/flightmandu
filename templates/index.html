@@ -24,7 +24,7 @@
         position: absolute;
         z-index: 2000;
         width: 100%;
-        background-color: #fff;
+        background-color: #F8F8F8;
         border: 1px solid #ccc;
         list-style-type: none;
         padding: 0;
@@ -41,7 +41,7 @@
     }
 
     #autocompleteNation-results li:hover {
-        background-color: #f0f0f0;
+        background-color: #F0F0F0;
     }
 
 
@@ -49,7 +49,7 @@
         position: absolute;
         z-index: 2000;
         width: 100%;
-        background-color: #fff;
+        background-color: #F8F8F8;
         border: 1px solid #ccc;
         list-style-type: none;
         padding: 0;
@@ -1146,7 +1146,7 @@ ftco-section {
   
           // Enable the submit button again
               submitButton.removeAttribute("disabled");
-              if (data.error){
+              if (data.error2){
                 const Toast = Swal.mixin({
                   toast: true,
                   position: "top-end",
@@ -1188,8 +1188,8 @@ ftco-section {
                     });
                 }            
             })
-            .catch((error) => {
-              console.error("An error occurred:", error);
+            .catch((error2) => {
+              console.error("An error occurred:", error2);
             });
         });
     });

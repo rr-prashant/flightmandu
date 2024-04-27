@@ -161,6 +161,7 @@ class Package(models.Model):
     airfare = models.CharField(max_length=200, blank=True, null = True)
     insurance_coverage = models.CharField(max_length=200, blank=True, null = True)
     overview = models.TextField(null=True, blank=True)
+    is_featured = models.BooleanField(null=False, blank=False, default=False)
     slug = models.SlugField(unique=True, null=True, blank=True, editable=True)
     
     def __str__(self):
@@ -248,6 +249,7 @@ class quotation(models.Model):
     num_adult = models.IntegerField(blank=True, null=True, default=0)
     num_child = models.IntegerField(blank=True, null=True, default=0)
     num_infant = models.IntegerField(blank=True, null=True, default=0)
+    Date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.client_name
