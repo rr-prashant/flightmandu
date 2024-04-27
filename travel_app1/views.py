@@ -28,7 +28,7 @@ def index(request):
     info = BusinessInfo.objects.all().first()
     deal = deals_event.objects.all()
     airport = Airport.objects.none()
-    package = Package.objects.all()
+    package = Package.objects.filter(is_featured=True)
     
     if 'search_query' in request.GET:
         search_query = request.GET['search_query']
@@ -922,6 +922,7 @@ def admin_packageview(request, slug):
                 package.airfare = request.POST.get('airfare',)
                 package.insurance_coverage = request.POST.get('insurance',)
                 package.overview = request.POST.get('overview',)
+                package.is_featured = request.POST.get('is_featured') == 'on'
                 
                 if request.FILES.get('location_image'):
                     package.location_image = request.FILES['location_image']
