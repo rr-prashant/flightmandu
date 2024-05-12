@@ -40,6 +40,7 @@ urlpatterns = [
     path('employee/', admin_user, name="admin_user"),
     path('Register_User/', admin_addUser, name = "admin_addUser"),
     path('employee/<slug:slug>', admin_viewUser, name="admin_viewUser"),
+    path('employee/<slug:slug>/change_password/', change_password, name = "password"),
     path('delete_employee/<int:pk>', admin_deleteUser, name = "admin_deleteUser"),
     path('fill_data/', admin_fill_data, name = "admin_fill_data"),
     path('add_fill_itinerary/', admin_addFill_itinerary, name = "admin_add_fill_itinerary"),

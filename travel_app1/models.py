@@ -162,6 +162,7 @@ class Package(models.Model):
     insurance_coverage = models.CharField(max_length=200, blank=True, null = True)
     overview = models.TextField(null=True, blank=True)
     is_featured = models.BooleanField(null=False, blank=False, default=False)
+    price = models.TextField(null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True, editable=True)
     
     def __str__(self):
@@ -178,6 +179,7 @@ pre_save.connect(pre_save_receiver, sender=Package)
 class deals_event(models.Model):
     deal_title = models.CharField(max_length=300, blank=True, null = True)
     deal_poster = models.ImageField(upload_to='poster', blank=True, null=True)
+    deal_url = models.CharField(max_length=1000, blank=True, null = True)
     
     def __str__(self):
         return self.deal_title

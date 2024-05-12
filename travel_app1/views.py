@@ -266,7 +266,7 @@ def admin_login(request):
                 if user.is_admin or user.is_member:
                     login(request, user)
                     print("User logged in successfully as admin")
-                    return redirect('admin_visa_service')
+                    return redirect('admin_flightrequest')
                 else:
                     print("User is not an admin")
                     return render(request, 'AdminPanel/Login.html', {'error': 'Invalid user!'})
@@ -355,7 +355,7 @@ def search_q(request):
 
         try:
             query_int = int(query)
-            qu = quotation.objects.filter(Q(q_id__icontains=query_int) | Q(client_name__icontains=query) | Q(client_phone__icontains=query))
+            qu = quotation.objects.filter(Q(id__icontains=query_int) | Q(client_name__icontains=query) | Q(client_phone__icontains=query))
         except ValueError:
             qu = quotation.objects.filter(Q(client_name__icontains=query) | Q(client_phone__icontains=query))
     
@@ -826,7 +826,7 @@ def preview_invoice(request, q_id):
     
     total = total_adult + total_infant + total_child
 
-    content = {'id':q_id, 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'hotel' : q_hotel, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
+    content = { 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'hotel' : q_hotel, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
 
     return render(request, 'AdminPanel/quotation/preview_invoice.html', content)
 
@@ -861,6 +861,7 @@ def admin_addPackage(request):
             airfare = request.POST.get('airfare', '')
             insurance = request.POST.get('insurance', '')
             overview = request.POST.get('overview', '')
+            price = request.POST.get('price', '')
             
             location_image = request.FILES.get('location_image')
 
@@ -877,7 +878,8 @@ def admin_addPackage(request):
                 meals = meals,
                 airfare = airfare,
                 insurance_coverage = insurance,
-                overview = overview        
+                overview = overview,
+                price = price        
             )
 
             package.save()
@@ -922,6 +924,7 @@ def admin_packageview(request, slug):
                 package.airfare = request.POST.get('airfare',)
                 package.insurance_coverage = request.POST.get('insurance',)
                 package.overview = request.POST.get('overview',)
+                package.price= request.POST.get('price',)
                 package.is_featured = request.POST.get('is_featured') == 'on'
                 
                 if request.FILES.get('location_image'):
@@ -1221,6 +1224,8 @@ def admin_viewPoster(request, pk):
                 poster.deal_title = request.POST['title']
             if 'poster' in request.FILES:
                 poster.deal_poster = request.FILES['poster']
+            if 'deal_url' in request.POST:
+                poster.deal_url = request.POST['deal_url']
 
             poster.save()
 
@@ -1239,8 +1244,8 @@ def admin_addPoster(request):
     if request.method == 'POST':
         deal_title = request.POST.get('title')  
         deal_poster = request.FILES.get('poster') 
-
-        poster = deals_event(deal_title=deal_title, deal_poster=deal_poster)
+        deal_url = request.POST.get('deal_url') 
+        poster = deals_event(deal_title=deal_title, deal_poster=deal_poster,deal_url=deal_url)
         poster.save()
 
         return redirect('admin_poster') 
@@ -1615,6 +1620,22 @@ def businessSetting(request):
 
     context = {'info': info}
     return render(request, "AdminPanel/businessSetting.html", context=context)
+
+from django.contrib.auth.hashers import make_password
+
+@login_required(login_url="admin_login")
+def change_password(request, slug):
+    user = Company_Members.objects.get(slug=slug)
+    
+    if request.method == 'POST':
+        new_password = request.POST.get('pass')
+        print(new_password)
+        user.password = make_password(new_password)
+        
+        user.save()
+        return redirect('admin_viewUser', slug= user.slug)
+    
+    return render(request, 'AdminPanel/changepassword.html', locals())
 
     
     

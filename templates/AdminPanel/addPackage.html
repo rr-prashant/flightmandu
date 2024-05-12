@@ -36,6 +36,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="firstName" class="form-label">Location *</label>
+                                        <div class="col-sm-10">
                                         <input
                                             class="form-control"
                                             type="text"
@@ -46,6 +47,7 @@
                                             required
                                         />
                                     </div>
+                                </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="basic-default-message">Country name *</label>
                                         <div class="col-sm-10">
@@ -63,18 +65,24 @@
 
                                       <div class="mb-3 col-md-6" hidden>
                                         <label for="lastName" class="form-label">Slug *</label>
+                                        <div class="col-sm-10">
                                         <input class="form-control" type="text" name="slug" id="lastName" placeholder="slug" />
+                                        </div>
                                     </div>
 
                                     <div class="mb-3 col-md-6">
                                         <label for="lastName" class="form-label">Package duration *</label>
+                                        <div class="col-sm-10">
                                         <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="duration" id="price" placeholder="Package duration" required />
                                     </div>
+                                </div>
                                     
                                     <div class="mb-3 col-md-6">
                                         <label for="lastName" class="form-label">Average person *</label>
+                                        <div class="col-sm-10">
                                         <input class="form-control" type="text" pattern="[0-9]+(\.[0-9]+)?" name="average_person" id="price" placeholder="Package duration" required />
                                     </div>
+                                </div>
 
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="basic-default-message">Accomodation *</label>
@@ -183,6 +191,21 @@
                                         </div>
                                       </div>
 
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Price *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="price"
+                                            placeholder="Price"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
                                       <div class="col-6 col-md-4 col-lg-4">
                                         <img
                                             src="{% static 'img/catagory_icon.png' %}"
@@ -213,7 +236,11 @@
                                                 <span class="d-none d-sm-block">Reset</span>
                                             </button>
                                         </div>
+                                        
                                     </div>  
+
+                                    
+
                                     
 
                                     
