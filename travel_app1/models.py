@@ -162,6 +162,7 @@ class Package(models.Model):
     insurance_coverage = models.CharField(max_length=200, blank=True, null = True)
     overview = models.TextField(null=True, blank=True)
     is_featured = models.BooleanField(null=False, blank=False, default=False)
+    price = models.TextField(null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True, editable=True)
     
     def __str__(self):
@@ -178,6 +179,7 @@ pre_save.connect(pre_save_receiver, sender=Package)
 class deals_event(models.Model):
     deal_title = models.CharField(max_length=300, blank=True, null = True)
     deal_poster = models.ImageField(upload_to='poster', blank=True, null=True)
+    deal_url = models.CharField(max_length=1000, blank=True, null = True)
     
     def __str__(self):
         return self.deal_title
@@ -215,6 +217,7 @@ class Highlight(models.Model):
 class Inclusion(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True, blank=True)
     inclusion = models.TextField(null=True, blank=True)
+    
     
     def __str__(self):
         return self.package.location_name + ": " + self.inclusion
@@ -262,7 +265,10 @@ pre_save.connect(pre_save_receiver, sender=quotation)
 
 class quotation_fill_Inclusion(models.Model):
     inclusion = models.TextField(null=False, blank=False)
-    
+
+class quotation_fill_Exclusion(models.Model):
+    exclusion = models.TextField(null=False, blank=False)
+
 class quotation_fill_Itinerary(models.Model):
     itinerary = models.TextField(null=False, blank=False)
     
@@ -281,7 +287,7 @@ class quotation_fill_Airlines(models.Model):
 class quotation_itinerary(models.Model):
     q_id = models.IntegerField(null=True, blank=True, editable=True)
     date = models.DateField(null=True, blank=True)
-    day = models.TextField(max_length=300, null=True, blank=True)
+    day = models.IntegerField(null=True, blank=True)
     Itinerary = models.TextField(null=True, blank=True)
     Meals = models.TextField(max_length=1000, null=True, blank=True)
         
@@ -292,9 +298,14 @@ class quotation_itinerary(models.Model):
 class quotation_inclusion(models.Model):
     q_id = models.IntegerField(null=True, blank=True, editable=True)
     inclu = models.TextField(null=True, blank=True)
+    exclu = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.q_id
+    
+    class Meta:
+        verbose_name = "Quotation Inclusion and Exclusion"  
+        verbose_name_plural = "Quotation Inclusions and Exclusions"
     
 # Airlines table data model
 class quotation_airlines(models.Model):

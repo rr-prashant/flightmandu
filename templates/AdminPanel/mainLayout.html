@@ -79,28 +79,33 @@
               </a>
             </li>
 
+            {% if request.user.is_admin %}
             <li class="menu-item">
               <a href="{% url 'admin_package' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Analytics">Packages</div>
               </a>
             </li>
+            {% endif %}
 
             
-            
+            {% if request.user.is_admin %}
             <li class="menu-item">
               <a href="{% url 'admin_visa_service' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-flag-alt"></i>
                 <div data-i18n="Analytics">VISA service</div>
               </a>
             </li>
+            {% endif %}
 
+            {% if request.user.is_admin %}
             <li class="menu-item">
               <a href="{% url 'admin_poster' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div data-i18n="Analytics">Event poster</div>
               </a>
             </li>
+            {% endif %}
 
            
             <li class="menu-item">

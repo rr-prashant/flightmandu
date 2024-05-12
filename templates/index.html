@@ -763,7 +763,12 @@ ftco-section {
 <div class="owl-carousel owl-theme" style="justify-content: center; align-items: center; display: flex;">
     {% for i in deal %}
     <div class="item">
+        
+        {% if i.deal_url %}
+        <a href="{{i.deal_url}}"><img src="{{i.deal_poster.url}}"></a>
+        {% else %}
         <a href="{% url 'contact' %}"><img src="{{i.deal_poster.url}}"></a>
+        {% endif %}
     </div>
     {% endfor %}
     
@@ -853,7 +858,7 @@ ftco-section {
                     <span style="color: #FBB117; font-weight: 500">{{i.package_duration}} Days</span>
                 </li>
                 <li class="d-flex justify-content-between align-items-center">
-                    <span style="font-weight: 500;">Average People</span>
+                    <span style="font-weight: 500;">Minimum People</span>
                     <span style="color: #FBB117; font-weight: 500">{{i.total_person}}+</span>
                 </li>
             </ul>

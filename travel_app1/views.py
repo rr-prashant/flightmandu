@@ -266,7 +266,7 @@ def admin_login(request):
                 if user.is_admin or user.is_member:
                     login(request, user)
                     print("User logged in successfully as admin")
-                    return redirect('admin_visa_service')
+                    return redirect('admin_flightrequest')
                 else:
                     print("User is not an admin")
                     return render(request, 'AdminPanel/Login.html', {'error': 'Invalid user!'})
@@ -355,7 +355,7 @@ def search_q(request):
 
         try:
             query_int = int(query)
-            qu = quotation.objects.filter(Q(q_id__icontains=query_int) | Q(client_name__icontains=query) | Q(client_phone__icontains=query))
+            qu = quotation.objects.filter(Q(id__icontains=query_int) | Q(client_name__icontains=query) | Q(client_phone__icontains=query))
         except ValueError:
             qu = quotation.objects.filter(Q(client_name__icontains=query) | Q(client_phone__icontains=query))
     
@@ -510,16 +510,18 @@ def q_addItinerary(request, q_id):
 
     all_ity = quotation_itinerary.objects.filter(q_id=q_id)
     new_date = None
+    new_day = 0
     if all_ity:
         latest_ity = all_ity.order_by('-id')[0]
 
     # Get the date from the latest itinerary
         latest_date = latest_ity.date
-
+        latest_day = latest_ity.day
         # Add one day to the latest date
         new_date = latest_date + timedelta(days=1)
+        new_day = int(latest_day) + 1
 
-    content = {'id': q_id, 'new_date' : new_date}
+    content = {'id': q_id, 'new_date' : new_date, 'new_day' : new_day}
     return render(request, "AdminPanel/quotation/addQuotation_itinerary.html", content)
 
 @login_required(login_url="admin_login")
@@ -613,14 +615,17 @@ def q_addinclusion(request, q_id):
     if request.method == 'POST':
         id = q_id
         inc = request.POST.get('inclun')
+        exc = request.POST.get('exclu')
 
-        Inclus = quotation_inclusion(q_id=id, inclu=inc)
-        Inclus.save()
+        InEx = quotation_inclusion(q_id=id, inclu=inc, exclu=exc)
+        InEx.save()
 
         return redirect('admin_viewQuotation', q_id)
     
     content = {'id': q_id}
     return render(request, 'AdminPanel/quotation/addQuotation_inclusion.html', content)
+
+
 
 
 @login_required(login_url="admin_login")
@@ -635,6 +640,17 @@ def search_in(request):
     return JsonResponse([], safe=False)
 
 
+@login_required(login_url="admin_login")
+def search_ex(request):
+    if 'ex_search_query' in request.GET:
+        search_query = request.GET['ex_search_query']
+        exclus = quotation_fill_Exclusion.objects.filter(
+            exclusion__icontains=search_query
+        )[:10]
+        data = [{'exc': ins.exclusion} for ins in exclus]
+        return JsonResponse(data, safe=False)
+    return JsonResponse([], safe=False)
+
 
 # For viewing existing inclusion
 @csrf_protect
@@ -648,8 +664,9 @@ def admin_viewQuotationInclusion(request, inclusion_id):
 
     if request.method == "POST":
         try:
-            if 'inclun' in request.POST:
+            if 'inclun' and 'exclu' in request.POST:
                 inc.inclu = request.POST['inclun']
+                inc.exclu = request.POST['exclu']
 
             inc.save()
 
@@ -668,8 +685,10 @@ def quotation_editInclusion(request, inclusion_id):
     q_inclu = quotation_inclusion.objects.get(id=inclusion_id)
     if request.method == 'POST':    
         ins = request.POST.get('inclun')
+        exclu = request.POST.get('exclu')
 
         q_inclu.inclu = ins
+        q_inclu.exclu = exclu
         q_inclu.save()
         return redirect('admin_viewQuotation', q_inclu.q_id)
 
@@ -826,7 +845,7 @@ def preview_invoice(request, q_id):
     
     total = total_adult + total_infant + total_child
 
-    content = {'id':q_id, 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'hotel' : q_hotel, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
+    content = { 'q_all': quotation_all, 'itys' : q_ity, 'inclus' : q_inclu, 'hotel' : q_hotel, 'user': user, 'adult' : total_adult, 'child': total_child, 'infant' : total_infant, 'total': total}
 
     return render(request, 'AdminPanel/quotation/preview_invoice.html', content)
 
@@ -861,6 +880,7 @@ def admin_addPackage(request):
             airfare = request.POST.get('airfare', '')
             insurance = request.POST.get('insurance', '')
             overview = request.POST.get('overview', '')
+            price = request.POST.get('price', '')
             
             location_image = request.FILES.get('location_image')
 
@@ -877,7 +897,8 @@ def admin_addPackage(request):
                 meals = meals,
                 airfare = airfare,
                 insurance_coverage = insurance,
-                overview = overview        
+                overview = overview,
+                price = price        
             )
 
             package.save()
@@ -922,6 +943,7 @@ def admin_packageview(request, slug):
                 package.airfare = request.POST.get('airfare',)
                 package.insurance_coverage = request.POST.get('insurance',)
                 package.overview = request.POST.get('overview',)
+                package.price= request.POST.get('price',)
                 package.is_featured = request.POST.get('is_featured') == 'on'
                 
                 if request.FILES.get('location_image'):
@@ -1221,6 +1243,8 @@ def admin_viewPoster(request, pk):
                 poster.deal_title = request.POST['title']
             if 'poster' in request.FILES:
                 poster.deal_poster = request.FILES['poster']
+            if 'deal_url' in request.POST:
+                poster.deal_url = request.POST['deal_url']
 
             poster.save()
 
@@ -1239,8 +1263,8 @@ def admin_addPoster(request):
     if request.method == 'POST':
         deal_title = request.POST.get('title')  
         deal_poster = request.FILES.get('poster') 
-
-        poster = deals_event(deal_title=deal_title, deal_poster=deal_poster)
+        deal_url = request.POST.get('deal_url') 
+        poster = deals_event(deal_title=deal_title, deal_poster=deal_poster,deal_url=deal_url)
         poster.save()
 
         return redirect('admin_poster') 
@@ -1378,6 +1402,7 @@ def admin_fill_data(request):
     inclusion = quotation_fill_Inclusion.objects.all()
     hotels = quotation_fill_Hotels.objects.all()
     airlines = quotation_fill_Airlines.objects.all()
+    exclusion = quotation_fill_Exclusion.objects.all()
     return render(request, 'AdminPanel/fill_data.html', locals())
 
 
@@ -1409,6 +1434,16 @@ def admin_addFill_inclusion(request):
         inclusion.save()
         return redirect('admin_fill_data')
     return render(request, 'AdminPanel/addFill_inclusion.html', locals())
+
+
+@login_required(login_url="admin_login")
+def admin_addFill_exclusion(request):
+    if request.method == 'POST': 
+        i = request.POST.get('exclusion')
+        exclusion = quotation_fill_Exclusion(exclusion = i)
+        exclusion.save()
+        return redirect('admin_fill_data')
+    return render(request, 'AdminPanel/addFill_exclusion.html', locals())
 
 
 @login_required(login_url="admin_login")
@@ -1503,6 +1538,31 @@ def admin_viewFill_inclusion(request, pk):
     return render(request, "AdminPanel/viewFill_inclusion.html", context = context)
 
 
+@csrf_protect
+@login_required(login_url="admin_login")
+def admin_viewFill_exclusion(request, pk):
+    try:
+        i = quotation_fill_Exclusion.objects.get(id = pk)
+    except quotation_fill_Exclusion.DoesNotExist:
+        return HttpResponseServerError("Selected Exclusion does not exist")
+
+    if request.method == "POST":
+        try:
+            if 'exclusion' in request.POST:
+                i.exclusion = request.POST['exclusion']
+            
+            i.save()
+
+            return redirect('admin_fill_data')
+        except Exception as e:
+            return HttpResponseServerError('An error occurred: {}'.format(str(e)))
+
+    context = {"i": i}
+
+    return render(request, "AdminPanel/viewFill_exclusion.html", context = context)
+
+
+
 
 @csrf_protect
 @login_required(login_url="admin_login")
@@ -1565,6 +1625,13 @@ def delete_adminFillInclusion(request, pk):
     i.delete()
     return redirect('admin_fill_data')
 
+
+@login_required(login_url="admin_login")
+def delete_adminFillExclusion(request, pk):
+    i = get_object_or_404(quotation_fill_Exclusion, pk=pk)
+    i.delete()
+    return redirect('admin_fill_data')
+
 @login_required(login_url="admin_login")
 def delete_adminFillMeals(request, pk):
     i = get_object_or_404(quotation_fill_Meals, pk=pk)
@@ -1615,6 +1682,22 @@ def businessSetting(request):
 
     context = {'info': info}
     return render(request, "AdminPanel/businessSetting.html", context=context)
+
+from django.contrib.auth.hashers import make_password
+
+@login_required(login_url="admin_login")
+def change_password(request, slug):
+    user = Company_Members.objects.get(slug=slug)
+    
+    if request.method == 'POST':
+        new_password = request.POST.get('pass')
+        print(new_password)
+        user.password = make_password(new_password)
+        
+        user.save()
+        return redirect('admin_viewUser', slug= user.slug)
+    
+    return render(request, 'AdminPanel/changepassword.html', locals())
 
     
     

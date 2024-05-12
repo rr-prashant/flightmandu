@@ -116,7 +116,7 @@
                                                     placeholder="Date"
                                                     autofocus
                                                     required
-                                                    value="{% if new_date %}{{ new_date|date:'Y-m-d' }}{% else %} '' {% endif %}"
+                                                    value="{% if new_date %}{{ new_date|date:'Y-m-d' }}{% else %}  {% endif %}"
                                                     />
                                             </div>
                                             <div class="mb-3 col-md-5">
@@ -128,6 +128,7 @@
                                                     name="it-day"
                                                     placeholder="Day"
                                                     autofocus
+                                                    value="{% if new_day %}{{ new_day }}{% else %}  {% endif %}"
                                                     required/>
                                             </div>
                                             
