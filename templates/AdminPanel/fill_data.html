@@ -147,6 +147,44 @@
 
 
               </br>
+              <!-- Basic Bootstrap Table -->
+            <div class="card">
+              <h5 class="card-header">Exclusion</h5>
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    
+                    <tr>
+                      <th>#</th>
+                      <th>Exclusion</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                      {% for i in exclusion %}
+                    <tr>
+                      <td><a href = "{% url 'admin_view_fill_exclusion' i.id %}">{{forloop.counter}}</a></td>
+                      
+                      <td><a href = "{% url 'admin_view_fill_exclusion' i.id %}">{{i.exclusion|truncatewords:13}}</a></td>
+                      
+                      <td style="padding-left:35px;">
+                          <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_Fill_exclusion_delete' i.id %}">
+                            <i class="bx bx-trash" style="color:red;"></i>
+                        </a>  
+                      </td>
+                      
+                    </tr>
+                    {% endfor %} 
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          
+
+
+            </br>
       
       
                   
@@ -235,6 +273,7 @@
                 <a href = "{% url 'admin_add_fill_itinerary' %}" style="color:white;" class="btn btn-primary me-2">Add Itinerary</a>
                 <a href = "{% url 'admin_add_fill_meals' %}" style="color:white;" class="btn btn-primary me-2">Add Meals</a>
                 <a href = "{% url 'admin_add_fill_inclusion' %}" style="color:white;" class="btn btn-primary me-2">Add Inclusion</a>
+                <a href = "{% url 'admin_add_fill_exclusion' %}" style="color:white;" class="btn btn-primary me-2">Add Exclusion</a>
                 <a href = "{% url 'admin_add_fill_hotels' %}" style="color:white;" class="btn btn-primary me-2">Add Hotel</a>
                 <a href = "{% url 'admin_add_fill_airlines' %}" style="color:white;" class="btn btn-primary me-2">Add Airline</a>
             </div>          

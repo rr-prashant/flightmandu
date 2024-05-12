@@ -236,7 +236,7 @@ ul.rb li .timestamp {
                         <div class="tab-content mt-3" id="myTabContent">
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab" style="margin-top: 25px;">
                                 <!-- Content for Overview tab -->
-                                <p style=" text-align: justify; color: #676767; line-height: 1.82em !important;">{{package.overview}}</p>
+                                <p style=" text-align: justify; color: #676767; line-height: 1.82em !important; white-space: pre-line;">{{package.overview}}</p>
 
                                 
                                 
@@ -270,7 +270,7 @@ ul.rb li .timestamp {
                                             <div class="timestamp">
                                               {{ i.title }}
                                             </div>
-                                            <div class="item-title">{{ i.description }}</div>
+                                            <div class="item-title" style="white-space: pre-line;">{{ i.description }}</div>
                                   
                                           </li>
                                           {% endfor %}
@@ -360,6 +360,12 @@ ul.rb li .timestamp {
 								<a class="d-flex justify-content-between">
 									<p style="font-weight: 400;">Insurance Coverage</p>
 									<p style="color: #FBB117; font-weight: 500">{{package.insurance_coverage}}</p>
+								</a>
+							</li>
+                            <li>
+								<a class="d-flex justify-content-between">
+									<p style="font-weight: 400;">Price</p>
+									<p style="color: #FBB117; font-weight: 500">{{package.price}}</p>
 								</a>
 							</li>
 																				

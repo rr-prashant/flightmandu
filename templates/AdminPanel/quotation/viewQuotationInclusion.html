@@ -29,6 +29,30 @@
         background-color: #E0E0E0;
     }
 
+    #Exclusion-results {
+        position: absolute;
+        z-index: 2000;
+        width: 40%;
+        background-color: #F0F0F0;
+        border: 1px solid #ccc;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px; 
+        overflow-y: auto;
+		border: none; 
+    }
+
+
+    #Exclusion-results li {
+        padding: 0px 12px;
+        cursor: pointer;
+    }
+
+    #Exclusion-results li:hover {
+        background-color: #E0E0E0;
+    }
+
 
 
     .meal-info {
@@ -88,6 +112,12 @@
 									            oninput="fetchInclusion(this.value)" value="{{inc.inclu}}">
 								                <ul id="Inclusion-results" style="z-index: 1000;"></ul>
                                             </div>
+                                            <div class=" exclu_complete">
+                                                <label for="exclu" class="form-label">Exclusion *</label>
+                                                <input type="text" class="form-control" name="exclu" required="" id="exclu" placeholder="Exclusion"
+									            oninput="fetchExclusion(this.value)" value="{{inc.exclu}}">
+								                <ul id="Exclusion-results" style="z-index: 1000;"></ul>
+                                            </div>
                                         
                                             
                                       </div>
@@ -140,7 +170,32 @@
         }
     });
 
-   
+    function fetchExclusion(query) {
+        fetch(`/search_ex/?ex_search_query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('Exclusion-results');
+            resultsContainer.innerHTML = '';
+            data.forEach(exclu => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <div class="meal-info">
+                        <b>${exclu.exc}</b>
+                </div>`;
+                li.addEventListener('click', function() {
+                    document.getElementById('exclu').value = `${exclu.exc}`;
+                    resultsContainer.innerHTML = '';
+                });
+                resultsContainer.appendChild(li);
+            });
+        });
+    }
+
+    document.body.addEventListener('click', function(event) {
+        if (!event.target.closest('.exclu_complete')) {
+            document.getElementById('Exclusion-results').innerHTML = '';
+        }
+    });
 
 </script>
 

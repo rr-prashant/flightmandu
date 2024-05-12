@@ -36,7 +36,6 @@
                             <form id="formAccountSettings" method="POST" action="{% url 'admin_viewPackage' package.slug %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="row">
-                                  
                                     <div class="mb-3 col-md-6">
                                         <label for="firstName" class="form-label">Location *</label>
                                         <input
@@ -194,7 +193,23 @@
                                           >{{package.overview}}</textarea>
                                         </div>
                                       </div>
-                                      
+
+                                      <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="basic-default-message">Price *</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="price"
+                                            value = "{{package.price}}"
+                                            placeholder="Price"
+                                            autofocus
+                                            required
+                                        />
+                                        </div>
+                                      </div>
+
                                       <div class="col-6 col-md-4 col-lg-4">
                                         <img
                                             src="{{package.location_image.url}}"
@@ -206,8 +221,6 @@
                                             id="uploadedAvatar1"
                                             style="object-fit: cover; margin-top: 10px;"
                                         />
-
-
                                        
                                         <div class="button-wrapper" style="margin-top: 10px;">
                                             <label for="upload1" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -223,22 +236,20 @@
                                                     required
                                                 />
                                             </label>
-
-                                            
                                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" id="resetButton1">
                                                 <i class="bx bx-reset d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Reset</span>
                                             </button>
                                         </div>
                                     </div>  
-                                    <div class="mb-3 col-md-6">
-                                      <div class="d-flex">
+                                    <div class="mb-3 col-md-12">
+                                      
                                         
                                         <div class="form-check mb-3">
                                             <input class="form-check-input" type="checkbox" name="is_featured" id="FeaturedCheck"{% if package.is_featured %}checked{% endif %} />
                                             <label class="form-check-label" for="FeatureCheck">Featured Package</label>
                                         </div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="mt-2">
                                         <button type="submit" id="saveButton" class="btn btn-primary me-2">Save changes</button>
@@ -315,9 +326,9 @@
                     <tbody class="table-border-bottom-0">
                         {% for i in itinerary %}
                       <tr>
-                        <td><a href = "{% url 'admin_viewItinerary' package.id %}">{{forloop.counter}}</a></td>
+                        <td><a href = "{% url 'admin_viewItinerary' i.id %}">{{forloop.counter}}</a></td>
                         
-                        <td><a href = "{% url 'admin_viewItinerary' package.id %}">{{i.title}}</a></td>
+                        <td><a href = "{% url 'admin_viewItinerary' i.id %}">{{i.title}}</a></td>
                         <td>{{i.description|truncatewords:8}}</td>
                     
                         <td style="padding-left:35px;">
@@ -358,9 +369,9 @@
                     <tbody class="table-border-bottom-0">
                         {% for i in inclusion %}
                       <tr>
-                        <td><a href = "{% url 'admin_viewInclusion' package.id %}">{{forloop.counter}}</a></td>
+                        <td><a href = "{% url 'admin_viewInclusion' i.id %}">{{forloop.counter}}</a></td>
                         
-                        <td><a href = "{% url 'admin_viewInclusion' package.id %}">{{i.inclusion|truncatewords:13}}</a></td>
+                        <td><a href = "{% url 'admin_viewInclusion' i.id %}">{{i.inclusion|truncatewords:13}}</a></td>
                         
                         <td style="padding-left:35px;">
                             <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackageinclusion' i.id %}">
@@ -400,9 +411,9 @@
                           <tbody class="table-border-bottom-0">
                               {% for i in exclusion %}
                             <tr>
-                              <td><a href = "{% url 'admin_viewExclusion' package.id %}">{{forloop.counter}}</a></td>
+                              <td><a href = "{% url 'admin_viewExclusion' i.id %}">{{forloop.counter}}</a></td>
                               
-                              <td><a href = "{% url 'admin_viewExclusion' package.id %}">{{i.exclusion|truncatewords:13}}</a></td>
+                              <td><a href = "{% url 'admin_viewExclusion' i.id %}">{{i.exclusion|truncatewords:13}}</a></td>
                               
                               <td style="padding-left:35px;">
                                   <a class="btn p-0 dropdown-toggle hide-arrow" href="{% url 'admin_deletepackageexclusion' i.id %}">
